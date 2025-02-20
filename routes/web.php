@@ -14,7 +14,7 @@ $router->get('/depoimentos/todos', 'HomeController','depoimentos');
 $router->get('/servicos', 'HomeController','servico');
 $router->get('/equipe', 'HomeController','equipe');
 $router->get('/depoimentos', 'HomeController','criarDepoimento');
-$router->post('/depoimentos/criar', 'HomeController','criar');
+$router->post('/depoimentos/criar', 'DepoimentoController','criar');
     
 
 

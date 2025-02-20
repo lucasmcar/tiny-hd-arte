@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,17 +32,17 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand fw-bold" href="/site/"><img src="/assets/imgs/logo.png" alt="logo da Hd Arte"></a>
+        <a class="navbar-brand fw-bold" href="/"><img src="/assets/imgs/logo.png" alt="logo da Hd Arte"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="/site/sobre">Quem Somos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/site/servicos">Serviços</a></li>
-                <li class="nav-item"><a class="nav-link" href="/site/equipe">Equipe</a></li>
-                <li class="nav-item"><a class="nav-link" href="/site/consultoria">Consultoria</a></li>
-                <li class="nav-item"><a class="nav-link" href="/site/contato">Contato</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sobre">Quem Somos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/servicos">Serviços</a></li>
+                <li class="nav-item"><a class="nav-link" href="/equipe">Equipe</a></li>
+                <li class="nav-item"><a class="nav-link" href="/consultoria">Consultoria</a></li>
+                <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
             </ul>
             <div class="divider"></div>
             <div class="social-icons">
@@ -58,7 +58,7 @@
     </main>
     <!-- Rodapé -->
 
-    <footer class="footer mt-3 py-3 bg-dark text-white">
+    <footer class="footer mt-3 py-3 bg-dark text-white ">
     <div class="container">
         <div class="row">
             <!-- Coluna 1: Links do Menu -->
