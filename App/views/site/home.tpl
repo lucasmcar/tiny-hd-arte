@@ -75,7 +75,7 @@ section {
     <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="evento1.jpg" class="d-block w-100" alt="Evento 1">
+                <img src="/assets/imgs/cur.jpg" class="d-block w-100" alt="Evento 1">
             </div>
             <div class="carousel-item">
                 <img src="evento2.jpg" class="d-block w-100" alt="Evento 2">

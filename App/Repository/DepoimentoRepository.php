@@ -20,7 +20,7 @@ class DepoimentoRepository
         $this->depoimentoDao->criaDepoimento($model);
     }
 
-    public function verDepoimnetos()
+    public function verDepoimentos()
     {
         return $this->depoimentoDao->verDepoimnetos();
     }

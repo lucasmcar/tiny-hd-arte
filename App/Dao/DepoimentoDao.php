@@ -16,11 +16,12 @@ class DepoimentoDao
 
     public function criaDepoimento(Depoimento $model)
     {
-        $sql = "INSERT INTO depoimentos (nome, depoimento, profissao, foto, data_criacao) VALUES (:nome, :depoimento, :profissao, :foto, :data_criacao)";
+        $sql = "INSERT INTO depoimentos (nome, depoimento, titulo, profissao, foto, data_criacao) VALUES (:nome, :depoimento, :titulo, :profissao, :foto, :data_criacao)";
         $this->connection->prepare($sql);
         $this->connection->bind(':nome', $model->getNome());
         $this->connection->bind(':depoimento', $model->getDepoimento());
         $this->connection->bind(':profissao', $model->getProfissao());
+        $this->connection->bind(':titulo', $model->getTitulo());
         $this->connection->bind(':foto', $model->getFoto());
         $this->connection->bind(':data_criacao', date('Y-m-d H:i:s'));
         $this->connection->execute();

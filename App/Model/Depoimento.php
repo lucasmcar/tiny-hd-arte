@@ -8,6 +8,7 @@ class Depoimento
     private $nome;
     private $profissao;
     private $depoimento;
+    private $titulo;
     private $foto;
     private $dataCriacao;
 
@@ -49,6 +50,16 @@ class Depoimento
     public function setDepoimento($depoimento)
     {
         $this->depoimento = $depoimento;
+    }
+
+    public function getTitulo()
+    {
+        return $this->titulo;
+    }
+
+    public function setTitulo($titulo)
+    {
+        $this->titulo = $titulo;
     }
 
     public function getFoto()

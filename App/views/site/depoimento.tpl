@@ -19,10 +19,16 @@ footer {
 }
 
 .carousel-item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: none;
+    transition: transform 0.6s ease, opacity 0.6s ease;
 }
+.carousel-item.active {
+    display: flex;
+}
+.carousel-inner {
+    overflow: hidden;
+}
+
 .card {
     background: #222;
     padding: 20px;
@@ -30,7 +36,13 @@ footer {
     box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
     max-width: 400px;
     margin: auto;
+
+    max-height: 100%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
+
 .card img {
     width: 80px;
     height: 80px;
@@ -56,12 +68,14 @@ footer {
         <h2 class="mb-4">Depoimentos</h2>
         <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                {% foreach $depoimentos as $index => $depoimento %}
-                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+
+            
+                {% foreach $depoimentos as $index => $item %}
+                    <div class="carousel-item {{ $index == 0 ? 'active' : ''}}">
                         <div class="card text-center p-4">
-                            <img src="{{ $depoimento['foto'] }}" alt="{{ $depoimento['nome'] }}" class="rounded-circle mb-3">
-                            <p class="text">"{{ $depoimento['texto'] }}"</p>
-                            <p class="author fw-bold">{{ $depoimento['nome']; }} - {{ $depoimento['profissao'] }}</p>
+                            <img src="{{ $item['foto'] }}" alt="{{ $item['nome'] }}" class="rounded-circle mb-3">
+                            <p class="text">"{{ $item['depoimento'] }}"</p>
+                            <p class="author fw-bold">{{ $item['nome'] }} - {{ $item['profissao'] }}</p>
                         </div>
                     </div>
                 {% endforeach; %}
@@ -81,8 +95,7 @@ footer {
 document.addEventListener('DOMContentLoaded', function () {
     var carouselElement = document.querySelector('#testimonialCarousel');
     var carousel = new bootstrap.Carousel(carouselElement, {
-        interval: 3000,
-        ride: 'carousel'
+        interval: 3000
     });
 });
 </script>

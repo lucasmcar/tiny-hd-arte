@@ -13,6 +13,7 @@ class Register
         '/\{\%\s*elseif\s+(.+?)\s*\%\}/' ,               //elseif
         '/\{\%\s*else\s*\%\}/',                          //else
         '/\{\%\s*endif;\s*\%\}/',                        // End if statement
+        '/\{\%\s*foreach\s*(\$\w+)\s*\%\}/',             // Foreach simplificado: {% foreach $array %}
         '/\{\%\s*foreach\s*(.+?)\s*as\s*(.+?)\s*=>\s*(.+?)\s*\%\}/', // Foreach statement
         '/\{\%\s*endforeach;\s*\%\}/',                   // End foreach statement
         '/\{\%\s*while\s+(.+?)\s*\%\}/',                 // While statement
@@ -29,11 +30,12 @@ class Register
     ];
 
     protected static $replacements = [
-        '<?php echo $1; ?>',
+        '<?php echo htmlspecialchars($1, ENT_QUOTES, "UTF-8"); ?>',
         '<?php if ($1): ?>',
         '<?php elseif ($1): ?>',
         '<?php else: ?>',
         '<?php endif; ?>',
+        '<?php foreach ($1 as $item): ?>', // Foreach simplificado
         '<?php foreach ($1 as $2 => $3): ?>',
         '<?php endforeach; ?>',
         '<?php while ($1): ?>',
@@ -42,7 +44,7 @@ class Register
         //'!',
         //'&&',
         //'||',
-        '<?php var_dump($1); ?>',
+        '<?php print_r($1); ?>',
         '<link rel="stylesheet" href="$1">',
         '<script src="$1"></script>',
         '<input type="hidden" name="_csrf_token" value="<?php echo $this->vars["csrf_token"]; ?>">',
