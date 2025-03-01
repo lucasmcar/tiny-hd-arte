@@ -11,9 +11,10 @@
     @css(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css)
     @css(/assets/css/main.css)
     @css(https://fonts.googleapis.com/icon?family=Material+Icons)
-    @css(/assets/ckeditor/ckeditor5.css)
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
-  
+    {{ $styles }}
+
+    
     <title>{{ $title }}</title>
     <style>
     .main-content {
@@ -91,8 +92,6 @@
     </div>
 </footer>
 
-    @js( 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' )
-    @js( '/assets/ckeditor/ckeditor5.js' )
-    
+@js( 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js' )
 </body>
 </html>

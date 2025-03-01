@@ -41,6 +41,9 @@ class DepoimentoController
             'depoimentos' => $depoimentos
         ];
 
-        return new View('admin/depoimentos', $data, 'admin-layout');
+        $styles = [];
+        $scripts = [];
+
+        return new View('admin/depoimentos', $data , $styles, $scripts, 'admin-layout');
     }
 }

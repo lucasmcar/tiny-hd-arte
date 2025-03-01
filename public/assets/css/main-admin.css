@@ -1,0 +1,78 @@
+body {
+    background-color: #141414;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.rounded-circle {
+    width: 64px;
+    height: 64px;
+}
+.sidebar {
+    height: 100vh;
+    width: 70px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #000;
+    transition: width 0.3s;
+}
+.sidebar:hover {
+    width: 250px;
+}
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+}
+.sidebar ul li a:hover {
+    color: #e50914;
+}
+.sidebar ul li i {
+    font-size: 1.5rem;
+    transition: transform 0.3s;
+}
+.sidebar:hover ul li i {
+    transform: rotate(-360deg);
+}
+.sidebar ul li span {
+    display: none;
+}
+.sidebar:hover ul li span {
+    display: inline-block;
+    margin-left: 10px;
+}
+.top-navbar {
+    height: 60px;
+    background-color: #141414;
+    width: calc(100% - 70px);
+    position: fixed;
+    top: 0;
+    left: 70px;
+    z-index: 10;
+    transition: left 0.3s;
+}
+.sidebar:hover ~ .top-navbar {
+    left: 250px;
+    width: calc(100% - 250px);
+}
+.top-navbar .profile {
+    float: right;
+    margin-right: 20px;
+}
+.content {
+    margin-left: 70px;
+    padding: 80px 20px;
+    transition: margin-left 0.3s;
+}
+.sidebar:hover ~ .content {
+    margin-left: 250px;
+}

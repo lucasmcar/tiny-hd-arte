@@ -24,6 +24,7 @@ $router->group('/admin', function($router) {
     $router->get('/home', 'HomeAdminController','home');
     $router->get('/todos/servicos', 'HomeAdminController','todosServicos');
     $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
+    $router->get('/posts', 'BlogController','posts');
     $router->get('/teste/{id}', 'HomeController','teste');
     $router->get('/teste/{id}/p/{postId?}/{c?}/{commentId?}', 'HomeController','showPost');
 });

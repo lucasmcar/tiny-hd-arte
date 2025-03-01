@@ -12,11 +12,18 @@ class HomeAdminController
             'title' => 'Administração',
         ];
 
-        return new View('admin/home', $data, 'admin-layout');
+        $styles = [
+            '/assets/css/main-admin.css'
+        ];
+        $scripts =[];
+
+        return new View('admin/home', $data, $styles, $scripts, 'admin-layout');
     }
 
     public function todosServicos()
     {
+        $styles = [];
+        $scripts =[];
         $data = [
             'title' => 'Todos os Serviços',
             'servicos' => [
@@ -34,7 +41,7 @@ class HomeAdminController
         // Verifica se é uma requisição AJAX
         if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
             header('Content-Type: application/json');
-            return new View('admin/servicos', $data, 'admin-layout');
+            return new View('admin/servicos', $data, $styles, $scripts, 'admin-layout');
             
         }
 
