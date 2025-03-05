@@ -111,6 +111,6 @@
         @csrf
         <button type="submit">Entrar</button>
         <a href="#">Esqueceu a senha?</a>
-        <a href="#">Criar uma conta</a>
+        <a href="nova/conta">Criar uma conta</a>
     </form>
 </div>

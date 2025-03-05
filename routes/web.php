@@ -20,6 +20,7 @@ $router->post('/depoimentos/criar', 'DepoimentoController','criar');
 $router->group('/admin', function($router) {
     $router->get('/novo/blog', 'BlogController', 'novoBlog');
     $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
+    $router->get('/nova/conta', 'UserController', 'registrar');
     $router->get('/login', 'UserController','login');
     $router->get('/home', 'HomeAdminController','home');
     $router->get('/todos/servicos', 'HomeAdminController','todosServicos');

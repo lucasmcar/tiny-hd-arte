@@ -102,7 +102,7 @@ class View
 
         $vars['styles'] = $this->generateStyles();  
         $vars['scripts'] = $this->generateScripts();
-        
+
         extract($vars);
 
         $tempFile = tempnam(sys_get_temp_dir(), 'php');

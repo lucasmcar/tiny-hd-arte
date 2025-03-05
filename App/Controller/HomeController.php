@@ -20,11 +20,21 @@ class HomeController extends Controller
 
     public function index()
     {
-        $data = [
-            'title' => 'HD Arte Produtora',
+
+        $depoimentos = new DepoimentoRepository();
+        $depoimentosData = $depoimentos->verDepoimentos();
+
+        $styles = [
+            'assets/css/home.css',
         ];
 
-        return new View('site/home', $data);
+        $data = [
+            'title' => 'HD Arte Produtora',
+            'depoimentos' => $depoimentosData,
+        ];
+        
+
+        return new View('site/home',  $data, $styles);
     }
 
 
@@ -70,6 +80,8 @@ class HomeController extends Controller
             'depoimentos' =>  $depoimentosData,
 
             ];
+
+       
             
         return new View('site/depoimento', $data);
     }

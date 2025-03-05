@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Consultoria especializada em editais culturais, produção executiva e captação de recursos para projetos artísticos. Ajude sua produtora cultural a alcançar sucesso com estratégias eficazes de financiamento e gestão.">
-    <meta name="keywords" content="consultoria, editais culturais, produção executiva, captação de recursos, projetos artísticos, produtora cultural, financiamento, gestão">
+    <meta name="keywords" content="consultoria, editais culturais, produção executiva, captação de recursos, projetos artísticos, produtora cultural, financiamento, gestão, hd arte, gestao">
     <!-- Compiled and minified CSS -->
     @css(https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css)
     @css(https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css)

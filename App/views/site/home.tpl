@@ -1,63 +1,4 @@
-<style>
-/* Hero Banner */
-.hero {
-    position: relative;
-    background: url('/assets/imgs/logo.png') no-repeat center center/cover;
-    height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-}
-
-/* Seções */
-section {
-    padding: 60px 0;
-}
-
-/* Navbar fixa */
-.navbar {
-    background: rgba(0, 0, 0, 0.9);
-}
-
-#depoimentos .carousel-item {
-    padding: 20px;
-    min-height: 250px;
-}
-
-#depoimentos img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border: 3px solid #fff;
-}
-
-
-.social-icons a {
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            transition: 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: #0d6efd; /* Cor azul do Bootstrap */
-        }
-.card-footer{
-    background-color: #222;
-}
-</style>
 
 <!-- Hero Banner -->
 <header class="hero">
@@ -129,34 +70,25 @@ section {
             <div class="carousel-inner">
 
                 <!-- Depoimento 1 -->
-                <div class="carousel-item active">
-                    <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://source.unsplash.com/150x150/?person" class="rounded-circle mb-3" alt="Cliente 1">
-                        <p class="lead">"A equipe foi extremamente profissional e eficiente. Recomendo muito!"</p>
-                        <h5 class="mt-2">Lucas Carvalho</h5>
-                        <small>Consultor de Marketing</small>
-                    </div>
-                </div>
+                {% foreach $depoimentos as $index => $item %}
+                    <div class="carousel-item {{ $index == 0 ? 'active' : ''}}">
 
-                <!-- Depoimento 2 -->
-                <div class="carousel-item">
-                    <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://source.unsplash.com/150x150/?woman" class="rounded-circle mb-3" alt="Cliente 2">
-                        <p class="lead">"Trabalho impecável! Meu projeto ganhou vida com essa equipe incrível."</p>
-                        <h5 class="mt-2">Carla Castro</h5>
-                        <small>Assessora de Imprensa</small>
-                    </div>
-                </div>
+                        <div class="d-flex flex-column align-items-center text-center">
+                        
+                            <img src="{{ $item['foto'] }}" alt="{{ $item['nome'] }}" class="rounded-circle mb-3">
+                            <p class="text">"{{ $item['depoimento'] }}"</p>
+                            <h5 class="author fw-bold">{{ $item['nome'] }} </h5> 
+                            <small> {{ $item['profissao'] }}</small>
+                        
 
-                <!-- Depoimento 3 -->
-                <div class="carousel-item">
-                    <div class="d-flex flex-column align-items-center text-center">
-                        <img src="https://source.unsplash.com/150x150/?man" class="rounded-circle mb-3" alt="Cliente 3">
-                        <p class="lead">"Profissionais comprometidos e altamente qualificados. Superaram minhas expectativas!"</p>
-                        <h5 class="mt-2">Eduardo Raupp</h5>
-                        <small>Especialista em Projetos</small>
+                        </div>
                     </div>
-                </div>
+                {% endforeach; %}
+
+                
+
+                
+                
 
             </div>
 

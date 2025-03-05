@@ -35,5 +35,10 @@ class DepoimentoRepository
         $this->depoimentoDao->editarDepoimento($model);
     }
 
+    public function totalDepoimentos()
+    {
+        return $this->depoimentoDao->totalDepoimentos();
+    }
+
     
 }

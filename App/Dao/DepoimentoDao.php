@@ -55,4 +55,13 @@ class DepoimentoDao
         $this->connection->bind(':id', $model->getIdDepoimento());
         $this->connection->execute();
     }
+
+    public function totalDepoimentos()
+    {
+        $sql = "SELECT COUNT(*) as total FROM depoimentos";
+        $this->connection->prepare($sql);
+        $this->connection->execute();
+        $total = $this->connection->rs();
+        return $total[0]['total'];
+    }
 }

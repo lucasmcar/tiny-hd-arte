@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Core\View\View;
+use App\Repository\DepoimentoRepository;
 
 class HomeAdminController
 {
     public function home()
     {
+
         $data = [
             'title' => 'Administração',
         ];
@@ -18,6 +20,29 @@ class HomeAdminController
         $scripts =[];
 
         return new View('admin/home', $data, $styles, $scripts, 'admin-layout');
+    }
+
+    public function main()
+    {
+        $totalDepoimentos = new DepoimentoRepository();
+        $totalDepoimentos = $totalDepoimentos->totalDepoimentos();
+
+        $data = [
+            'subtitulo' => 'Painel de Controle',
+            'totaldepoimentos' => $totalDepoimentos,
+        ];
+
+        $styles = [
+            '/assets/css/main.css'
+        ];
+        $scripts =[];
+
+        if ($_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            header('Content-Type: application/json');
+            return new View('admin/main', $data, $styles, $scripts, 'admin-layout');
+        }
+
+        
     }
 
     public function todosServicos()
@@ -55,4 +80,6 @@ class HomeAdminController
 
         
     }
+
+
 }
