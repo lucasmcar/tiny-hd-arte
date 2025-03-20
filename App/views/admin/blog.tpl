@@ -1,6 +1,4 @@
 
-
-
 <div class="main-container">
 
 <h2>{{ $title }}</h2>

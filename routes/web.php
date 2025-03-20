@@ -15,6 +15,11 @@ $router->get('/servicos', 'HomeController','servico');
 $router->get('/equipe', 'HomeController','equipe');
 $router->get('/novo/depoimento', 'HomeController','criaDepoimento');
 $router->post('/depoimentos/criar', 'DepoimentoController','criar');
+$router->get('/search', 'SearchController','search');
+$router->get('/projetos', 'ProjectController', 'index');
+$router->get('/projetos/aprovados', 'ProjectController', 'approved'); // Projetos aprovados
+$router->get('/projetos/em-andamento', 'ProjectController', 'ongoing');
+$router->get('/projetos/{slug}', 'ProjectController', 'show');
 
 
 $router->group('/admin', function($router) {

@@ -1,57 +1,246 @@
-.hero {
+body {
+    background: #141414;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.hda-hero {
     position: relative;
-    background: url('/assets/imgs/logo.png') no-repeat center center/cover;
     height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    background: url('/assets/imgs/hero-bg.jpg') no-repeat center/cover; /* Substitua por sua imagem */
 }
 
 .hero-overlay {
     position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 1;
+    padding-top: 100px; /* Espaço para navbar fixo, ajuste conforme necessário */
 }
 
-/* Seções */
-section {
-    padding: 60px 0;
+.display-1 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-/* Navbar fixa */
-.navbar {
-    background: rgba(0, 0, 0, 0.9);
+.btn-hda {
+    background-color: #e50914;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
 }
 
-#depoimentos .carousel-item {
-    padding: 20px;
-    min-height: 250px;
+.btn-hda:hover {
+    background-color: #f40612;
 }
 
-#depoimentos img {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border: 3px solid #fff;
+.hda-title {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
+.hda-section {
+    padding: 40px 0;
+}
+
+
+.carousel-card {
+    position: relative;
+    width: 100%; /* Garante que o card respeite o tamanho do carrossel */
+    height: 100%; /* Altura fixa para consistência */
+}
+
+.carousel-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita distorção da imagem */
+    border-radius: 5px;
+}
+
+.carousel-card:hover {
+    transform: scale(1.00);
+}
+
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-sizing: border-box;
+}
+
+.carousel-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.bg-dark {
+    background: #222;
+}
+
+.bg-light {
+    background: #333 !important; /* Ajuste para um cinza escuro ao invés de claro */
+}
+
+.card {
+    background: #222;
+    border: none;
+    color: #fff;
+}
+
+.card-img-top {
+    border-radius: 5px 5px 0 0;
+}
 
 .social-icons a {
-            color: white;
-            font-size: 20px;
-            margin-left: 15px;
-            transition: 0.3s;
-        }
+    color: #fff;
+    margin: 0 10px;
+    font-size: 1.2rem;
+}
 
-        .social-icons a:hover {
-            color: #0d6efd; /* Cor azul do Bootstrap */
-        }
-.card-footer{
-    background-color: #222;
+.social-icons a:hover {
+    color: #e50914;
+}
+
+.hda-card {
+    background: #222;
+    border-radius: 8px;
+    padding: 20px;
+    transition: transform 0.3s;
+    min-width: 300px;
+    text-align: center;
+}
+
+.hda-card:hover {
+    transform: scale(1.05);
+}
+
+.hda-card p {
+    color: #aaa;
+    font-size: 1rem;
+}
+
+.hda-carousel {
+    display: flex;
+    /*overflow-x: auto;*/
+    gap: 15px;
+    justify-content: center;
+}
+
+.hda-card .card-icon {
+    font-size: 3rem;
+    color: #e50914; /* Vermelho hda */
+    margin-bottom: 15px;
+}
+
+.carousel-inner {
+    display: flex;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    width: 100%; /* Ajuste para 3 itens visíveis por vez, ou altere conforme necessário */
+}
+
+/* Estilo para Depoimentos (com carrossel Bootstrap) */
+.depoimentos-card {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Altura fixa */
+    text-align: center;
+}
+
+.depoimentos-card img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+
+    max-height: 300px;
+    margin: 0 auto;
+}
+
+.depoimentos-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 25%;
+    width: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-sizing: border-box;
+}
+
+.depoimentos-card:hover .depoimentos-overlay {
+    opacity: 1;
+}
+
+/* Estilo para Destaques (mantém o carrossel horizontal simples) */
+.destaques-card {
+    position: relative;
+    min-width: 300px;
+    transition: transform 0.3s;
+}
+
+.destaques-card img {
+    width: 100%;
+    height: 300px; /* Altura fixa */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.destaques-card:hover {
+    transform: scale(1.05);
+}
+
+.destaques-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-sizing: border-box;
+}
+
+.destaques-card:hover .destaques-overlay {
+    opacity: 1;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background-color: #222; /* Cinza escuro hda */
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+    color: #e0e0e0; /* Cinza claro */
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #333;
+    color: #e50914; /* Vermelho hda no hover */
 }

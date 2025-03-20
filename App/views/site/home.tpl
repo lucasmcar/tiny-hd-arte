@@ -1,122 +1,136 @@
-
-
 <!-- Hero Banner -->
-<header class="hero">
+<header class="hero hda-hero">
     <div class="hero-overlay"></div>
     <div class="hero-content text-center text-white">
-        <h1 class="fw-bold">Transformando ideias em grandes produções</h1>
-        <p class="lead">Eventos, cultura e arte com qualidade e inovação.</p>
-        <a href="#destaques" class="btn btn-primary btn-lg mt-3">Ver Destaques</a>
+        <h1 class="fw-bold display-1">Transformando ideias em grandes produções</h1>
+        <p class="lead mb-4">Eventos, cultura e arte com qualidade e inovação.</p>
+        <a href="#destaques" class="btn btn-hda btn-lg">Ver Destaques</a>
     </div>
 </header>
 
-<!-- Destaques - Carrossel de Eventos -->
-<section id="destaques" class="container my-5">
-    <h2 class="text-center mb-4">Destaques</h2>
-    <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/assets/imgs/cur.jpg" class="d-block w-100" alt="Evento 1">
+<!-- Seção Destaques -->
+<section id="destaques" class="hda-section">
+    <div class="container-fluid">
+        <h2 class="hda-title text-center mb-4">Destaques</h2>
+        <div id="carouselDestaques" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-card">
+                        <img src="/assets/imgs/cur.jpg" alt="Evento 1">
+                        <div class="card-overlay">
+                            <p>Circuito Urbano Restinga</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-card">
+                        <img src="evento2.jpg" alt="Evento 2">
+                        <div class="card-overlay">
+                            <p>Evento Cultural 2</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-card">
+                        <img src="evento3.jpg" alt="Evento 3">
+                        <div class="card-overlay">
+                            <p>Evento Cultural 3</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="evento2.jpg" class="d-block w-100" alt="Evento 2">
-            </div>
-            <div class="carousel-item">
-                <img src="evento3.jpg" class="d-block w-100" alt="Evento 3">
-            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaques" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselDestaques" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestaques" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselDestaques" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
     </div>
 </section>
 
-<!-- Seções -->
 <!-- Seção Quem Somos -->
-<section class="section bg-light">
+<section class="hda-section bg-light">
     <div class="container">
-        <h2>Quem Somos</h2>
-        <p>Somos uma equipe especializada em produção cultural e eventos, oferecendo soluções criativas e estratégicas.</p>
-        <a href="/sobre" class="btn btn-primary btn-custom">Saiba Mais</a>
+        <h2 class="hda-title">Quem Somos</h2>
+        <div class="hda-carousel">
+            <div class="hda-card">
+                <i class="bi bi-people card-icon"></i>
+                <p>Somos uma equipe especializada em produção cultural e eventos, oferecendo soluções criativas e estratégicas.</p>
+                <a href="/sobre" class="btn btn-hda">Saiba Mais</a>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- Seção Serviços -->
-<section class="section">
+<section class="hda-section">
     <div class="container">
-        <h2>Nossos Serviços</h2>
+        <h2 class="hda-title">Nossos Serviços</h2>
         <p>Oferecemos consultoria, planejamento, produção executiva e muito mais para o seu evento.</p>
-        <a href="/servicos" class="btn btn-primary btn-custom">Ver Serviços</a>
+        <a href="/servicos" class="btn btn-hda">Ver Serviços</a>
     </div>
 </section>
 
 <!-- Seção Equipe -->
-<section class="section bg-light">
+<section class="hda-section bg-light">
     <div class="container">
-        <h2>Conheça Nossa Equipe</h2>
-        <p>Profissionais qualificados para garantir o sucesso do seu projeto.</p>
-        <a href="/equipe" class="btn btn-primary btn-custom">Ver Equipe</a>
+        <h2 class="hda-title">Conheça Nossa Equipe</h2>
+        <div class="hda-carousel">
+            <div class="hda-card">
+                <i class="bi bi-person-lines-fill card-icon"></i>
+                <p>Profissionais qualificados para garantir o sucesso do seu projeto.</p>
+                <a href="/equipe" class="btn btn-hda">Ver Equipe</a>
+            </div>
+        </div>
     </div>
 </section>
-
-<section id="depoimentos" class="py-5 bg-dark text-white">
+<!-- Seção Depoimentos -->
+<!-- Seção Depoimentos -->
+<section id="depoimentos" class="hda-section bg-dark text-white">
     <div class="container">
-        <h2 class="text-center mb-4">O que nossos clientes dizem</h2>
-        
+        <h2 class="hda-title text-center mb-4">O que nossos clientes dizem</h2>
         <div id="carouselDepoimentos" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-
-                <!-- Depoimento 1 -->
                 {% foreach $depoimentos as $index => $item %}
-                    <div class="carousel-item {{ $index == 0 ? 'active' : ''}}">
-
-                        <div class="d-flex flex-column align-items-center text-center">
-                        
-                            <img src="{{ $item['foto'] }}" alt="{{ $item['nome'] }}" class="rounded-circle mb-3">
-                            <p class="text">"{{ $item['depoimento'] }}"</p>
-                            <h5 class="author fw-bold">{{ $item['nome'] }} </h5> 
-                            <small> {{ $item['profissao'] }}</small>
-                        
-
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="depoimentos-card">
+                            <img src="{{ $item['foto'] }}" alt="{{ $item['nome'] }}">
+                            <div class="depoimentos-overlay text-center">
+                                <p>"{{ $item['depoimento'] }}"</p>
+                                <h5>{{ $item['nome'] }}</h5>
+                                <small>{{ $item['profissao'] }}</small>
+                            </div>
                         </div>
                     </div>
                 {% endforeach; %}
-
-                
-
-                
-                
-
             </div>
-
-            <!-- Controles do carrossel -->
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselDepoimentos" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
             </button>
             <button class="carousel-control-next" type="button" data-bs-target="#carouselDepoimentos" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
             </button>
-
         </div>
         <div class="text-center mt-4">
-            <a href="/depoimentos/todos" class="btn btn-primary btn-lg">Ver todos os depoimentos</a>
+            <a href="/depoimentos/todos" class="btn btn-hda btn-lg">Ver todos os depoimentos</a>
         </div>
     </div>
 </section>
 
 <!-- Seção Consultoria -->
-<section class="section">
+<section class="hda-section">
     <div class="container text-center">
-        <h2 class="mb-4">Consultoria e Impulsionamento</h2>
+        <h2 class="hda-title mb-4">Consultoria e Impulsionamento</h2>
         <p class="lead">
             Oferecemos consultoria especializada para otimizar sua presença digital, aumentar o engajamento 
             e impulsionar suas redes sociais. Nossa abordagem inclui análise de mercado, estratégias de conteúdo 
             e campanhas direcionadas para o crescimento da sua marca.
         </p>
-
         <div class="row justify-content-center mt-4">
             <!-- Lucas Carvalho -->
             <div class="col-md-5 mb-4">
@@ -129,16 +143,15 @@
                             Atua na criação de estratégias para aumentar a visibilidade e conversão das marcas.
                         </p>
                     </div>
-                    <div class="card-footer text-center ">
+                    <div class="card-footer text-center">
                         <div class="social-icons">
-                            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                            <a href="https://instagram.com/hej.lucasmcar" target="_blank"><i class="fab fa-instagram"></i></a>
                             <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="https://linkedin.com/in/lucas-m-carvalho" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
-
             <!-- Thais Krug -->
             <div class="col-md-5 mb-4">
                 <div class="card h-100">
@@ -160,16 +173,20 @@
                 </div>
             </div>
         </div>
-
-        <a href="/contato" class="btn btn-primary mt-4">Entre em contato</a>
+        <a href="/contato" class="btn btn-hda mt-4">Entre em contato</a>
     </div>
 </section>
 
 <!-- Seção Contato -->
-<section class="section bg-light">
+<section class="hda-section bg-light">
     <div class="container">
-        <h2>Entre em Contato</h2>
-        <p>Tem um projeto? Fale conosco e descubra como podemos ajudar.</p>
-        <a href="/contato" class="btn btn-primary btn-custom">Fale Conosco</a>
+        <h2 class="hda-title">Entre em Contato</h2>
+        <div class="hda-carousel">
+            <div class="hda-card">
+                <i class="bi bi-envelope-fill card-icon"></i>
+                <p>Tem um projeto? Fale conosco e descubra como podemos ajudar.</p>
+                <a href="/contato" class="btn btn-hda">Fale Conosco</a>
+            </div>
+        </div>
     </div>
 </section>

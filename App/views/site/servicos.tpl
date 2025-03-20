@@ -1,39 +1,96 @@
 <style>
 body {
     background: #141414;
-    color: #CCC;
-    font-family: Arial, sans-serif;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* Mantém os cards do mesmo tamanho */
+/* Ajuste para o conteúdo ficar abaixo do navbar */
+.hda-section {
+    padding-top: 100px; /* Espaço para o navbar fixo - ajuste conforme a altura real */
+}
+
+/* Estilo dos cards inspirado na hda */
 .service-card {
-    background: #CCC;
-    border-radius: 10px;
-    padding: 20px;
-    transition: 0.3s ease-in-out;
+    background: #222;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s ease-in-out;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    height: 100%; /* Faz todos os cards terem a mesma altura */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: relative;
+    overflow: hidden;
 }
 
 .service-card:hover {
-    background: #ECECEC;
     transform: scale(1.05);
+    background: #333;
 }
 
-/* Ícones dos serviços */
 .service-icon {
+    font-size: 3rem;
+    color: #e50914; /* Vermelho hda */
+    margin-bottom: 15px;
+}
+
+h2 {
     font-size: 2rem;
-    color: #f39c12;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+h5 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+.text-muted {
+    color: #aaa !important;
+    font-size: 0.9rem;
+}
+
+.btn-hda {
+    background-color: #e50914;
+    border: none;
+    padding: 8px 20px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-hda:hover {
+    background-color: #f40612;
+}
+
+/* Modal estilizado */
+.modal-content {
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #333;
+}
+
+.modal-title {
+    color: #fff;
+}
+
+.btn-close {
+    filter: invert(1); /* Torna o botão de fechar branco */
 }
 </style>
 
-<div class="container mt-5 text-center">
+<div class="container mt-5 text-center hda-section">
     <h2 class="mb-4">Nossos Serviços</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4"> 
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         <?php
         $servicos = [
             ["icone" => "bi-file-earmark-text", "titulo" => "Análise de Propostas para Editais", "descricao" => "Revisão e análise detalhada de propostas para editais públicos e privados."],
@@ -52,7 +109,7 @@ body {
                     <i class="bi <?php echo $servico['icone']; ?> service-icon"></i>
                     <h5 class="mt-3"><?php echo $servico['titulo']; ?></h5>
                     <p class="text-muted flex-grow-1"><?php echo $servico['descricao']; ?></p>
-                    <button class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#modal<?php echo $index; ?>">Saiba Mais</button>
+                    <button class="btn btn-hda mt-auto" data-bs-toggle="modal" data-bs-target="#modal<?php echo $index; ?>">Saiba Mais</button>
                 </div>
             </div>
 

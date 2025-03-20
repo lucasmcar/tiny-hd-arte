@@ -1,0 +1,82 @@
+/* /assets/css/project.css */
+.hda-section {
+    padding: 40px 0;
+}
+
+.hda-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.article-meta {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.article-meta .author {
+    font-weight: 600;
+    color: #fff;
+}
+
+.hda-text {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.article-content {
+    color: #e0e0e0;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.article-content p {
+    margin-bottom: 20px;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.btn-hda {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-hda:hover {
+    background-color: #f40612;
+    color: #fff;
+}
+
+.dropdown-menu {
+    background-color: #222; /* Cinza escuro hda */
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-item {
+    color: #e0e0e0; /* Cinza claro */
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #333;
+    color: #e50914; /* Vermelho hda no hover */
+}
