@@ -146,7 +146,7 @@ class ProjectController
             'all_projects' => $projects
         ];
 
-        $styles = ['/assets/css/projects.css'];
+        $styles = ['/assets/css/project.css'];
        
 
         return new View('site/projetos', $data, $styles);

@@ -11,7 +11,8 @@
             "App\\": "App/"
         },
         "files": [
-            "consts/jwt-token.php"
+            "consts/jwt-token.php",
+            "App/Core/Helper/base_url.php"
         ]
     },
     "authors": [

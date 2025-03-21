@@ -2,6 +2,7 @@
 
 namespace App\Core\View;
 
+
 use App\Core\Security\Csrf;
 use App\Core\View\Registers\Register;
 
@@ -115,20 +116,20 @@ class View
     }
 
     private function generateStyles()
-{
-    $output = "";
-    foreach ($this->styles as $style) {
-        $output .= "<link rel='stylesheet' href='$style'>\n";
+    {
+        $output = "";
+        foreach ($this->styles as $style) {
+            $output .= "<link rel='stylesheet' href='" . \base_url($style) . "'>\n";
+        }
+        return $output;
     }
-    return $output;
-}
 
-private function generateScripts()
-{
-    $output = "";
-    foreach ($this->scripts as $script) {
-        $output .= "<script src='$script'></script>\n";
+    private function generateScripts()
+    {
+        $output = "";
+        foreach ($this->scripts as $script) {
+            $output .= "<script src='" . \base_url($script) . "'></script>\n";
+        }
+        return $output;
     }
-    return $output;
-}
 }

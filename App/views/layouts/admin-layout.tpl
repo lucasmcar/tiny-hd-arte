@@ -55,11 +55,10 @@
             transform: scale(1.1);
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 60px;
-            left: -250px; /* Escondido por padrão */
+            left: -250px;
             width: 250px;
             height: calc(100% - 60px);
             background: #222;
@@ -70,7 +69,7 @@
         }
 
         .sidebar.active {
-            left: 0; /* Visível */
+            left: 0;
         }
 
         .sidebar ul {
@@ -106,25 +105,19 @@
             font-size: 1.2rem;
         }
 
-        /* Main Content */
         .main-content {
             flex: 1;
             margin-top: 60px;
-            margin-left: 0; /* Sem deslocamento por padrão */
+            margin-left: 0;
             padding: 40px 20px;
             min-height: calc(100vh - 60px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             transition: margin-left 0.3s ease;
         }
 
         .main-content.shifted {
-            margin-left: 250px; /* Deslocado quando sidebar está ativo */
+            margin-left: 250px;
         }
 
-        /* Botão de toggle */
         #toggle-sidebar {
             background: none;
             border: none;
@@ -134,7 +127,6 @@
             cursor: pointer;
         }
 
-        /* Spinner */
         #loading {
             display: none;
             position: fixed;
@@ -207,63 +199,8 @@
 
     @js('https://code.jquery.com/jquery-3.6.0.min.js')
     @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+
     {{ $scripts }}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Seleção dos elementos
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('main-content');
-            const toggleButton = document.getElementById('toggle-sidebar');
-
-            // Função para alternar o sidebar
-            function toggleSidebar() {
-                sidebar.classList.toggle('active');
-                mainContent.classList.toggle('shifted');
-            }
-
-            // 1 - Toggle do sidebar pelo botão
-            if (toggleButton) {
-                toggleButton.addEventListener('click', function () {
-                    toggleSidebar();
-                });
-            } else {
-                console.error('Botão #toggle-sidebar não encontrado!');
-            }
-
-            // 2 - Fechar sidebar ao clicar em um link e carregar página
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function (event) {
-                    event.preventDefault();
-                    const page = this.getAttribute('data-page');
-                    loadPage(`/admin/${page}`);
-                    // Fechar sidebar se estiver aberto
-                    if (sidebar.classList.contains('active')) {
-                        toggleSidebar();
-                    }
-                });
-            });
-
-            // 3 - Função para carregar páginas dinamicamente
-            function loadPage(url) {
-                document.getElementById('loading').style.display = 'block';
-                fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
-                    .then(response => response.text())
-                    .then(html => {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        const mainContentNew = doc.querySelector('main');
-                        if (mainContentNew) {
-                            mainContent.innerHTML = mainContentNew.innerHTML;
-                        }
-                        document.getElementById('loading').style.display = 'none';
-                    })
-                    .catch(error => {
-                        console.error('Erro ao carregar a página:', error);
-                        document.getElementById('loading').style.display = 'none';
-                    });
-            }
-        });
-    </script>
 </body>
 </html>

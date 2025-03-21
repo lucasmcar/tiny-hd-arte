@@ -26,11 +26,14 @@ class Register
         '/\@css\(\s*(.+?)\s*\)/',
         '/@js\(\s*["\'](.+?)["\']\s*\)/',                // Include JS
         '/@csrf/', 
-        '/\{\%\s*year\s*\%\}/' //Current Year                                        
+        '/\{\%\s*year\s*\%\}/', //Current Year,
+        //'/@scripts\(\s*(.+?)\s*\)/',
+        //'/@styles\(\s*(.+?)\s*\)/',
+        //'/\{\{\s*\$(styles|scripts)\s*\}\}/'                                       
     ];
 
     protected static $replacements = [
-        '<?php echo htmlspecialchars($1, ENT_QUOTES, "UTF-8"); ?>',
+        '<?php echo $1; ?>',
         '<?php if ($1): ?>',
         '<?php elseif ($1): ?>',
         '<?php else: ?>',
@@ -49,7 +52,8 @@ class Register
         '<script src="$1"></script>',
         '<input type="hidden" name="_csrf_token" value="<?php echo $this->vars["csrf_token"]; ?>">',
         '<?php echo date("Y"); ?>',
-         
+        /*'<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $script) { echo "<script src=\'$script\'></script>\n"; } ?>',
+        '<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $style) { echo "<link rel=\'stylesheet\' href=\'$style\'>\n"; } ?>',*/
     ];
 
     public function __construct()
