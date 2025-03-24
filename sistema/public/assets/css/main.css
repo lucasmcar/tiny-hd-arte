@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #333 #141414; /* Firefox: thumb e track */
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+    width: 8px; /* Largura fina, estilo hda */
+}
+
+body::-webkit-scrollbar-track {
+    background: #141414; /* Fundo escuro da trilha */
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #333; /* Cinza escuro para a barra */
+    border-radius: 4px; /* Bordas arredondadas */
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Tom mais claro ao passar o mouse */
+}
+
+.card{
+    margin: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+    font-family: arial;
+}
+
+.navbar-tiny-light{
+    background-color: white;
+}

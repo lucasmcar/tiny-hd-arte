@@ -244,3 +244,56 @@ body {
     background-color: #333;
     color: #e50914; /* Vermelho hda no hover */
 }
+
+/* Estilos para a seção de artigos */
+.article-card {
+    position: relative;
+    display: block;
+    height: 200px;
+    background: #222;
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+}
+
+.article-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    text-align: left;
+}
+
+.article-overlay h5 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.article-overlay small {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.article-card:hover .article-overlay {
+    background: rgba(229, 9, 20, 0.8); /* Vermelho Netflix no hover */
+    transition: background 0.3s ease;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .article-card {
+        height: 150px;
+    }
+
+    .article-overlay h5 {
+        font-size: 1rem;
+    }
+
+    .article-overlay small {
+        font-size: 0.8rem;
+    }
+}

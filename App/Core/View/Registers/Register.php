@@ -29,7 +29,9 @@ class Register
         '/\{\%\s*year\s*\%\}/', //Current Year,
         //'/@scripts\(\s*(.+?)\s*\)/',
         //'/@styles\(\s*(.+?)\s*\)/',
-        //'/\{\{\s*\$(styles|scripts)\s*\}\}/'                                       
+        //'/\{\{\s*\$(styles|scripts)\s*\}\}/' 
+        '/@for\(\s*(.+?),\s*(.+?),\s*(.+?)\s*\)/',                                      
+        '/@endfor\(\)/',                                      
     ];
 
     protected static $replacements = [
@@ -54,6 +56,8 @@ class Register
         '<?php echo date("Y"); ?>',
         /*'<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $script) { echo "<script src=\'$script\'></script>\n"; } ?>',
         '<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $style) { echo "<link rel=\'stylesheet\' href=\'$style\'>\n"; } ?>',*/
+        '<?php for( $i=$1; $i<=$2; $3++ ): ?>',
+        '<?php endfor; ?>',
     ];
 
     public function __construct()

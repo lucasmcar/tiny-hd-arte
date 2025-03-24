@@ -74,8 +74,19 @@ class ProjectController
                 'post_date' => '2024-09-01',
                 'content' => 'O Festival de Música 2024 trouxe ao palco grandes nomes da música brasileira, como Anitta e Jorge Ben Jor. Realizado em São Paulo, o evento contou com uma produção impecável e um público de mais de 10.000 pessoas. A HD Arte foi responsável pela gestão financeira e logística, garantindo o sucesso do festival.',
                 'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg'
+            ],
+            'show-local-2023' => [
+                'title' => 'Show local 2023',
+                'description' => 'Evento local de 2023 com artistas renomados.',
+                'image' => '/assets/imgs/show-local-2023.jpg',
+                'details' => 'Ocorrido em Agosto de 2023.',
+                'author' => 'Maria Paula',
+                'post_date' => '2023-10-01',
+                'content' => 'O festival local que ocorreu em agosto desse mes, trouxe grandes convidados da música nacional e também mostrou ao público revelações locais.',
+                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg'
             ]
         ];
+        
 
         return $projects[$slug] ?? null;
     }

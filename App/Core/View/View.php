@@ -84,7 +84,6 @@ class View
         
         }
         $parsedContent = $this->parse($content);
-    
         // Render the parsed content within a safe context
         echo $this->renderContent($parsedContent, $this->vars);
     }

@@ -177,6 +177,38 @@
     </div>
 </section>
 
+<!-- Seção Artigos Recentes -->
+<section id="artigos" class="hda-section bg-dark text-white">
+    <div class="container">
+        <h2 class="hda-title text-center mb-4">Artigos Recentes</h2>
+        <div id="carouselArtigos" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% foreach $artigos as $index => $item %}
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <a href="/artigo/{{ $item['created_at'] }}/{{ $item['slug'] }}" class="article-card">
+                            <div class="article-overlay">
+                                <h5>{{ $item['title'] }}</h5>
+                                <small>{{ $item['created_at'] }}</small>
+                            </div>
+                        </a>
+                    </div>
+                {% endforeach; %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselArtigos" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselArtigos" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <div class="text-center mt-4">
+            <a href="/artigos/todos" class="btn btn-hda btn-lg">Ver Todos os Artigos</a>
+        </div>
+    </div>
+</section>
+
 <!-- Seção Contato -->
 <section class="hda-section bg-light">
     <div class="container">

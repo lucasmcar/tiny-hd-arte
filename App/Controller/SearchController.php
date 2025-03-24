@@ -33,6 +33,13 @@ class SearchController
                 'url' => '/projetos/festival-musica-2024'
             ];
         }
+        if(stripos('Show Local 2023', $q) !== false) {
+            $results[] = [
+                'title' => 'Show Local 2023',
+                'url' => '/projetos/show-local-2023'
+            ];
+
+        }
 
         // Retorna os resultados em JSON
         header('Content-Type: application/json');

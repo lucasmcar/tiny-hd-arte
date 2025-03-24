@@ -176,4 +176,30 @@ class BlogController
             return new View('admin/blog', $data, $styles, $scripts, 'admin-layout');
         }
     }
+
+    public function mostrarArtigo($params)
+    {
+            
+        $createdAt = $params[0];
+        $slug = $params[1];
+        // Simulação de busca no banco de dados
+        $data = [
+            'article' =>[
+            'title' => 'Como Planejar um Evento de Sucesso',
+            'created_at' => '2025-03-22',
+            'slug' => 'como-planejar-evento-sucesso',
+            'content' => '<p>Planejar um evento requer organização e criatividade. Aqui estão algumas dicas:</p><ul><li>Defina o objetivo</li><li>Escolha o local</li></ul><img src="/assets/imgs/evento.jpg" alt="Evento">'
+            ]
+            
+        ];
+
+        $styles =['/assets/css/artigo.css'];
+        // Verificar se o artigo existe
+        //if ($article['created_at'] === $createdAt && $article['slug'] === $slug) {
+            return new View('site/artigo',  $data, $styles, [], 'layout');
+        //}
+        // Redirecionar ou mostrar erro 404 se não encontrado
+        header("HTTP/1.0 404 Not Found");
+        exit('Artigo não encontrado');
+    }
 }

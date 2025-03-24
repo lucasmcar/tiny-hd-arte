@@ -1,262 +1,149 @@
 <style>
-body {
-    background: #141414; /* Fundo escuro hda */
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    padding-top: 80px; /* Espaço para navbar fixo, ajuste conforme necessário */
-    /* Scrollbar personalizada */
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: #333 #141414; /* Firefox: thumb e track */
-}
-
-/* WebKit Scrollbar (Chrome, Safari, Edge) */
-body::-webkit-scrollbar {
-    width: 8px;
-}
-
-body::-webkit-scrollbar-track {
-    background: #141414;
-}
-
-body::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-}
-
-body::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-.hda-section {
-    padding: 40px 0; /* Substitui my-5 e pt-5 */
+/* Tema Netflix */
+.equipe-section {
+    background-color: #141414;
+    padding: 60px 0;
 }
 
 .hda-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
     color: #fff;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .text-muted {
-    color: #aaa !important; /* Cinza claro no estilo hda */
+    color: #999 !important;
     font-size: 1.1rem;
-    text-align: center;
-    margin-bottom: 30px;
 }
 
+/* Grid e Cards */
 .team-card {
-    background: #222; /* Cinza escuro hda */
-    border: none;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Sombra escura */
-    transition: transform 0.3s ease;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border-radius: 8px; /* Bordas arredondadas */
     overflow: hidden;
-}
-
-.team-card:hover {
-    transform: scale(1.05); /* Efeito de hover mantido */
+    border: none;
+    background-color: #222;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
 .team-card img {
-    height: 250px; /* Tamanho fixo mantido */
-    object-fit: cover;
     width: 100%;
+    height: 300px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
 }
 
-.team-card .card-body {
-    flex-grow: 1;
+/* Efeito Hover */
+.team-card .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: opacity 0.3s ease;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+}
+
+.team-card:hover .overlay {
+    opacity: 1;
+}
+
+.team-card:hover img {
+    opacity: 0.5;
+}
+
+.overlay-content {
     text-align: center;
+    color: #fff;
     padding: 20px;
 }
 
-.team-card .card-title {
-    color: #fff;
+.overlay-title {
     font-size: 1.5rem;
-    font-weight: 600;
+    margin-bottom: 10px;
+    color: #e50914; /* Vermelho Netflix */
+}
+
+.overlay-text {
+    font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
-.team-card .card-text {
-    color: #e0e0e0; /* Cinza claro para texto */
-    font-size: 1rem;
-    flex-grow: 1;
+.overlay-summary {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 15px;
 }
 
-.card-footer {
-    background: #333; /* Cinza mais claro para o footer */
-    padding: 15px;
-    text-align: center;
-}
-
+/* Ícones Sociais */
 .social-icons a {
-    color: #e50914; /* Vermelho hda */
-    font-size: 20px;
-    margin: 0 8px;
-    transition: color 0.3s;
+    color: #fff;
+    font-size: 1.2rem;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }
 
 .social-icons a:hover {
-    color: #f40612; /* Tom mais claro no hover */
+    color: #e50914; /* Vermelho Netflix */
+}
+
+/* Destaque para Fundadoras */
+.highlight-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #e50914;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .team-card img {
+        height: 250px;
+    }
+    .overlay-title {
+        font-size: 1.3rem;
+    }
+    .overlay-text {
+        font-size: 1rem;
+    }
 }
 </style>
+<section class="hda-section equipe-section">
+    <div class="container text-center">
+        <h2 class="hda-title fw-bold">Nossa Equipe</h2>
+        <p class="text-muted mb-4">Conheça os profissionais por trás da HD Arte Produções</p>
 
-<!-- Seção Equipe -->
-<section class="container hda-section text-center">
-    <h2 class="hda-title fw-bold">Nossa Equipe</h2>
-    <p class="text-muted">Conheça os profissionais por trás da HD Arte Produções</p>
-
-    <div class="row mt-4">
-        <!-- Card 1 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="lucas.jpg" class="card-img-top" alt="Lucas Carvalho">
-                <div class="card-body">
-                    <h5 class="card-title">Lucas Carvalho</h5>
-                    <p class="card-text">CEO da Code Experts, Desenvolvimento de sites e aplicações, consultoria e gestão de redes.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="https://instagram.com/hej.lucasmcar" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.facebook.com/lmcarvalho90" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://linkedin.com/in/lucas-m-carvalho" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <div class="row g-4">
+            {% foreach $equipe as $index => $membro %}
+                <div class="{% if $membro['destaque'] == true %}col-md-6 col-lg-6{% elseif $membro['destaque'] == false %}col-md-6 col-lg-4{% endif; %}">
+                    <div class="team-card position-relative">
+                        <img src="{{ $membro['foto'] }}" class="img-fluid" alt="{{ $membro['nome'] }}">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h5 class="overlay-title">{{ $membro['nome'] }}</h5>
+                                <p class="overlay-text">{{ $membro['cargo'] }}</p>
+                                <p class="overlay-summary">{{ $membro['resumo'] }}</p>
+                                <div class="social-icons">
+                                    <a href="{{ $membro['redes']['instagram'] }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                    <a href="{{ $membro['redes']['facebook'] }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                    <a href="{{ $membro['redes']['linkedin'] }}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        {% if $membro['destaque'] %}
+                            <span class="highlight-badge">Fundadora</span>
+                        {% endif; %}
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="carla.jpg" class="card-img-top" alt="Carla Castro">
-                <div class="card-body">
-                    <h5 class="card-title">Carla Castro</h5>
-                    <p class="card-text">Assessoria de Imprensa.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="eduardo.jpg" class="card-img-top" alt="Eduardo Raupp">
-                <div class="card-body">
-                    <h5 class="card-title">Eduardo Raupp</h5>
-                    <p class="card-text">Comercial e Consultoria SC.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="/assets/imgs/heloisa.jpg" class="card-img-top" alt="Heloisa Peres">
-                <div class="card-body">
-                    <h5 class="card-title">Heloisa Peres</h5>
-                    <p class="card-text">Direção Artística e Produção Executiva.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="/assets/imgs/michelle.jpg" class="card-img-top" alt="Michelle Rodrigues">
-                <div class="card-body">
-                    <h5 class="card-title">Michelle Rodrigues</h5>
-                    <p class="card-text">Produção Cultural, Elaboração de Projetos.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="regina.jpg" class="card-img-top" alt="Regina Retzel">
-                <div class="card-body">
-                    <h5 class="card-title">Regina Retzel</h5>
-                    <p class="card-text">Assessoria e Produção Cultural para o 3º Setor.</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="thais.jpg" class="card-img-top" alt="Thais Krug">
-                <div class="card-body">
-                    <h5 class="card-title">Thais Krug</h5>
-                    <p class="card-text">Gestão de Mídias (Instagram).</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card team-card">
-                <img src="designer.jpg" class="card-img-top" alt="Gezi Vigil">
-                <div class="card-body">
-                    <h5 class="card-title">Gezi Vigil</h5>
-                    <p class="card-text">Designer</p>
-                </div>
-                <div class="card-footer">
-                    <div class="social-icons">
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
+            {% endforeach; %}
         </div>
     </div>
 </section>
