@@ -3,6 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname == "/admin/login") {
     navBar.style.display = "none";
   }
+
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+        console.log('Página recarregada via refresh. Redirecionando para /admin/home...');
+        window.location.href = '/admin/home';
+    }
   const sidebar = document.getElementById('sidebar');
             const mainContent = document.getElementById('main-content');
             const toggleButton = document.getElementById('toggle-sidebar');
