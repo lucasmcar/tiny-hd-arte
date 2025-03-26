@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Core\View\View;
 use App\Helper\InputFilterHelper;
+use App\Helper\JsonHelper;
 use App\Helper\MailerHelper;
 use App\Repository\DepoimentoRepository;
 
@@ -116,7 +117,15 @@ class HomeController extends Controller
             'title' => 'Contato',
         ];
 
-        return new View('site/contato', $data);
+        $styles = [
+            'assets/css/contato.css',
+        ];
+
+        $script = [
+            'assets/js/contato.js'
+        ];
+
+        return new View(view: 'site/contato', vars: $data, styles: $styles, scripts: $script);
     }
 
     public function criaDepoimento()
@@ -130,6 +139,8 @@ class HomeController extends Controller
 
     public function enviarEmail()
     {
+      
+        header('Content-Type: application/json'); // Garante o tipo de conteúdo
         $data = InputFilterHelper::filterInputs(INPUT_POST, [
             'nome',
             'email',
@@ -146,14 +157,13 @@ class HomeController extends Controller
             $_ENV['EF_NAME']
         );
 
-        
-
-
         $emailHelper->addRecipient($_ENV['EF_EMAIL'], $_ENV['EF_NAME']);
         $emailHelper->setSubject($data['assunto']);
         $emailHelper->setBody($data['mensagem']);
-        $emailHelper->send();
-
-        
+        if($emailHelper->send()){
+            echo JsonHelper::toJson(['success' => true]);
+        } else {
+            echo JsonHelper::toJson(['success' => false]);
+        }
     }
 }
