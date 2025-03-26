@@ -108,7 +108,7 @@ body::-webkit-scrollbar-thumb:hover {
     <p class="hda-text">Entre em contato conosco para mais informações sobre nossos serviços.</p>
 
     <!-- Formulário -->
-    <form action="processa_contato.php" method="POST">
+    <form action="/contato/email" method="POST">
         <div class="mb-3">
             <input type="text" class="form-control" name="nome" placeholder="Seu Nome" required>
         </div>

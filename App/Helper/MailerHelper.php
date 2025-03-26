@@ -17,11 +17,14 @@ class MailerHelper
         // Configuração do servidor
         $this->mail->isSMTP();
         $this->mail->Host = $host;
+        $this->mail->CharSet = "UTF-8";
         $this->mail->SMTPAuth = true;
         $this->mail->Username = $username;
         $this->mail->Password = $password;
-        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $this->mail->SMTPKeepAlive = true;  
+        $this->mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         $this->mail->Port = $port;
+        $this->mail->Mailer = 'smtp';
 
         // Remetente
         $this->mail->setFrom($fromEmail, $fromName);

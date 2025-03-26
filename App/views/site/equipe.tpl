@@ -138,8 +138,10 @@
                                 </div>
                             </div>
                         </div>
-                        {% if $membro['destaque'] %}
+                        {% if $membro['destaque'] == true && $membro['nome'] == 'Heloisa Peres' %}
                             <span class="highlight-badge">Fundadora</span>
+                        {% elseif $membro['destaque'] == true && $membro['nome'] == 'Michelle Rodrigues'  %}
+                            <span class="highlight-badge">Sócia</span>
                         {% endif; %}
                     </div>
                 </div>

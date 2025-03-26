@@ -84,7 +84,17 @@ class ProjectController
                 'post_date' => '2023-10-01',
                 'content' => 'O festival local que ocorreu em agosto desse mes, trouxe grandes convidados da música nacional e também mostrou ao público revelações locais.',
                 'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg'
-            ]
+            ],
+            'circuito-urbano-restinga' => [
+                'title' => 'Circuito Urbano Na Restinga 2025',
+                'description' => 'Projeto de Cultura Hip Hop.',
+                'image' => '/assets/imgs/cur.jpg',
+                'details' => 'Será realizado em Maio de 2025, nos dias 2, 3 e 4',
+                'author' => 'Michelle Rodrigues',
+                'post_date' => '2025-03-15',
+                'content' => 'O Circuito Urbano na Restinga 2025 é um projeto que visa promover a cultura Hip Hop na região da Restinga, em Porto Alegre. Com oficinas, shows e intervenções artísticas, o evento busca valorizar a produção cultural local e incentivar a participação da comunidade. A HD Arte é parceira nessa iniciativa, contribuindo com a produção e divulgação do projeto.',
+                'extra_image' => '/assets/imgs/cur-extra.jpg'
+            ],
         ];
         
 
@@ -111,7 +121,28 @@ class ProjectController
 
     private function fetchAllProjects()
     {
+
+       /* 'Territórios Criativos - SEDAC RS 2025
+RS - Seguro Circuito Urbano na Restinga - Projeto de Cultura Hip Hop
+Projeto PNAB 32/RS Música - Memória Popular 4 Edições
+Festival Zumbi PNAB RS - Festivais e Mostras
+PNAB POA - LIGA dos Blocos de Carnaval de Rua Descentralizados de Porto Alegre e RS
+Nossa Arte Circula RS 2024 - 2 Projetos Contemplados
+Especial Luiz Melodia de Paulo Dionísio e Gilberto Oliveira
+Meu Canto de Luciara Batista
+Arte Negra do Sul Edição 2025 - Roaunet';*/
+        
         return [
+            'circuito-urbano-restinga' => [
+                'title' => 'Circuito Urbano na Restinga 2025',
+                'slug' => 'circuito-urbano-restinga',
+                'description' => 'Projeto de Cultura Hip Hop.',
+                'short_description' => 'Rio Grande do Sul, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/cur-extra.jpg',
+                'video' => '/assets/imgs/cur.mp4',
+                'is_featured' => true,
+                'status' => 'approved' // Aprovado
+            ],
             'festa-junina-2025' => [
                 'title' => 'Festa Junina de Porto Alegre 2025',
                 'slug' => 'festa-junina-2025',

@@ -3,7 +3,8 @@
 namespace App\Controller;
 
 use App\Core\View\View;
-
+use App\Helper\InputFilterHelper;
+use App\Helper\MailerHelper;
 use App\Repository\DepoimentoRepository;
 
 class HomeController extends Controller
@@ -125,5 +126,34 @@ class HomeController extends Controller
         ];
 
         return new View('site/cria-depoimento', $data);
+    }
+
+    public function enviarEmail()
+    {
+        $data = InputFilterHelper::filterInputs(INPUT_POST, [
+            'nome',
+            'email',
+            'assunto',
+            'mensagem'
+        ]);
+
+        $emailHelper = new MailerHelper(
+            $_ENV['E_HOST'],
+            $_ENV['E_PORT'],
+            $_ENV['E_USER'],
+            $_ENV['E_PASS'],
+            $_ENV['EF_EMAIL'],
+            $_ENV['EF_NAME']
+        );
+
+        
+
+
+        $emailHelper->addRecipient($_ENV['EF_EMAIL'], $_ENV['EF_NAME']);
+        $emailHelper->setSubject($data['assunto']);
+        $emailHelper->setBody($data['mensagem']);
+        $emailHelper->send();
+
+        
     }
 }

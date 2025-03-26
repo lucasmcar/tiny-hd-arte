@@ -21,15 +21,19 @@ $router->get('/projetos/aprovados', 'ProjectController', 'approved'); // Projeto
 $router->get('/projetos/em-andamento', 'ProjectController', 'ongoing');
 $router->get('/projetos/{slug}', 'ProjectController', 'show');
 $router->get('/artigo/{created_at}/{slug}', 'BlogController', 'mostrarArtigo');
+$router->post('/contato/email', 'HomeController','enviarEmail');
 
 
 $router->group('/admin', function($router) {
+    $router->get('/perfil', 'PerfilController', 'perfil');
     $router->get('/novo/blog', 'BlogController', 'novoBlog');
     $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
     $router->get('/nova/conta', 'UserController', 'registrar');
     $router->get('/login', 'UserController','login');
     $router->get('/home', 'HomeAdminController','home');
     $router->get('/todos/servicos', 'HomeAdminController','todosServicos');
+    $router->get('/parceiros/todos', 'ParceiroController','todosParceiros');
+    $router->get('/parceiros/gerenciar', 'ParceiroController','gerenciar');
     $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
     $router->get('/depoimentos/gerenciar', 'DepoimentoController','gerenciarDepoimentos');
     $router->get('/posts', 'BlogController','posts');
@@ -38,3 +42,9 @@ $router->group('/admin', function($router) {
     $router->get('/teste/{id}/p/{postId?}/{c?}/{commentId?}', 'HomeController','showPost');
 });
 
+
+$router->domain('localhost:8000', function($router) {
+    $router->get('/admin', 'HomeAdminController', 'home');
+
+});
+       

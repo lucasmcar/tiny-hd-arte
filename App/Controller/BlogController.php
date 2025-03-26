@@ -29,6 +29,7 @@ class BlogController
         ];
 
         $scripts = [
+        '/assets/js/main-admin.js',
             '/assets/js/posts.js'
         ];
 
@@ -157,7 +158,7 @@ class BlogController
     public function novoBlog()
     {
         $data = [
-            'title' => 'Novo Blog'
+            'title' => 'Novo Artigo',
         ];
 
         $styles = [

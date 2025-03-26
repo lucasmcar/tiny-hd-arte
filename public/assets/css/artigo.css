@@ -14,10 +14,60 @@
     margin-bottom: 30px;
 }
 
+.image-preview {
+    margin-top: 10px;
+}
+
+.preview-img {
+    max-width: 100px;
+    margin: 5px;
+}
+
+/* Estilo do Select no Estilo Netflix */
+.toolbar-select {
+    padding: 5px 25px 5px 10px; /* Espaço para a seta personalizada */
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    appearance: none; /* Remove a seta padrão do navegador */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23e50914' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); /* Seta personalizada em vermelho */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.toolbar-select:hover {
+    background-color: #444;
+}
+
+.toolbar-select:focus {
+    outline: none;
+    border-color: #e50914;
+    background-color: #444;
+}
+
+.toolbar-select option {
+    background-color: #222;
+    color: #fff;
+}
+
 .article-title {
     color: #fff;
     font-size: 2.5rem;
     margin: 0;
+}
+
+.resizable-img {
+    cursor: nwse-resize; /* Indica redimensionamento */
+    border: 2px solid transparent;
+    transition: border 0.3s ease;
+}
+
+.resizable-img:hover {
+    border: 2px solid #e50914;
 }
 
 .article-meta {
@@ -49,6 +99,36 @@
 .article-footer {
     margin-top: 30px;
     text-align: center;
+}
+
+.toolbar-btn i {
+    font-size: 1rem;
+}
+
+#image-upload-btn {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editor-content {
+    background-color: #222;
+    color: #fff;
+    padding: 15px;
+    border: 1px solid #444;
+    min-height: 200px;
+    border-radius: 5px;
+}
+
+.editor-content p, 
+.editor-content h1, 
+.editor-content h2, 
+.editor-content h3, 
+.editor-content h4, 
+.editor-content h5, 
+.editor-content h6 {
+    margin: 0 0 10px;
 }
 
 /* Responsividade */

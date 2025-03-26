@@ -243,7 +243,7 @@
                     <i class="bi bi-gear"></i><span>Configurações</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="dropdown-item nav-link" data-page="configuracoes/perfil"><i class="bi bi-person"></i> Perfil</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="perfil"><i class="bi bi-person"></i> Perfil</a></li>
                     <li><a href="#" class="dropdown-item nav-link" data-page="configuracoes/site"><i class="bi bi-globe"></i> Site</a></li>
                 </ul>
             </li>
@@ -266,7 +266,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="#" class="dropdown-item nav-link" data-page="gerenciar/parceiros"><i class="bi bi-tools"></i> Gerenciar</a></li>
-                    <li><a href="#" class="dropdown-item nav-link" data-page="parceiros"><i class="bi bi-people"></i> Lista de Parceiros</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="parceiros/todos"><i class="bi bi-people"></i> Lista de Parceiros</a></li>
                 </ul>
             </li>
 
