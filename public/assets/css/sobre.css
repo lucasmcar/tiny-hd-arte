@@ -1,0 +1,154 @@
+body {
+    background: #141414;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding-top: 80px; /* Espaço para navbar fixo */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #333 #141414; /* Firefox: thumb e track */
+}
+
+/* WebKit Scrollbar */
+body::-webkit-scrollbar {
+    width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.hda-section {
+    padding: 40px 0;
+}
+
+.hda-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.hda-subtitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.hda-text {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.about-card {
+    background: #222;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.about-card:hover {
+    transform: scale(1.05);
+}
+
+.about-card ul {
+    list-style: none;
+    padding: 0;
+    color: #e0e0e0;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.about-card ul li {
+    margin-bottom: 10px;
+}
+
+.artist-card {
+    background: #222;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
+    width: 250px; /* Largura fixa para consistência */
+    flex: 0 0 auto; /* Impede que o card se estique */
+    text-align: center;
+}
+
+.artist-card:hover {
+    transform: scale(1.05);
+}
+
+.artist-card h5 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.artist-card p {
+    color: #e0e0e0;
+    font-size: 0.9rem;
+}
+
+/* Carrossel horizontal */
+.artists-carousel {
+    display: flex;
+    overflow-x: auto;
+    gap: 24px; /* Espaçamento reduzido entre os cards */
+    padding: 10px 0;
+    scroll-behavior: smooth; /* Rolagem suave */
+    justify-content: flex-start; /* Alinhamento inicial, mas centraliza com JS se desejado */
+}
+
+.artists-carousel::-webkit-scrollbar {
+    height: 8px;
+}
+
+.artists-carousel::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+.artists-carousel::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+}
+
+.artists-carousel::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.btn-hda {
+    background-color: #e50914;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    color: #fff;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-hda:hover {
+    background-color: #f40612;
+    color: #fff;
+    text-decoration: none;
+}

@@ -80,3 +80,68 @@
     background-color: #333;
     color: #e50914; /* Vermelho hda no hover */
 }
+
+.sponsors-section {
+    background-color: #181818; /* Cinza escuro Netflix */
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.sponsors-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+}
+
+.sponsor-item {
+    text-align: center;
+    padding: 10px;
+}
+
+.sponsor-logo {
+    max-width: 150px; /* Limita o tamanho do logo */
+    
+    min-height: 50px;
+    height: auto;
+    border-radius: 4px;
+    transition: transform 0.3s ease;
+}
+
+.sponsor-logo:hover {
+    transform: scale(1.05); /* Efeito de hover sutil */
+}
+
+.sponsor-name {
+    font-size: 1rem;
+    color: #b3b3b3;
+    margin-top: 5px;
+}
+
+/* Ajustes no carrossel no estilo Netflix */
+.carousel-indicators [data-bs-target] {
+    background-color: #e50914; /* Vermelho Netflix para bolinhas */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 5px;
+}
+
+.carousel-indicators .active {
+    background-color: #f40612; /* Vermelho mais claro para o ativo */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #e50914; /* Vermelho Netflix */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-size: 50%;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: #f40612;
+}

@@ -63,8 +63,13 @@ class ProjectController
                 'author' => 'João Silva',
                 'post_date' => '2025-03-15',
                 'content' => 'A Festa Junina de Porto Alegre 2025 foi um marco cultural, reunindo milhares de pessoas em uma celebração vibrante. Com apresentações de quadrilhas, shows de artistas locais e uma variedade de comidas típicas, o evento destacou a riqueza da tradição gaúcha. O planejamento começou meses antes, com captação de recursos via editais culturais.',
-                'extra_image' => '/assets/imgs/festa-junina-2025-extra.jpg'
+                'extra_image' => '/assets/imgs/festa-junina-2025-extra.jpg',
+                'sponsors' => [
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
+                ]
             ],
+            
             'festival-musica-2024' => [
                 'title' => 'Festival de Música 2024',
                 'description' => 'Evento nacional com artistas renomados.',
@@ -73,8 +78,13 @@ class ProjectController
                 'author' => 'Maria Oliveira',
                 'post_date' => '2024-09-01',
                 'content' => 'O Festival de Música 2024 trouxe ao palco grandes nomes da música brasileira, como Anitta e Jorge Ben Jor. Realizado em São Paulo, o evento contou com uma produção impecável e um público de mais de 10.000 pessoas. A HD Arte foi responsável pela gestão financeira e logística, garantindo o sucesso do festival.',
-                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg'
+                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg',
+                'sponsors' => [
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
+                ]
             ],
+            
             'show-local-2023' => [
                 'title' => 'Show local 2023',
                 'description' => 'Evento local de 2023 com artistas renomados.',
@@ -83,8 +93,13 @@ class ProjectController
                 'author' => 'Maria Paula',
                 'post_date' => '2023-10-01',
                 'content' => 'O festival local que ocorreu em agosto desse mes, trouxe grandes convidados da música nacional e também mostrou ao público revelações locais.',
-                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg'
+                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg',
+                'sponsors' => [
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
+                ]
             ],
+            
             'circuito-urbano-restinga' => [
                 'title' => 'Circuito Urbano Na Restinga 2025',
                 'description' => 'Projeto de Cultura Hip Hop.',
@@ -93,7 +108,11 @@ class ProjectController
                 'author' => 'Michelle Rodrigues',
                 'post_date' => '2025-03-15',
                 'content' => 'O Circuito Urbano na Restinga 2025 é um projeto que visa promover a cultura Hip Hop na região da Restinga, em Porto Alegre. Com oficinas, shows e intervenções artísticas, o evento busca valorizar a produção cultural local e incentivar a participação da comunidade. A HD Arte é parceira nessa iniciativa, contribuindo com a produção e divulgação do projeto.',
-                'extra_image' => '/assets/imgs/cur-extra.jpg'
+                'extra_image' => '/assets/imgs/cur-extra.jpg',
+                'sponsors' => [
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
+                ]
             ],
         ];
         

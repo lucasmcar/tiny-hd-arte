@@ -55,16 +55,38 @@ class HomeController extends Controller
             'title' => 'Sobre a HD Arte',
         ];
 
-        return new View('site/sobre', $data);
+        $styles = [
+            'assets/css/sobre.css',
+        ];
+
+        $scripts = [
+            '/assets/js/sobre.js'
+        ];
+
+        return new View(view: 'site/sobre', vars: $data, styles: $styles, scripts: $scripts);
     }
 
     public function servico()
     {
         $data = [
             'title' => 'Serviços',
+            'servicos' => [
+                ["icone" => "bi-file-earmark-text", "titulo" => "Análise de Propostas para Editais", "descricao" => "Revisão e análise detalhada de propostas para editais públicos e privados."],
+                ["icone" => "bi-lightbulb", "titulo" => "Elaboração de Projetos", "descricao" => "Criação de projetos estratégicos e personalizados para seu negócio."],
+                ["icone" => "bi-calendar-check", "titulo" => "Planejamento e Gerenciamento", "descricao" => "Organização e supervisão de projetos para garantir sua execução eficiente."],
+                ["icone" => "bi-cash-coin", "titulo" => "Prestação de Contas", "descricao" => "Gestão financeira e transparência na prestação de contas."],
+                ["icone" => "bi-mic", "titulo" => "Direção Artística e Produção Executiva", "descricao" => "Supervisão artística e logística para produções culturais e eventos."],
+                ["icone" => "bi-megaphone", "titulo" => "Consultoria de Mídias e Redes Sociais", "descricao" => "Estratégias para crescimento orgânico e campanhas pagas eficientes."],
+                ["icone" => "bi-newspaper", "titulo" => "Assessoria de Imprensa", "descricao" => "Divulgação estratégica para fortalecimento da marca na mídia."],
+                ["icone" => "bi-instagram", "titulo" => "Gestão de Mídias (Instagram, etc.)", "descricao" => "Gerenciamento profissional de redes sociais para engajamento e conversão."]
+            ]
         ];
 
-        return new View('site/servicos', $data);
+        $styles = [
+            '/assets/css/servicos-site.css'
+        ];
+
+        return new View(view: 'site/servicos', vars: $data, styles: $styles);
     }
 
     public function equipe()
@@ -87,7 +109,11 @@ class HomeController extends Controller
             'equipe' => $equipe
         ];
 
-        return new View('site/equipe', $data);
+        $styles = [
+            '/assets/css/equipe.css'
+        ];
+
+        return new View(view: 'site/equipe', vars: $data, styles: $styles);
     }
 
     public function depoimentos()
@@ -106,9 +132,13 @@ class HomeController extends Controller
 
         ];
 
+        
+        $styles = [
+            '/assets/css/depoimentos-site.css'
+        ];
 
 
-        return new View('site/depoimento', $data);
+        return new View(view: 'site/depoimento', vars: $data, styles: $styles);
     }
 
     public function contato()
@@ -134,7 +164,7 @@ class HomeController extends Controller
             'title' => 'Cria Depoimento',
         ];
 
-        return new View('site/cria-depoimento', $data);
+        return new View(view: 'site/cria-depoimento', vars: $data);
     }
 
     public function enviarEmail()
