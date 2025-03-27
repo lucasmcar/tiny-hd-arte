@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #141414; 
+    color: #fff;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); 
+}
+
+.logo-container img {
+    width: 200px; 
+    margin-bottom: 20px;
+    display: block; 
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.login-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #222; 
+    padding: 40px; 
+    border-radius: 8px; 
+    width: 300px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); 
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem; 
+    font-weight: 600; 
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 12px; 
+    margin: 10px 0;
+    border: 2px solid transparent; 
+    border-radius: 5px;
+    background: #333; 
+    color: #fff;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.login-container input[type="email"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #e50914; 
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.8); 
+    outline: none;
+}
+
+.login-container input::placeholder {
+    color: #999; 
+}
+
+.login-container button {
+    width: 100%;
+    padding: 12px; 
+    background: #e50914; 
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 600; 
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-transform: uppercase; 
+}
+
+.login-container button:hover {
+    background: #b20710; 
+}
+
+.login-container .links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.login-container .links a {
+    color: #b3b3b3;
+    text-decoration: none;
+    font-size: 0.9rem;
+    display: block; 
+    margin: 5px 0; 
+    transition: color 0.3s ease;
+}
+
+.login-container .links a:hover {
+    color: #e50914; 
+}

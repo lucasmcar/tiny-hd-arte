@@ -245,6 +245,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="#" class="dropdown-item nav-link" data-page="perfil"><i class="bi bi-person"></i> Perfil</a></li>
                     <li><a href="#" class="dropdown-item nav-link" data-page="configuracoes/site"><i class="bi bi-globe"></i> Site</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="configuracoes/log"><i class="bi bi-card-list"></i></i> Logs</a></li>
                 </ul>
             </li>
 

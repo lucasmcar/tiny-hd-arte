@@ -13,11 +13,13 @@ class UserController
             'title' => 'Login'
         ];
 
-        $styles = [];
+        $styles = [
+            '/assets/css/admin/login.css'
+        ];
         $scripts =[];
 
 
-        return new View('admin/login', $data, $styles, $scripts, 'admin-layout');
+        return new View(view: 'admin/login', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');
     }
 
     public function registrar()
@@ -33,7 +35,7 @@ class UserController
             '/assets/js/cria_conta.js'
         ];
 
-        return new View('admin/cria_conta', $data, $styles, $scripts, 'admin-layout');
+        return new View(view: 'admin/cria_conta', vars: $data, styles:  $styles, scripts: $scripts, layout: 'admin-layout');
     }
 
     public function criarUsuario()

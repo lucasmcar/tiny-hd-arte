@@ -29,8 +29,10 @@
             <textarea class="form-control" name="mensagem" rows="4" placeholder="Sua Mensagem" required></textarea>
         </div>
         <button type="submit" class="btn btn-custom" id="submitBtn">Enviar</button>
-        <div id="loadingSpinner" class="netflix-spinner" style="display: none;">
-            <div class="spinner-circle"></div>
+        <div id="loadingSpinner" class="spinner" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Enviando...</span>
+            </div>
         </div>
     </form>
 
