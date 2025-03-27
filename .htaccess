@@ -1,5 +1,10 @@
 <IfModule mod_rewrite.c>
 	RewriteEngine on
+
+	# Garante que o cabeçalho Authorization seja passado
+    RewriteCond %{HTTP:Authorization} ^(.+)$
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+	
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule ^(.*)$ public/index.php/$1 [L]

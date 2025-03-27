@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Core\View\View;
+use App\Model\User;
 use App\Repository\DepoimentoRepository;
 
 class HomeAdminController

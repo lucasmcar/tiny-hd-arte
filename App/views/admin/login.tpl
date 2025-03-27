@@ -4,14 +4,13 @@
         <img src="/assets/imgs/logo.png" alt="Logo HD Arte">
     </div>
     <h2>Entrar</h2>
-    <form action="/authenticate">
-        <input type="email" placeholder="E-mail" required>
-        <input type="password" placeholder="Senha" required>
+    <form action="/admin/signIn" method="post">
+        <input type="email" placeholder="E-mail" name="email" required>
+        <input type="password" placeholder="Senha" name="senha" required>
         @csrf
         <button type="submit">Entrar</button>
         <div class="links">
-            <a href="#">Esqueceu a senha?</a>
-            <a href="nova/conta">Criar uma conta</a>
+            <a href="conta/esqueci-senha">Esqueceu a senha?</a>
         </div>
     </form>
 </div>

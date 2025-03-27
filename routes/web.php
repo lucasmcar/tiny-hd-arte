@@ -25,23 +25,31 @@ $router->post('/contato/email', 'HomeController','enviarEmail');
 
 
 $router->group('/admin', function($router) {
-    $router->get('/perfil', 'PerfilController', 'perfil');
-    $router->get('/novo/blog', 'BlogController', 'novoBlog');
-    $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
-    $router->get('/nova/conta', 'UserController', 'registrar');
     $router->get('/login', 'UserController','login');
-    $router->get('/home', 'HomeAdminController','home');
-    $router->get('/todos/servicos', 'HomeAdminController','todosServicos');
-    $router->get('/parceiros/todos', 'ParceiroController','todosParceiros');
-    $router->get('/parceiros/gerenciar', 'ParceiroController','gerenciar');
-    $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
-    $router->get('/depoimentos/gerenciar', 'DepoimentoController','gerenciarDepoimentos');
-    $router->get('/configuracoes/log', 'LogController','index');
-    $router->post('/configuracoes/log/export', 'LogController','exportPdf');
-    $router->get('/posts', 'BlogController','posts');
-    $router->get('/posts/{id}', 'BlogController','post');
-    $router->get('/teste/{id}', 'HomeController','teste');
-    $router->get('/teste/{id}/p/{postId?}/{c?}/{commentId?}', 'HomeController','showPost');
+    $router->get('/logout', 'UserController', 'logout');
+    $router->post('/signIn', 'UserController','signIn');
+    $router->group('', function($router){
+        $router->get('/perfil', 'PerfilController', 'perfil');
+        $router->get('/teste', 'UserController', 'insertData');
+        $router->get('/novo/blog', 'BlogController', 'novoBlog');
+        $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
+        $router->get('/nova/conta', 'UserController', 'registrar');
+        $router->get('/home', 'HomeAdminController','home');
+        
+        $router->get('/todos/servicos', 'HomeAdminController','todosServicos');
+        $router->get('/parceiros/todos', 'ParceiroController','todosParceiros');
+        $router->get('/parceiros/gerenciar', 'ParceiroController','gerenciar');
+        $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
+        $router->get('/depoimentos/gerenciar', 'DepoimentoController','gerenciarDepoimentos');
+        $router->get('/configuracoes/log', 'LogController','index');
+        $router->post('/configuracoes/log/export', 'LogController','exportPdf');
+        $router->get('/evento', 'EventoController','index');
+        $router->get('/evento/participantes', 'EventoController','participantes');
+        $router->get('/posts', 'BlogController','posts');
+        $router->get('/posts/{id}', 'BlogController','post');
+        $router->get('/teste/{id}', 'HomeController','teste');
+        $router->get('/teste/{id}/p/{postId?}/{c?}/{commentId?}', 'HomeController','showPost');
+    },[AuthMiddleware::class]);
 });
 
 

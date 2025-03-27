@@ -31,6 +31,15 @@ class ModelBase
         return $stmt->fetch();
     }
 
+    public function findForSign($email)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE email = :email LIMIT 1";
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
+
     public function create($data)
     {
         $fields = implode(',', $this->fillable);

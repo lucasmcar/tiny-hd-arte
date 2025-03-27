@@ -225,7 +225,15 @@
         <ul>
             <!-- Dashboard -->
             <li><a href="#" class="nav-link" data-page="dashboard"><i class="bi bi-house-door"></i><span>Dashboard</span></a></li>
-
+            <li>
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="bi bi-calendar-event"></i><span>Eventos</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item nav-link" data-page="evento"><i class="bi bi-tools"></i>Gerenciar</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="evento/participantes"><i class="bi bi-people-fill"></i> Participantes</a></li>
+                </ul>
+            </li>
             <!-- Blog (Submenu) -->
             <li>
                 <a href="#" class="nav-link dropdown-toggle">

@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Core\View\View;
 use App\Helper\InputFilterHelper;
+use App\Model\User;
+use App\Core\Security\Jwt\JwtHandler;
 
 class UserController
 {
@@ -46,5 +48,72 @@ class UserController
             'senha'
         ]);
 
+    }
+
+    public function insertData()
+    {
+        $usuario = new User();
+
+        $usuario->create([
+            'nome' => 'Teste',
+            'email' => 'teste@teste.com.br',
+            'senha' => password_hash('123456', PASSWORD_BCRYPT),
+            'usuario' => 'teste',
+        ]);
+    }
+
+    public function signIn()
+    {
+        $data = InputFilterHelper::filterInputs(INPUT_POST, [
+            'email',
+            'senha'
+        ]);
+
+        $user = new User();
+        $email = $user->findForSign($data['email']);
+
+        if($email && password_verify($data['senha'], $email['senha'])) {
+           
+            $payload = [
+                'iat' => time(),              // Issued at
+                'exp' => time() + (60 * 60),  // Expira em 1 hora
+                'sub' => $email['id'],         // Subject (ID do usuário)
+                'name' => $email['nome'],      // Nome do usuário
+                'email' => $email['email']     // E-mail do usuário
+            ];
+
+            // Gera o token com JwtHandler
+            $jwt = JwtHandler::generateToken($payload);
+
+            // Inicia a sessão se não estiver ativa
+            if (!session_id()) {
+                session_start();
+            }
+            $_SESSION['jwt'] = $jwt; // Armazena o token na sessão
+
+            // Redireciona para /admin/home
+            header('Location: /admin/home');
+        } 
+        else{
+            header('location: /admin/login');
+        }
+
+    }
+
+    public function logout()
+    {
+        if (!session_id()) {
+            session_start();
+        }
+
+        // Limpa o JWT da sessão
+        unset($_SESSION['jwt']);
+
+        // Opcional: Destroi completamente a sessão
+        session_destroy();
+
+        // Redireciona para a página de login
+        header('Location: /admin/login');
+        exit;
     }
 }
