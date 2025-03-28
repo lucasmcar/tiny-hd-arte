@@ -6,6 +6,7 @@ use App\Core\View\View;
 use App\Helper\InputFilterHelper;
 use App\Model\User;
 use App\Core\Security\Jwt\JwtHandler;
+use App\Core\Security\Csrf;
 
 class UserController
 {
@@ -66,13 +67,20 @@ class UserController
     {
         $data = InputFilterHelper::filterInputs(INPUT_POST, [
             'email',
-            'senha'
+            'senha',
+            '_csrf_token'
         ]);
+
+        if (!Csrf::verifyToken($data['_csrf_token'])) {
+            header('location: /admin/login');
+            return;
+        }
 
         $user = new User();
         $email = $user->findForSign($data['email']);
 
-        if($email && password_verify($data['senha'], $email['senha'])) {
+
+        if($email && password_verify($data['senha'], $email[0]['senha'])) {
            
             $payload = [
                 'iat' => time(),              // Issued at

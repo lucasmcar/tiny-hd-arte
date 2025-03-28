@@ -11,8 +11,15 @@ class HomeAdminController
     public function home()
     {
 
+
         $data = [
             'title' => 'Administração',
+            'totalUsers' => 2,
+            'totalDepoimentos' => 3,
+            'totalPosts' => 4,
+            'totalEventos' => 10,
+            'totalProjetos' => 14,
+            'totalServicos' => 8,
         ];
 
         $styles = [

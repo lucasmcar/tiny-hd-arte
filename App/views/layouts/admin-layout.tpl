@@ -224,7 +224,7 @@
         </div>
         <ul>
             <!-- Dashboard -->
-            <li><a href="#" class="nav-link" data-page="dashboard"><i class="bi bi-house-door"></i><span>Dashboard</span></a></li>
+            <li><a href="#" class="nav-link" data-page="home"><i class="bi bi-house-door"></i><span>Dashboard</span></a></li>
             <li>
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="bi bi-calendar-event"></i><span>Eventos</span>

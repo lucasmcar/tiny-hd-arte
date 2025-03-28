@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 namespace App\Model;
 
 use App\Connection\DB;
@@ -8,69 +7,72 @@ class ModelBase
 {
     protected $table;
     protected $fillable;
+    protected $db;
 
-    protected function connect()
+    public function __construct()
     {
-        return new DB();
+        $this->db = new DB(); // Uma única instância por modelo
     }
 
-    public function all()
+    protected function connect(): DB
+    {
+        return $this->db;
+    }
+
+    public function all(): array
     {
         $sql = "SELECT * FROM {$this->table}";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        $this->connect()->prepare($sql);
+        return $this->connect()->rs();
     }
 
-    public function find($id)
+    public function find($id): ?array
     {
         $sql = "SELECT * FROM {$this->table} WHERE id = :id";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch();
+        $this->connect()->prepare($sql);
+        $this->connect()->bind(':id', $id);
+        return $this->connect()->one();
     }
 
-    public function findForSign($email)
+    public function findForSign($email): array
     {
         $sql = "SELECT * FROM {$this->table} WHERE email = :email LIMIT 1";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        return $stmt->fetch();
+        $this->connect()->prepare($sql);
+        $this->connect()->bind(':email', $email);
+        return $this->connect()->rs();
     }
 
-    public function create($data)
+    public function create($data): int
     {
         $fields = implode(',', $this->fillable);
         $values = ':' . implode(',:', $this->fillable);
         $sql = "INSERT INTO {$this->table} ({$fields}) VALUES ({$values})";
-        $stmt = $this->connect()->prepare($sql);
+        $this->connect()->prepare($sql);
         foreach ($this->fillable as $field) {
-            $stmt->bindParam(":$field", $data[$field]);
+            $this->connect()->bind(":$field", $data[$field]);
         }
-        return $stmt->execute();
+        $this->connect()->execute();
+        return $this->connect()->lastInsertId();
     }
 
-    public function update($id, $data)
+    public function update($id, $data): bool
     {
-        $fields = implode(' = :', $this->fillable) . ' = :';
-        $sql = "UPDATE {$this->table} SET {$fields} WHERE id = :id";
-        $stmt = $this->connect()->prepare($sql);
+        $fields = array_map(fn($field) => "$field = :$field", $this->fillable);
+        $setClause = implode(',', $fields);
+        $sql = "UPDATE {$this->table} SET {$setClause} WHERE id = :id";
+        $this->connect()->prepare($sql);
         foreach ($this->fillable as $field) {
-            $stmt->bindParam(":$field", $data[$field]);
+            $this->connect()->bind(":$field", $data[$field]);
         }
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        $this->connect()->bind(':id', $id);
+        return $this->connect()->execute();
     }
 
-    public function delete($id)
+    public function delete($id): bool
     {
         $sql = "DELETE FROM {$this->table} WHERE id = :id";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        $this->connect()->prepare($sql);
+        $this->connect()->bind(':id', $id);
+        return $this->connect()->execute();
     }
-
-    
 }

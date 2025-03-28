@@ -29,7 +29,7 @@ class AuthMiddleware
             echo "Unauthorized - Invalid or expired token";
             // Opcional: Limpa a sessão se o token expirar
             unset($_SESSION['jwt']);
-            return;
+            header('Location: /admin/login');
         }
 
         // Adiciona os dados do usuário ao request

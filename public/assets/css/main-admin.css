@@ -103,6 +103,7 @@ body::-webkit-scrollbar-thumb:hover {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 }
 
 h1, h2, h3 {
@@ -187,4 +188,41 @@ a:hover {
         margin-left: 200px;
         padding: 20px 10px;
     }
+}
+
+.content {
+    padding: 20px;
+    width: 100%;
+}
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    width: 100%;
+}
+.dashboard-card {
+    background: #222; /* Cor escura estilo Netflix */
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+.dashboard-card:hover {
+    transform: translateY(-5px);
+}
+.dashboard-card h3 {
+    margin: 0 0 10px;
+    font-size: 1.2em;
+}
+.dashboard-card .metric {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.dashboard-card span {
+    font-size: 0.9em;
+    opacity: 0.8;
 }
