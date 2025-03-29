@@ -8,6 +8,8 @@ class ModelBase
     protected $table;
     protected $fillable;
     protected $db;
+    private $conditions = [];
+    private $bindings = [];
 
     public function __construct()
     {
@@ -42,7 +44,7 @@ class ModelBase
         return $this->connect()->rs();
     }
 
-    public function create($data): int
+    public function create($data)
     {
         $fields = implode(',', $this->fillable);
         $values = ':' . implode(',:', $this->fillable);
@@ -74,5 +76,59 @@ class ModelBase
         $this->connect()->prepare($sql);
         $this->connect()->bind(':id', $id);
         return $this->connect()->execute();
+    }
+
+        // Adiciona uma cláusula WHERE
+    public function where($column, $operator, $value)
+    {
+        $paramName = ":param_" . count($this->bindings); // Gera um nome único para o binding
+        $column = "LOWER($column)"; // Adiciona LOWER para tornar a comparação insensível a maiúsculas/minúsculas
+        $value = strtolower($value); // Garante que o valor também seja convertido para minúsculas
+        $this->conditions[] = ['AND', "$column $operator $paramName"];
+        $this->bindings[$paramName] = $value;
+        return $this;
+    }
+
+    // Adiciona uma cláusula OR WHERE
+    public function orWhere($column, $operator, $value)
+    {
+        $paramName = ":param_" . count($this->bindings); // Gera um nome único para o binding
+        $column = "LOWER($column)"; // Adiciona LOWER para tornar a comparação insensível a maiúsculas/minúsculas
+        $value = strtolower($value); // Garante que o valor também seja convertido para minúsculas
+        $this->conditions[] = ['OR', "$column $operator $paramName"];
+        $this->bindings[$paramName] = $value;
+        return $this;
+    }
+
+    // Executa a consulta com as condições
+    public function get()
+    {
+        if (empty($this->conditions)) {
+            return $this->all();
+        }
+
+        $sql = "SELECT * FROM {$this->table} WHERE ";
+        $conditionsStr = '';
+        foreach ($this->conditions as $index => [$logic, $condition]) {
+            if ($index === 0) {
+                $conditionsStr .= $condition;
+            } else {
+                $conditionsStr .= " $logic $condition";
+            }
+        }
+        $sql .= $conditionsStr;
+
+        $stmt = $this->connect()->prepare($sql);
+        foreach ($this->bindings as $param => $value) {
+            $stmt->bindValue($param, $value, is_int($value) ? \PDO::PARAM_INT : \PDO::PARAM_STR);
+        }
+        $stmt->execute();
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+        // Reseta as condições e bindings para a próxima consulta
+        $this->conditions = [];
+        $this->bindings = [];
+
+        return $results;
     }
 }

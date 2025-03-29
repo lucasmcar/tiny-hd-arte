@@ -19,7 +19,9 @@ class UserController
         $styles = [
             '/assets/css/admin/login.css'
         ];
-        $scripts =[];
+        $scripts =[
+            '/assets/js/main-admin.js'
+        ];
 
 
         return new View(view: 'admin/login', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');

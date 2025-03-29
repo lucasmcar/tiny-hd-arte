@@ -1,0 +1,73 @@
+.content {
+  padding: 20px;
+}
+.upload-section {
+  margin-bottom: 20px;
+}
+.upload-section label {
+  font-size: 1.1em;
+  margin-right: 10px;
+}
+.upload-section input[type="file"] {
+  margin: 10px 0;
+}
+.upload-section button {
+  background: #e50914;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.upload-section button:hover {
+  background: #f40612;
+}
+
+.edital-table table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1e1e2f;
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.edital-table th,
+.edital-table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+.edital-table th {
+  background: #2a2a3d;
+}
+.edital-table a {
+  color: #e50914;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+.edital-table a::before {
+  content: url("data:image/svg+xml;base64,..."); /* Substitua por base64 de ícone PDF */
+  margin-right: 5px;
+}
+.edital-table select {
+  background: #333;
+  color: #fff;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+.log-section {
+  margin-top: 20px;
+}
+.log-section ul {
+  list-style: none;
+  padding: 0;
+}
+.log-section li {
+  background: #1e1e2f;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: #fff;
+}

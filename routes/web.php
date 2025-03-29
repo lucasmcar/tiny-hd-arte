@@ -29,22 +29,38 @@ $router->group('/admin', function($router) {
     $router->get('/logout', 'UserController', 'logout');
     $router->post('/signIn', 'UserController','signIn');
     $router->group('', function($router){
+        $router->get('/home', 'HomeAdminController','home');
         $router->get('/perfil', 'PerfilController', 'perfil');
-        $router->get('/teste', 'UserController', 'insertData');
+        
+        //Blog
         $router->get('/novo/blog', 'BlogController', 'novoBlog');
         $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
-        $router->get('/nova/conta', 'UserController', 'registrar');
-        $router->get('/home', 'HomeAdminController','home');
+        //$router->get('/nova/conta', 'UserController', 'registrar');
+
         
+        //Eventos
+        $router->get('/evento', 'EventoController','index');
+        $router->get('/evento/participantes', 'EventoController','participantes');
+
+        //Editais
+        $router->get('/editais', 'EditalController','editais');
+        $router->post('/upload-edital', 'EditalController','uploadEdital');
+        $router->get('/listar-editais', 'EditalControlle','listarEditais');
+        $router->post('/alterar-status-edital', 'EditalController','alterarStatusEdital');
+
+        //LOGS
+        $router->get('/configuracoes/log', 'LogController','index');
+        $router->get('/configuracoes/list-logs', 'LogController','listLogs');
+        $router->post('/configuracoes/clear-logs', 'LogController','clearLogs');
+
         $router->get('/todos/servicos', 'HomeAdminController','todosServicos');
         $router->get('/parceiros/todos', 'ParceiroController','todosParceiros');
         $router->get('/parceiros/gerenciar', 'ParceiroController','gerenciar');
         $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
         $router->get('/depoimentos/gerenciar', 'DepoimentoController','gerenciarDepoimentos');
-        $router->get('/configuracoes/log', 'LogController','index');
+        
         $router->post('/configuracoes/log/export', 'LogController','exportPdf');
-        $router->get('/evento', 'EventoController','index');
-        $router->get('/evento/participantes', 'EventoController','participantes');
+        
         $router->get('/posts', 'BlogController','posts');
         $router->get('/posts/{id}', 'BlogController','post');
         $router->get('/teste/{id}', 'HomeController','teste');

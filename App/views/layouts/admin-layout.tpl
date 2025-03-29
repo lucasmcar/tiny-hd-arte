@@ -231,6 +231,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a href="#" class="dropdown-item nav-link" data-page="evento"><i class="bi bi-tools"></i>Gerenciar</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="editais"><i class="bi bi-tools"></i>Editais</a></li>
                     <li><a href="#" class="dropdown-item nav-link" data-page="evento/participantes"><i class="bi bi-people-fill"></i> Participantes</a></li>
                 </ul>
             </li>

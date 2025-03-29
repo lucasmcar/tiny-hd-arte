@@ -31,7 +31,8 @@ class Register
         //'/@styles\(\s*(.+?)\s*\)/',
         //'/\{\{\s*\$(styles|scripts)\s*\}\}/' 
         '/@for\(\s*(.+?),\s*(.+?),\s*(.+?)\s*\)/',                                      
-        '/@endfor\(\)/',                                      
+        '/@endfor\(\)/',
+        '/\{\s*var\s*(.+?)\s*\}/'                                      
     ];
 
     protected static $replacements = [
@@ -52,12 +53,13 @@ class Register
         '<?php print_r($1); ?>',
         '<link rel="stylesheet" href="$1">',
         '<script src="$1"></script>',
-        '<input type="hidden" name="_csrf_token" value="<?php echo $this->vars["csrf_token"]; ?>">',
+        '<input type="hidden" name="_csrf_token" id="_csrf_token" value="<?php echo $this->vars["csrf_token"]; ?>">',
         '<?php echo date("Y"); ?>',
         /*'<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $script) { echo "<script src=\'$script\'></script>\n"; } ?>',
         '<?php $1 = is_array($1) ? $1 : []; foreach ($1 as $style) { echo "<link rel=\'stylesheet\' href=\'$style\'>\n"; } ?>',*/
         '<?php for( $i=$1; $i<=$2; $3++ ): ?>',
         '<?php endfor; ?>',
+        '<?php $1 ?>'
     ];
 
     public function __construct()
