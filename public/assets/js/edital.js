@@ -1,81 +1,173 @@
-document.addEventListener('DOMContentLoaded', () => loadEditais());
+console.log('editais.js carregado');
 
-    // Upload de edital
-    document.getElementById('upload-edital-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const fileInput = document.getElementById('edital-file');
-        const csrfToken = document.getElementById('_csrf_token').value;
-        const formData = new FormData();
-        formData.append('edital_file', fileInput.files[0]);
-        formData.append('_csrf_token', csrfToken);
+function initializeEditalEvents() {
+    console.log('Inicializando eventos de editais');
 
-        fetch('/admin/upload-edital', {
-            method: 'POST',
-            body: formData,
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                addLog(`Upload realizado: ${data.filename}`);
-                loadEditais(); // Recarrega a lista
-                fileInput.value = ''; // Limpa o input
-            } else {
-                alert('Erro ao fazer upload: ' + data.message);
+    const submitButton = document.getElementById('submitUpload');
+    const uploadForm = document.getElementById('upload-edital-form');
+    const loading = document.getElementById('loading');
+
+    if (submitButton && uploadForm) {
+        submitButton.addEventListener('click', () => {
+            const formData = new FormData(uploadForm);
+
+            if (loading) {
+                loading.style.display = 'block';
             }
-        })
-        .catch(error => console.error('Erro:', error));
-    });
 
-    // Carregar lista de editais
-    function loadEditais() {
-        fetch('/admin/listar-editais', { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
-        .then(response => response.json())
-        .then(data => {
-            const tbody = document.getElementById('edital-list');
-            tbody.innerHTML = '';
-            data.editais.forEach(edital => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${edital.name}</td>
-                    <td><a href="${edital.url}" target="_blank">${edital.filename}</a></td>
-                    <td>${edital.status}</td>
-                    <td>
-                        <select onchange="alterarStatus(${edital.id}, this.value)">
-                            <option value="Em Análise" ${edital.status === 'Em Análise' ? 'selected' : ''}>Em Análise</option>
-                            <option value="Aprovado" ${edital.status === 'Aprovado' ? 'selected' : ''}>Aprovado</option>
-                            <option value="Reprovado" ${edital.status === 'Reprovado' ? 'selected' : ''}>Reprovado</option>
-                        </select>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+            fetch('/admin/upload-edital', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const status = document.getElementById('uploadStatus');
+                status.textContent = data.message;
+
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+
+                if (data.success) {
+                    console.log('Upload bem-sucedido, chamando loadEditais');
+                    loadEditais();
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao fazer upload:', error);
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+                document.getElementById('uploadStatus').textContent = 'Erro ao fazer upload.';
             });
         });
     }
 
-    // Alterar status
-    function alterarStatus(id, status) {
-        fetch('/admin/alterar-status-edital', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest'
-            },
-            body: JSON.stringify({ id, status })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                addLog(`Status alterado: ${data.filename} para ${status}`);
-                loadEditais(); // Recarrega a lista
+    // Eventos para botões de status
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('approve-btn') || e.target.classList.contains('reject-btn')) {
+            const id = e.target.getAttribute('data-id');
+            const status = e.target.classList.contains('approve-btn') ? 'aprovado' : 'reprovado';
+            const csrfToken = document.querySelector('input[name="_csrf_token"]').value;
+            if (loading) {
+                loading.style.display = 'block';
             }
-        });
+
+            fetch('/admin/alterar-status-edital', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json', 
+                    'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken }, // },
+                body: JSON.stringify({ id, status, _csrf_token: csrfToken })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro na requisição 2: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Dados recebidos :', data);
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+                // Atualiza a linha correspondente na tabela
+                const row = document.querySelector(`tr[data-id="${data.id}"]`);
+                if (row) {
+                    const cells = row.getElementsByTagName('td');
+                    cells[0].textContent = data.name; // Nome (titulo)
+                    cells[1].textContent = data.filename; // Nome do arquivo
+                    cells[2].textContent = new Date(data.data_upload).toLocaleString('pt-BR'); // Data
+                    cells[3].textContent = data.status; // Status
+                    // A célula 4 contém os botões, não precisa atualizar
+                } else {
+                    console.warn('Linha não encontrada para o edital:', data.id);
+                }
+                /*if (data.success) {
+                    console.log('Status atualizado, chamando loadEditais');
+                    loadEditais();
+                }*/
+            })
+            .catch(error => {
+                console.error('Erro ao atualizar status:', error);
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+            });
+        }
+    });
+}
+
+function loadEditais() {
+    console.log('Carregando editais');
+    const loading = document.getElementById('loading');
+    if (loading) {
+        loading.style.display = 'block';
     }
 
-    // Adicionar log
-    /*function addLog(message) {
-        const logList = document.getElementById('log-list');
-        const li = document.createElement('li');
-        li.textContent = `${new Date().toLocaleString()} - ${message}`;
-        logList.insertBefore(li, logList.firstChild); // Adiciona no topo
-    }*/
+    fetch('/admin/listar-editais', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição: ' + response.status);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Dados recebidos:', data);
+        const tbody = document.getElementById('edital-list');
+        const noEditais = document.getElementById('no-editais');
+
+        if (loading) {
+            loading.style.display = 'none';
+        }
+
+        if (!tbody) {
+            console.error('Elemento editais-tbody não encontrado');
+            return;
+        }
+
+        tbody.innerHTML = '';
+
+        if (!data.editais || data.editais.length === 0) {
+            console.log('Nenhum edital encontrado');
+            tbody.innerHTML = '<tr><td colspan="5">Nenhum edital encontrado.</td></tr>';
+            noEditais.style.display = 'block';
+            return;
+        }
+
+        console.log('Renderizando', data.editais.length, 'editais');
+        noEditais.style.display = 'none';
+        data.editais.forEach(edital => {
+            const tr = document.createElement('tr');
+            tr.setAttribute('data-id', edital.id);
+            tr.innerHTML = `
+                <td>${edital.name || '-'}</td>
+                <td>${edital.filename || '-'}</td>
+                <td>${new Date(edital.data_upload).toLocaleString('pt-BR')}</td>
+                <td>${edital.status || 'em_analise'}</td>
+                <td>
+                    <button class="approve-btn" data-id="${edital.id}"><i class="bi bi-check-circle"></i></button>
+                    <button class="reject-btn" data-id="${edital.id}"><i class="bi bi-x-circle-fill"></i></button>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+    })
+    .catch(error => {
+        console.error('Erro ao carregar editais:', error);
+        if (loading) {
+            loading.style.display = 'none';
+        }
+    });
+}
+
+// Inicializa eventos e carrega editais imediatamente
+initializeEditalEvents();
+loadEditais();

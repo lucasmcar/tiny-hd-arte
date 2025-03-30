@@ -37,7 +37,8 @@ class AuthMiddleware
 
         // Verifica CSRF para métodos POST, PUT, DELETE
         if (in_array($_SERVER['REQUEST_METHOD'], ['POST', 'PUT', 'DELETE'])) {
-            $csrfToken = $_POST['_csrf_token'] ?? '';
+            $headers = getallheaders();
+    $csrfToken = $headers['X-CSRF-TOKEN'] ?? '';
             if (!Csrf::verifyToken($csrfToken)) {
                 http_response_code(403);
                 echo "Forbidden - Invalid CSRF token";

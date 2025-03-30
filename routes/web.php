@@ -45,8 +45,8 @@ $router->group('/admin', function($router) {
         //Editais
         $router->get('/editais', 'EditalController','editais');
         $router->post('/upload-edital', 'EditalController','uploadEdital');
-        $router->get('/listar-editais', 'EditalControlle','listarEditais');
-        $router->post('/alterar-status-edital', 'EditalController','alterarStatusEdital');
+        $router->get('/listar-editais', 'EditalController','listarEditais');
+        $router->put('/alterar-status-edital', 'EditalController','alterarStatusEdital');
 
         //LOGS
         $router->get('/configuracoes/log', 'LogController','index');
