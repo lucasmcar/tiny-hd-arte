@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use App\Connection\DB;
@@ -59,14 +60,31 @@ class ModelBase
 
     public function update($id, $data): bool
     {
-        $fields = array_map(fn($field) => "$field = :$field", $this->fillable);
+        $fields = [];
+        $params = [];
+
+        // Apenas incluir os campos que estão presentes no array $data
+        foreach ($this->fillable as $field) {
+            if (array_key_exists($field, $data)) {
+                $fields[] = "$field = :$field";
+                $params[":$field"] = $data[$field];
+            }
+        }
+
+        if (empty($fields)) {
+            return false; // Nenhum campo para atualizar
+        }
+
         $setClause = implode(',', $fields);
         $sql = "UPDATE {$this->table} SET {$setClause} WHERE id = :id";
         $this->connect()->prepare($sql);
-        foreach ($this->fillable as $field) {
-            $this->connect()->bind(":$field", $data[$field]);
+
+        // Vincular os parâmetros
+        foreach ($params as $param => $value) {
+            $this->connect()->bind($param, $value);
         }
         $this->connect()->bind(':id', $id);
+
         return $this->connect()->execute();
     }
 
@@ -78,7 +96,7 @@ class ModelBase
         return $this->connect()->execute();
     }
 
-        // Adiciona uma cláusula WHERE
+    // Adiciona uma cláusula WHERE
     public function where($column, $operator, $value)
     {
         $paramName = ":param_" . count($this->bindings); // Gera um nome único para o binding

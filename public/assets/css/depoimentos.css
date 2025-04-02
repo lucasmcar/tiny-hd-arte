@@ -217,3 +217,61 @@
         font-size: 0.9rem;
     }
 }
+
+.edital-table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.edital-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #222;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.edital-table th,
+.edital-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.edital-table th {
+    background: #333;
+    color: #e0e0e0;
+    font-weight: 600;
+}
+
+.edital-table td {
+    color: #fff;
+}
+
+.edital-table tr:hover {
+    background: #2a2a2a;
+}
+
+.edital-table img.rounded-circle {
+    border: 2px solid #e50914;
+}
+
+.edital-table .action-btn {
+    color: #e50914;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.edital-table .action-btn:hover {
+    color: #ff4d4d;
+}
+
+#no-depoimentos {
+    text-align: center;
+    padding: 20px;
+    color: #e0e0e0;
+    background: #222;
+    border-radius: 8px;
+    margin-top: 20px;
+}

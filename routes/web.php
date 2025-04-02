@@ -31,6 +31,10 @@ $router->group('/admin', function($router) {
     $router->group('', function($router){
         $router->get('/home', 'HomeAdminController','home');
         $router->get('/perfil', 'PerfilController', 'perfil');
+
+        //Clinte
+        $router->get('/clientes', 'ClienteController', 'index');
+        $router->post('/cliente/novo', 'ClienteController', 'novoCliente');
         
         //Blog
         $router->get('/novo/blog', 'BlogController', 'novoBlog');
@@ -57,6 +61,7 @@ $router->group('/admin', function($router) {
         $router->get('/parceiros/todos', 'ParceiroController','todosParceiros');
         $router->get('/parceiros/gerenciar', 'ParceiroController','gerenciar');
         $router->get('/todos/depoimentos', 'DepoimentoController','todosDepoimentos');
+        $router->get('/listar-depoimentos', 'DepoimentoController','listarDepoimentos');
         $router->get('/depoimentos/gerenciar', 'DepoimentoController','gerenciarDepoimentos');
         
         $router->post('/configuracoes/log/export', 'LogController','exportPdf');

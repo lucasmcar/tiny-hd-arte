@@ -87,9 +87,9 @@ class UserController
             $payload = [
                 'iat' => time(),              // Issued at
                 'exp' => time() + (60 * 60),  // Expira em 1 hora
-                'sub' => $email['id'],         // Subject (ID do usuário)
-                'name' => $email['nome'],      // Nome do usuário
-                'email' => $email['email']     // E-mail do usuário
+                'sub' => $email[0]['id'],         // Subject (ID do usuário)
+                'name' => $email[0]['nome'],      // Nome do usuário
+                'email' => $email[0]['email']     // E-mail do usuário
             ];
 
             // Gera o token com JwtHandler
@@ -100,6 +100,9 @@ class UserController
                 session_start();
             }
             $_SESSION['jwt'] = $jwt; // Armazena o token na sessão
+            $_SESSION['jwt_exp'] = $payload['exp']; // Armazena a expiração do token na sessão
+
+            $user->updateLastLogin($email[0]['id'], date('Y-m-d H:i:s'));
 
             // Redireciona para /admin/home
             header('Location: /admin/home');

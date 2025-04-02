@@ -33,18 +33,6 @@ class DepoimentoController
 
     public function todosDepoimentos($pagina = 1 )
     {
-        /*$depoimentoRepository = new DepoimentoRepository();
-        $depoimentos = $depoimentoRepository->verDepoimentos();
-
-        $data = [
-            'title' => 'Todos os Depoimentos',
-            'depoimentos' => $depoimentos
-        ];
-
-        $styles = ['assets/css/depoimentos.css'];
-        $scripts = [];
-
-        return new View('admin/depoimentos', $data , $styles, $scripts, 'admin-layout');*/
 
         // Simulação de dados (substitua por dados reais do banco, se houver)
         $depoimentos = [];
@@ -58,7 +46,6 @@ class DepoimentoController
             ];
         }
 
-        
 
         $totalDepoimentos = count($depoimentos);
         $itensPorPagina = 10;
@@ -84,6 +71,7 @@ class DepoimentoController
         
         $styles = ['/assets/css/depoimentos.css'];
         $scripts = [
+            '/assets/js/depoimento.js',
             'assets/js/main-admin.js'
         ];
 
@@ -130,5 +118,49 @@ class DepoimentoController
             'emailAdmin' => $emailAdmin
         ], $styles, $scripts, 'admin-layout');
     
+    }
+
+    public function listarDepoimentos($pagina = 1)
+    {
+
+        ob_start(); // Inicia buffer para capturar saídas indesejadas
+        header('Content-Type: application/json');
+        session_start();
+        $depoimentos = [];
+        for ($i = 1; $i <= 15; $i++) { // 15 depoimentos para testar paginação
+            $depoimentos[] = [
+                'id' => $i,
+                'foto' => '/assets/imgs/user' . ($i % 3 + 1) . '.jpg', // Cicla entre 3 imagens
+                'nome' => 'Usuário ' . $i,
+                'titulo' => 'Título ' . $i,
+                'depoimento' => 'Este é o depoimento número ' . $i . ' da HD Arte.'
+            ];
+        }
+
+
+        $totalDepoimentos = count($depoimentos);
+        $itensPorPagina = 10;
+
+        // Pegar página via $_GET ou usar o padrão (1)
+        $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : (int)$pagina;
+        $totalPaginas = ceil($totalDepoimentos / $itensPorPagina);
+
+        // Garantir que a página atual esteja dentro dos limites
+        $paginaAtual = max(1, min($paginaAtual, $totalPaginas));
+
+        // Calcular offset e pegar depoimentos da página atual
+        $offset = ($paginaAtual - 1) * $itensPorPagina;
+        $depoimentosPagina = array_slice($depoimentos, $offset, $itensPorPagina);
+
+        $response = [
+            
+            'depoimentos' => $depoimentosPagina,
+            'paginaAtual' => $paginaAtual,
+            'totalPaginas' => $totalPaginas,
+            'totalDepoimentos' => $totalDepoimentos
+        ];
+        ob_end_clean();
+        echo json_encode($response);
+        exit;
     }
 }

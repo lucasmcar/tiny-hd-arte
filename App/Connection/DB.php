@@ -66,18 +66,32 @@ class DB implements IConnection
         return $this->stmt = $this->instance->query($sql, $fetchMode);
     }
 
-    public function execute() : bool
+    public function execute(array $params = []) : bool
     {
         if (!$this->stmt instanceof PDOStatement) {
             throw new \Exception("Nenhuma consulta preparada para executar.");
         }
-        return $this->stmt->execute();
+        // Se $params for null, significa que os parâmetros já foram vinculados com bind()
+        if (empty($params)) {
+            return $this->stmt->execute();
+        }
+        // Caso contrário, usa os parâmetros fornecidos
+        return $this->stmt->execute($params);
     }
 
     public function rs() : array 
     {
-        $this->execute();
+        $this->execute([]);
         $arrayResult = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+        return !empty($arrayResult) ? $arrayResult : ["retorno" => "Sem Resultado"];
+    }
+
+    public function queryWithParams(string $sql, array $params = [], int $fetchMode = PDO::FETCH_ASSOC) : array
+    {
+        $this->prepare($sql);
+        // Passa os parâmetros diretamente para execute()
+        $this->execute($params);
+        $arrayResult = $this->stmt->fetchAll($fetchMode);
         return !empty($arrayResult) ? $arrayResult : ["retorno" => "Sem Resultado"];
     }
 
@@ -88,7 +102,7 @@ class DB implements IConnection
 
     public function one() : array | null
     {
-        $this->execute();
+        $this->execute([]);
         $result = $this->stmt->fetch(PDO::FETCH_ASSOC);
         return $result !== false ? $result : null;
     }

@@ -6,6 +6,7 @@ function initializeEditalEvents() {
     const submitButton = document.getElementById('submitUpload');
     const uploadForm = document.getElementById('upload-edital-form');
     const loading = document.getElementById('loading');
+    const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
 
     if (submitButton && uploadForm) {
         submitButton.addEventListener('click', () => {
@@ -16,6 +17,7 @@ function initializeEditalEvents() {
             }
 
             fetch('/admin/upload-edital', {
+                headers: { 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': csrfToken },
                 method: 'POST',
                 body: formData
             })
@@ -48,102 +50,97 @@ function initializeEditalEvents() {
         });
     }
 
-    // Eventos para botões de status
-    document.addEventListener('click', (e) => {
-        if (e.target.classList.contains('approve-btn') || e.target.classList.contains('reject-btn')) {
-            const id = e.target.getAttribute('data-id');
-            const status = e.target.classList.contains('approve-btn') ? 'aprovado' : 'reprovado';
-            const csrfToken = document.querySelector('input[name="_csrf_token"]').value;
-            if (loading) {
-                loading.style.display = 'block';
-            }
+    // Função para lidar com cliques nos botões de status
+    function handleStatusChange(e) {
+        const id = e.target.getAttribute('data-id');
+        const status = e.target.classList.contains('approve-btn') ? 'aprovado' : 'reprovado';
+        const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
 
-            fetch('/admin/alterar-status-edital', {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json', 
-                    'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': csrfToken }, // },
-                body: JSON.stringify({ id, status, _csrf_token: csrfToken })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Erro na requisição 2: ' + response.status);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Dados recebidos :', data);
-                if (loading) {
-                    loading.style.display = 'none';
-                }
-                // Atualiza a linha correspondente na tabela
-                const row = document.querySelector(`tr[data-id="${data.id}"]`);
-                if (row) {
-                    const cells = row.getElementsByTagName('td');
-                    cells[0].textContent = data.name; // Nome (titulo)
-                    cells[1].textContent = data.filename; // Nome do arquivo
-                    cells[2].textContent = new Date(data.data_upload).toLocaleString('pt-BR'); // Data
-                    cells[3].textContent = data.status; // Status
-                    // A célula 4 contém os botões, não precisa atualizar
-                } else {
-                    console.warn('Linha não encontrada para o edital:', data.id);
-                }
-                /*if (data.success) {
-                    console.log('Status atualizado, chamando loadEditais');
-                    loadEditais();
-                }*/
-            })
-            .catch(error => {
-                console.error('Erro ao atualizar status:', error);
-                if (loading) {
-                    loading.style.display = 'none';
-                }
-            });
+        if (loading) {
+            loading.style.display = 'block';
         }
-    });
-}
 
-function loadEditais() {
-    console.log('Carregando editais');
-    const loading = document.getElementById('loading');
-    if (loading) {
-        loading.style.display = 'block';
+        fetch('/admin/alterar-status-edital', {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json', 
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': csrfToken
+            },
+            body: JSON.stringify({ id, status, _csrf_token: csrfToken })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro na requisição 2: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Dados recebidos:', data);
+            if (loading) {
+                loading.style.display = 'none';
+            }
+            const row = document.querySelector(`tr[data-id="${data.id}"]`);
+            if (row) {
+                const cells = row.getElementsByTagName('td');
+                cells[0].textContent = data.name;
+                cells[1].textContent = data.filename;
+                cells[2].textContent = new Date(data.data_upload).toLocaleString('pt-BR');
+                cells[3].textContent = data.status;
+            } else {
+                console.warn('Linha não encontrada para o edital:', data.id);
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao atualizar status:', error);
+            if (loading) {
+                loading.style.display = 'none';
+            }
+        });
     }
 
-    fetch('/admin/listar-editais', {
+    // Reatribuir eventos para botões de status
+    function initializeStatusButtons() {
+        document.querySelectorAll('.approve-btn, .reject-btn').forEach(button => {
+            button.removeEventListener('click', handleStatusChange);
+            button.addEventListener('click', handleStatusChange);
+        });
+    }
+
+    // Inicializar eventos de status no carregamento inicial
+    initializeStatusButtons();
+}
+
+function loadEditais(pagina = 1) {
+    console.log('Carregando editais, página:', pagina);
+    const loading = document.getElementById('loading');
+    if (loading) loading.style.display = 'block';
+
+    fetch(`/admin/listar-editais?pagina=${pagina}`, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição: ' + response.status);
-        }
+        if (!response.ok) throw new Error('Erro na requisição: ' + response.status);
         return response.json();
     })
     .then(data => {
-        console.log('Dados recebidos:', data);
         const tbody = document.getElementById('edital-list');
         const noEditais = document.getElementById('no-editais');
-
-        if (loading) {
-            loading.style.display = 'none';
-        }
+        if (loading) loading.style.display = 'none';
 
         if (!tbody) {
-            console.error('Elemento editais-tbody não encontrado');
+            console.error('Elemento edital-list não encontrado');
             return;
         }
 
         tbody.innerHTML = '';
-
         if (!data.editais || data.editais.length === 0) {
-            console.log('Nenhum edital encontrado');
             tbody.innerHTML = '<tr><td colspan="5">Nenhum edital encontrado.</td></tr>';
-            noEditais.style.display = 'block';
+            if (noEditais) noEditais.style.display = 'block';
             return;
         }
 
-        console.log('Renderizando', data.editais.length, 'editais');
-        noEditais.style.display = 'none';
+        if (noEditais) noEditais.style.display = 'none';
         data.editais.forEach(edital => {
             const tr = document.createElement('tr');
             tr.setAttribute('data-id', edital.id);
@@ -159,15 +156,61 @@ function loadEditais() {
             `;
             tbody.appendChild(tr);
         });
+
+        document.querySelector('.total-count').textContent = `Total: ${data.totalEditais} editais`;
+        updatePagination(data.paginaAtual, data.totalPaginas);
+
+        // Reatribuir eventos para os botões de status após carregar a tabela
+        initializeEditalEvents();
     })
     .catch(error => {
         console.error('Erro ao carregar editais:', error);
-        if (loading) {
-            loading.style.display = 'none';
-        }
+        if (loading) loading.style.display = 'none';
     });
+}
+
+function updatePagination(paginaAtual, totalPaginas) {
+    const pagination = document.querySelector('.pagination-netflix');
+    if (!pagination) return;
+
+    pagination.innerHTML = '';
+    if (paginaAtual > 1) {
+        const prev = document.createElement('a');
+        prev.href = `#pagina=${paginaAtual - 1}`;
+        prev.className = 'pagination-btn';
+        prev.textContent = 'Anterior';
+        prev.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadEditais(paginaAtual - 1);
+        });
+        pagination.appendChild(prev);
+    }
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        const link = document.createElement('a');
+        link.href = `#pagina=${i}`;
+        link.className = `pagination-btn ${i === paginaAtual ? 'active' : ''}`;
+        link.textContent = i;
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadEditais(i);
+        });
+        pagination.appendChild(link);
+    }
+
+    if (paginaAtual < totalPaginas) {
+        const next = document.createElement('a');
+        next.href = `#pagina=${paginaAtual + 1}`;
+        next.className = 'pagination-btn';
+        next.textContent = 'Próximo';
+        next.addEventListener('click', (e) => {
+            e.preventDefault();
+            loadEditais(paginaAtual + 1);
+        });
+        pagination.appendChild(next);
+    }
 }
 
 // Inicializa eventos e carrega editais imediatamente
 initializeEditalEvents();
-loadEditais();
+loadEditais(1);

@@ -10,6 +10,11 @@ class HomeAdminController
 {
     public function home()
     {
+        if (!empty($_GET)) {
+            // Redirecionar para /admin/home sem parâmetros
+            header('Location: /admin/home');
+            exit;
+        }
 
 
         $data = [

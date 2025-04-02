@@ -11,13 +11,33 @@ use App\Core\Security\Csrf;
 
 class EditalController
 {
-    public function editais()
+    public function editais($pagina = 1)
     {
         $editaisData = new Edital();
 
+
+        $totalEdital = count($editaisData->all());
+        $itensPorPagina = 10;
+
+        // Pegar página via $_GET ou usar o padrão (1)
+        $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : (int)$pagina;
+        $totalPaginas = ceil($totalEdital / $itensPorPagina);
+
+        // Garantir que a página atual esteja dentro dos limites
+        $paginaAtual = max(1, min($paginaAtual, $totalPaginas));
+
+        // Calcular offset e pegar depoimentos da página atual
+        $offset = ($paginaAtual - 1) * $itensPorPagina;
+        $editaisPagina = array_slice($editaisData->all(), $offset, $itensPorPagina);
+
+
+
         $data = [
             'title' => 'Gerenciar Editais',
-            'editais' => $editaisData->all(),
+            'editais' => $editaisPagina,
+            'paginaAtual' => $paginaAtual,
+            'totalPaginas' => $totalPaginas,
+            'totalEditais' => $totalEdital,
         ];
 
         $styles = [
@@ -25,6 +45,7 @@ class EditalController
             '/assets/css/admin/edital.css'
         ];
         $scripts = [
+            '/assets/js/main-admin.js',
             '/assets/js/edital.js'
         ];
         return new View(view: 'admin/edital', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');
@@ -75,15 +96,47 @@ class EditalController
 
     public function listarEditais()
     {
+        ob_start(); // Inicia buffer para capturar saídas indesejadas
         header('Content-Type: application/json');
+        session_start();
+    
+        // Verificar autenticação
         if (!isset($_SESSION['jwt']) || !\App\Core\Security\Jwt\JwtHandler::validateToken($_SESSION['jwt'])) {
             http_response_code(401);
             echo json_encode(['success' => false, 'message' => 'Não autenticado']);
-            return;
+            ob_end_flush();
+            exit;
         }
-        $edital = new Edital();
-        $editais = $edital->all();
-        echo json_encode(['editais' => $editais]);
+    
+        try {
+            $edital = new Edital();
+            $todosEditais = $edital->all();
+            $totalEditais = count($todosEditais);
+            $itensPorPagina = 10;
+    
+            $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+            $totalPaginas = ceil($totalEditais / $itensPorPagina);
+            $paginaAtual = max(1, min($paginaAtual, $totalPaginas));
+    
+            $offset = ($paginaAtual - 1) * $itensPorPagina;
+            $editaisPagina = array_slice($todosEditais, $offset, $itensPorPagina);
+    
+            $response = [
+                'editais' => $editaisPagina,
+                'totalEditais' => $totalEditais,
+                'paginaAtual' => $paginaAtual,
+                'totalPaginas' => $totalPaginas
+            ];
+    
+            ob_end_clean(); // Limpa qualquer saída indesejada
+            echo json_encode($response);
+            exit;
+        } catch (\Exception $e) {
+            http_response_code(500);
+            echo json_encode(['success' => false, 'message' => 'Erro ao listar editais: ' . $e->getMessage()]);
+            ob_end_flush();
+            exit;
+        }
     }
 
     /*public function alterarStatusEdital()

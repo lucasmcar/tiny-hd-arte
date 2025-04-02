@@ -16,5 +16,19 @@ class User extends ModelBase
         'usuario',
         'funcao'
     ];
+
+    // Novo método para atualizar apenas o ultimo_login
+    public function updateLastLogin($id, $lastLogin)
+    {
+        $sql = "UPDATE usuarios SET ultimo_login = :ultimo_login WHERE id = :id";
+        error_log("Query updateLastLogin: $sql, ultimo_login: $lastLogin, id: $id");
+        $this->db->prepare($sql);
+        $this->db->bind(':ultimo_login', $lastLogin);
+        $this->db->bind(':id', $id);
+        $result = $this->db->execute([]);
+        error_log("Update ultimo_login result: " . ($result ? 'success' : 'failed'));
+        return $result;
+    }
+
     
 }
