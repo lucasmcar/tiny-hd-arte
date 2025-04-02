@@ -162,7 +162,7 @@ class BlogController
         ];
 
         $styles = [
-            '/assets/css/blog.css'
+            '/assets/css/admin/blog.css'
         ];
 
         $scripts =[

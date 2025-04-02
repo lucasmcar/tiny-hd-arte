@@ -166,70 +166,79 @@ class EditalController
     }*/
 
     public function alterarStatusEdital()
-    {
-        ob_start();
-        header('Content-Type: application/json');
-        session_start();
+{
+    ob_start();
+    header('Content-Type: application/json');
+    session_start();
 
-        // Verificar autenticação
-        if (!isset($_SESSION['jwt']) || !\App\Core\Security\Jwt\JwtHandler::validateToken($_SESSION['jwt'])) {
-            http_response_code(403);
-            echo json_encode(['success' => false, 'message' => 'Não autenticado']);
-            return;
-        }
-
-        $data = json_decode(file_get_contents('php://input'), true);
-        $id = $data['id'] ?? null;
-        $status = $data['status'] ?? null;
-        $csrfToken = $data['_csrf_token'] ?? null;
-
-
-
-        if (!Csrf::verifyToken($csrfToken)) {
-            http_response_code(403);
-            return;
-        }
-
-        if (!$id || !in_array($status, ['em_analise', 'aprovado', 'reprovado'])) {
-            http_response_code(400);
-            echo json_encode(['success' => false, 'message' => 'Dados inválidos']);
-            return;
-        }
-
-        try {
-            $editalModel = new Edital();
-            $edital = $editalModel->find($id);
-            if (!$edital) {
-                http_response_code(404);
-                echo json_encode(['success' => false, 'message' => 'Edital não encontrado']);
-                return;
-            }
-
-            $oldStatus = $edital['status'];
-            $editalModel->update($id, ['status' => $status, 'name' => $edital['name'], 'filename' => $edital['filename'], 'url' => $edital['url']]);
-
-            $logModel = new Log();
-            $logModel->create([
-                'acao' => 'alteracao_status_edital',
-                'tabela_afetada' => 'editais',
-                'id_registro' => $id,
-                'detalhes' => json_encode(['status_antigo' => $oldStatus, 'status_novo' => $status]),
-                'data_acao' => date('Y-m-d H:i:s')
-            ]);
-            ob_end_clean(); 
-            echo json_encode([
-                'id' => $id,
-                'status' => ucfirst($status),
-                'name' => $edital['name'],
-                'data_upload' => $edital['data_upload'],
-                'filename' => $edital['filename'],
-                'url' => $edital['url'],
-                'success' => true,
-                'message' => 'Status atualizado'
-            ]);
-        } catch (\Exception $e) {
-            http_response_code(500);
-            echo json_encode(['success' => false, 'message' => 'Erro ao atualizar status: ' . $e->getMessage()]);
-        }
+    // Verificar autenticação
+    if (!isset($_SESSION['jwt']) || !\App\Core\Security\Jwt\JwtHandler::validateToken($_SESSION['jwt'])) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Não autenticado']);
+        ob_end_flush();
+        return;
     }
+
+    $data = json_decode(file_get_contents('php://input'), true);
+    $id = $data['id'] ?? null;
+    $status = $data['status'] ?? null;
+    $csrfToken = $data['_csrf_token'] ?? null;
+
+    if (!Csrf::verifyToken($csrfToken)) {
+        http_response_code(403);
+        echo json_encode(['success' => false, 'message' => 'Token CSRF inválido']);
+        ob_end_flush();
+        return;
+    }
+
+    if (!$id || !in_array($status, ['em_analise', 'aprovado', 'reprovado'])) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Dados inválidos']);
+        ob_end_flush();
+        return;
+    }
+
+    try {
+        $editalModel = new Edital();
+        $edital = $editalModel->find($id);
+        if (!$edital) {
+            http_response_code(404);
+            echo json_encode(['success' => false, 'message' => 'Edital não encontrado']);
+            ob_end_flush();
+            return;
+        }
+
+        // Verifica se $edital é um array e ajusta o acesso
+        $editalData = is_array($edital) && isset($edital[0]) ? $edital[0] : $edital;
+        $oldStatus = $editalData['status'];
+
+        // Corrige o nome do método e passa o novo status
+        $editalModel->updateEditalStatus($id, $status);
+
+        $logModel = new Log();
+        $logModel->create([
+            'acao' => 'alteracao_status_edital',
+            'tabela_afetada' => 'editais',
+            'id_registro' => $id,
+            'detalhes' => json_encode(['status_antigo' => $oldStatus, 'status_novo' => $status]),
+            'data_acao' => date('Y-m-d H:i:s')
+        ]);
+
+        ob_end_clean();
+        echo json_encode([
+            'id' => $id,
+            'status' => ucfirst($status),
+            'name' => $editalData['name'],
+            'data_upload' => $editalData['data_upload'],
+            'filename' => $editalData['filename'],
+            'url' => $editalData['url'],
+            'success' => true,
+            'message' => 'Status atualizado com sucesso'
+        ]);
+    } catch (\Exception $e) {
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Erro ao atualizar status: ' . $e->getMessage()]);
+        ob_end_flush();
+    }
+}
 }

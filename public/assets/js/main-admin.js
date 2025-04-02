@@ -113,6 +113,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     mainContent.innerHTML = mainContentNew.innerHTML;
                     console.log('Conteúdo carregado no main-content');
 
+                    
+
                     initializeSidebar();
                     initializeNavLinks();
                     closeSidebar(); // Fecha o sidebar após carregar a página

@@ -52,14 +52,33 @@ function initializeEditalEvents() {
 
     // Função para lidar com cliques nos botões de status
     function handleStatusChange(e) {
-        const id = e.target.getAttribute('data-id');
-        const status = e.target.classList.contains('approve-btn') ? 'aprovado' : 'reprovado';
+        // Encontra o botão mais próximo (para lidar com cliques no <i> dentro do botão)
+        const button = e.target.closest('button');
+        if (!button) {
+            console.error('Botão não encontrado para o elemento clicado:', e.target);
+            return;
+        }
+    
+        const id = button.getAttribute('data-id');
+        const status = button.classList.contains('approve-btn') ? 'aprovado' : 'reprovado';
         const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
-
+    
+        // Validações
+        if (!id) {
+            console.error('ID não encontrado no botão:', button);
+            return;
+        }
+    
+        if (!csrfToken) {
+            console.error('CSRF Token não encontrado.');
+            return;
+        }
+    
+        const loading = document.querySelector('.loading'); // Ajuste conforme seu elemento de loading
         if (loading) {
             loading.style.display = 'block';
         }
-
+    
         fetch('/admin/alterar-status-edital', {
             method: 'PUT',
             headers: { 
@@ -71,7 +90,7 @@ function initializeEditalEvents() {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro na requisição 2: ' + response.status);
+                throw new Error('Erro na requisição: ' + response.status);
             }
             return response.json();
         })
@@ -87,6 +106,13 @@ function initializeEditalEvents() {
                 cells[1].textContent = data.filename;
                 cells[2].textContent = new Date(data.data_upload).toLocaleString('pt-BR');
                 cells[3].textContent = data.status;
+        
+                // Adiciona uma mensagem de sucesso na página
+                const statusMessage = document.createElement('div');
+                statusMessage.className = 'success-message';
+                statusMessage.textContent = data.message;
+                document.querySelector('.edital-table').prepend(statusMessage);
+                setTimeout(() => statusMessage.remove(), 3000); // Remove após 3 segundos
             } else {
                 console.warn('Linha não encontrada para o edital:', data.id);
             }

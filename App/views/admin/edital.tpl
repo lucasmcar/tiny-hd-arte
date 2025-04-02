@@ -26,10 +26,10 @@
                         <th>Ações</th>
                     </tr>
                 </thead>
-                <tbody id="edital-list" data-id="{{ $edital['id'] }}">
+                <tbody id="edital-list" >
                     {% if !empty($editais) %}
                         {% foreach $editais as $index => $edital %}
-                            <tr>
+                            <tr data-id="{{ $edital['id'] }}">
                                 <td >{{ htmlspecialchars($edital['name']) }}</td>
                                 <td>{{ htmlspecialchars($edital['filename']) }}</td>
                                 <td>{{ date('d/m/Y H:i', strtotime($edital['data_upload'])) }}</td>

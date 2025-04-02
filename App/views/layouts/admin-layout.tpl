@@ -49,7 +49,7 @@
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         z-index: 999;
         transition: left 0.3s ease;
-        overflow: visible;
+        overflow: auto;
     }
 
     .top-navbar h4 {
@@ -278,6 +278,26 @@
             padding: 5px 10px;
         }
     }
+
+    /* Scrollbar do menu */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #141414;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #e42424;
+    border-radius: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #dd6a6a;
+}
+
+
     </style>
 </head>
 <body>
@@ -387,74 +407,69 @@
     <script>
         // Obtém o tempo de expiração do token da sessão (em segundos)
         const tokenExpiry = {{ isset($_SESSION['jwt_exp']) ? $_SESSION['jwt_exp'] : 0 }};
+        const isLoggedIn =  {{ isset($_SESSION['jwt']) ? 'true' : 'false' }};
     </script>
 
     <!-- Script para o Contador Regressivo -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            if (tokenExpiry === 0) {
-                console.error('Tempo de expiração do token não definido.');
-                return;
+        // Só executa o contador se o usuário estiver logado
+        if (!isLoggedIn || tokenExpiry === 0) {
+            // Esconde o elemento do contador se o usuário não estiver logado
+            const sessionTimer = document.getElementById('session-timer');
+            if (sessionTimer) {
+                sessionTimer.style.display = 'none';
             }
+            return;
+        }
 
-            const timerElement = document.getElementById('timer');
-            const modalTimerElement = document.getElementById('modal-timer');
-            const sessionExpiryModal = new bootstrap.Modal(document.getElementById('session-expiry-modal'), {
-                backdrop: 'static',
-                keyboard: false
-            });
-
-            // Calcula o tempo restante até a expiração (em segundos)
-            const now = Math.floor(Date.now() / 1000); // Tempo atual em segundos
-            let timeLeft = tokenExpiry - now;
-
-            // Se o token já expirou, redireciona imediatamente
-            if (timeLeft <= 0) {
-                window.location.href = '/admin/login';
-                return;
-            }
-
-            // Função para formatar o tempo (HH:MM:SS)
-            function formatTime(seconds) {
-                const hours = Math.floor(seconds / 3600);
-                const minutes = Math.floor((seconds % 3600) / 60);
-                const secs = seconds % 60;
-                return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-            }
-
-            // Atualiza o contador a cada segundo
-            const timerInterval = setInterval(function () {
-                timeLeft--;
-
-                // Atualiza o contador na tela principal
-                timerElement.textContent = formatTime(timeLeft);
-
-                // Mostra o modal 5 minutos antes da expiração (300 segundos)
-                if (timeLeft === 300) {
-                    sessionExpiryModal.show();
-                    let modalTimeLeft = 300;
-
-                    // Atualiza o contador no modal a cada segundo
-                    const modalTimerInterval = setInterval(function () {
-                        modalTimeLeft--;
-                        modalTimerElement.textContent = formatTime(modalTimeLeft);
-
-                        if (modalTimeLeft <= 0) {
-                            clearInterval(modalTimerInterval);
-                        }
-                    }, 1000);
-                }
-
-                // Redireciona quando o tempo acabar
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    window.location.href = '/admin/login';
-                }
-            }, 1000);
-
-            // Inicializa o contador imediatamente
-            timerElement.textContent = formatTime(timeLeft);
+        const timerElement = document.getElementById('timer');
+        const modalTimerElement = document.getElementById('modal-timer');
+        const sessionExpiryModal = new bootstrap.Modal(document.getElementById('session-expiry-modal'), {
+            backdrop: 'static',
+            keyboard: false
         });
+
+        const now = Math.floor(Date.now() / 1000);
+        let timeLeft = tokenExpiry - now;
+
+        if (timeLeft <= 0) {
+            window.location.href = '/admin/login';
+            return;
+        }
+
+        function formatTime(seconds) {
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+            const secs = seconds % 60;
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        const timerInterval = setInterval(function () {
+            timeLeft--;
+
+            timerElement.textContent = formatTime(timeLeft);
+
+            if (timeLeft === 300) {
+                sessionExpiryModal.show();
+                let modalTimeLeft = 300;
+                const modalTimerInterval = setInterval(function () {
+                    modalTimeLeft--;
+                    modalTimerElement.textContent = formatTime(modalTimeLeft);
+                    if (modalTimeLeft <= 0) {
+                        clearInterval(modalTimerInterval);
+                    }
+                }, 1000);
+            }
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                window.location.href = '/admin/login';
+            }
+        }, 1000);
+
+        timerElement.textContent = formatTime(timeLeft);
+    });
     </script>
 </body>
 </html>
