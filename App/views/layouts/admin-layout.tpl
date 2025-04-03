@@ -413,6 +413,16 @@
     <!-- Script para o Contador Regressivo -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            if (window.location.pathname === '/admin/login') {
+            // Esconde o elemento do contador, se existir
+            const sessionTimer = document.getElementById('session-timer');
+            if (sessionTimer) {
+                sessionTimer.style.display = 'none';
+            }
+            return; // Não executa o contador na página de login
+        }
+
         // Só executa o contador se o usuário estiver logado
         if (!isLoggedIn || tokenExpiry === 0) {
             // Esconde o elemento do contador se o usuário não estiver logado
@@ -432,9 +442,12 @@
 
         const now = Math.floor(Date.now() / 1000);
         let timeLeft = tokenExpiry - now;
+        let isLoggingOut = false; // Controle para evitar múltiplos redirecionamentos
+        let modalTimerInterval; 
 
         if (timeLeft <= 0) {
-            window.location.href = '/admin/login';
+            // Se o tempo já tiver expirado, faz logout imediatamente
+            sessionTimer.style.display = 'none';
             return;
         }
 
@@ -443,6 +456,40 @@
             const minutes = Math.floor((seconds % 3600) / 60);
             const secs = seconds % 60;
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+
+        function logout() {
+            if (isLoggingOut) {
+                return; // Evita múltiplas chamadas ao logout
+            }
+            isLoggingOut = true;
+
+        
+            fetch('/admin/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-Token': document.querySelector('input[name="_csrf_token"]')?.value
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Limpa o token no frontend
+                    localStorage.removeItem('jwt');
+                    sessionStorage.removeItem('jwt');
+                    // Redireciona para a página de login
+                    window.location.href = '/admin/login?loggedOut=true';
+                } else {
+                    console.error('Erro ao fazer logout:', data.message);
+                    window.location.href = '/admin/login?loggedOut=true';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao fazer logout:', error);
+                window.location.href = '/admin/login?loggedOut=true';
+            });
         }
 
         const timerInterval = setInterval(function () {
