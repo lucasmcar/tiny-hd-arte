@@ -326,6 +326,16 @@
                     <li><a href="#" class="dropdown-item nav-link" data-page="consultoria/lista"><i class="bi bi-list"></i>Registros</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="bi bi-tools"></i><span>Gestão de Projetos</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item nav-link" data-page="projetos-culturais"><i class="bi bi-clipboard-data"></i>Cadastro</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="projetos-culturais/listaProjetos"><i class="bi bi-list"></i>Registros</a></li>
+                </ul>
+            </li>
             
             <li>
                 <a href="#" class="nav-link dropdown-toggle">

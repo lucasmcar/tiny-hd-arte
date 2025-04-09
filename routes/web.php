@@ -47,6 +47,17 @@ $router->group('/admin', function($router) {
         $router->get('/consultoria/lista', 'ConsultoriaController', 'listaClientes');
         $router->get('/consultoria/perfil-cliente', 'ConsultoriaController', 'perfilCliente');
         
+
+        //Gestão de projetos culturais
+        $router->get('/projetos-culturais', 'ProjetosCulturaisController', 'index');
+        $router->get('/projetos-culturais/listaProjetos', 'ProjetosCulturaisController','listaProjetos');
+        $router->get('/projetos-culturais/detalhesProjeto', 'ProjetosCulturaisController','detalhesProjeto');
+        $router->post('/projetos-culturais/salvarProjeto', 'ProjetosCulturaisController','salvarProjeto');
+        $router->put('/projetos-culturais/atualizaProjetoStatus', 'ProjetosCulturaisController','atualizarStatusProjeto');
+        $router->post('/projetos-culturais/salvarPlanejamento', 'ProjetosCulturaisController','salvarPlanejamento');
+        $router->post('/projetos-culturais/salvarIncentivo', 'ProjetosCulturaisController','salvarIncentivo');
+        $router->post('/projetos-culturais/salvarResultados', 'ProjetosCulturaisController','salvarResultados');
+
         //Eventos
         $router->get('/evento', 'EventoController','index');
         $router->get('/evento/participantes', 'EventoController','participantes');
