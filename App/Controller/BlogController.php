@@ -43,9 +43,6 @@ class BlogController
     {
         $postId = $params[0] ?? '';
 
-        // Log para verificar se o método está sendo chamado
-        error_log("Método post() chamado para ID: $postId");
-
         $post = $this->fetchPostsById($postId);
         if (!$post) {
             http_response_code(404);
@@ -64,12 +61,10 @@ class BlogController
 
         // Verifica se é uma requisição AJAX
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
-            error_log("Requisição AJAX detectada, retornando JSON: " . json_encode($data));
             header('Content-Type: application/json');
             echo json_encode($data);
             exit; // Força o término da execução após enviar JSON
         } else {
-            error_log("Não é uma requisição AJAX, ignorando...");
             // Para requisições não-AJAX, você pode redirecionar ou retornar algo diferente
             http_response_code(400);
             echo json_encode(['error' => 'Requisição inválida']);
@@ -166,7 +161,7 @@ class BlogController
         ];
 
         $scripts =[
-            '/assets/js/editor.js'
+            '/assets/js/tiny-init.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

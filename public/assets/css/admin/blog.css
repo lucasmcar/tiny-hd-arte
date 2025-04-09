@@ -1,174 +1,74 @@
 .main-container {
-  max-width: 1000px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background: #141414;
-  color: #fff;
-  min-height: calc(100vh - 60px);
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 20px;
-  text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .title-input {
-  width: 100%;
-  max-width: 900px;
-  padding: 12px;
-  margin: 0 auto 20px auto;
-  display: block;
-  background: #222;
-  border: 1px solid #333;
-  border-radius: 5px;
-  color: #e0e0e0;
-  font-size: 1.1rem;
-  font-family: "Montserrat", sans-serif;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444;
+    padding: 10px;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 16px;
 }
 
 .title-input::placeholder {
-  color: #888;
-}
-
-.editor-toolbar {
-  background: #222;
-  padding: 10px;
-  border: 1px solid #333;
-  border-radius: 5px 5px 0 0;
-  display: flex;
-  gap: 10px;
-  margin-bottom: 0;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.toolbar-btn {
-  background: #333;
-  border: none;
-  color: #e0e0e0;
-  padding: 8px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.toolbar-btn.active {
-  background: #e50914;
-  color: #fff;
-}
-
-.toolbar-btn:hover {
-  background: #e50914;
-  color: #fff;
+    color: #888;
 }
 
 .editor-content {
-  width: 100%;
-  max-width: 900px;
-  min-height: 300px;
-  padding: 15px;
-  background: #222;
-  border: 1px solid #333;
-  border-top: none;
-  border-radius: 0 0 5px 5px;
-  color: #e0e0e0;
-  font-size: 1rem;
-  font-family: "Montserrat", sans-serif;
-  outline: none;
-  overflow-y: auto;
-  margin: 0 auto;
-}
-
-.editor-content:empty:before {
-  content: attr(placeholder);
-  color: #888;
-}
-
-.editor-content:focus {
-  border-color: #e50914;
-}
-
-.editor-content b {
-  font-weight: bold;
-}
-.editor-content i {
-  font-style: italic;
-}
-.editor-content u {
-  text-decoration: underline;
-}
-.editor-content ul {
-  list-style-type: disc;
-  margin-left: 20px;
-}
-.editor-content ol {
-  list-style-type: decimal;
-  margin-left: 20px;
-}
-.editor-content a {
-  color: #e50914;
-  text-decoration: underline;
-}
-
-.image-upload-container {
-    margin: 15px 0;
-}
-
-.upload-label {
-    background: #e50914;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
-    display: inline-block;
-    transition: background 0.3s ease;
-}
-
-.upload-label:hover {
-    background: #b20710;
-}
-
-.image-preview {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.preview-container {
-    position: relative;
-    display: inline-block;
-}
-
-.preview-img {
-    max-width: 150px;
-    max-height: 100px;
-    border-radius: 3px;
+    min-height: 400px;
+    background-color: #1f1f1f;
+    color: #ffffff;
     border: 1px solid #444;
-    object-fit: cover;
+    border-radius: 4px;
+    padding: 10px;
+    display: block !important;
+    visibility: visible !important;
+    width: 100%;
+    resize: vertical;
+}
+
+.tox-tinymce {
+    border: 1px solid #444 !important;
+    border-radius: 4px;
+    background-color: #1f1f1f !important;
+    display: block !important;
+    visibility: visible !important;
+}
+
+.tox-toolbar, .tox-toolbar__primary {
+    background-color: #2a2a2a !important;
+    border-bottom: 1px solid #444 !important;
+}
+
+.tox-tbtn {
+    color: #ffffff !important;
+}
+
+.tox-tbtn:hover {
+    background-color: #444 !important;
+}
+
+.tox-statusbar {
+    background-color: #2a2a2a !important;
+    color: #ffffff !important;
+    border-top: 1px solid #444 !important;
 }
 
 .save-button {
-  display: block;
-  width: 200px;
-  margin: 0 auto;
-  padding: 12px;
-  background: #e50914;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background-color: #e50914;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-size: 16px;
 }
 
 .save-button:hover {
-  background: #b20710;
+    background-color: #f40612;
 }

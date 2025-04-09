@@ -54,8 +54,6 @@ class ParceiroController
             'totalParceiros' => $totalParceiros
         ];
 
-        error_log("Gerenciando parceiros: total de " . count($data['parceiros']));
-
         return new View('admin/parceiros', $data, $styles, $scripts, 'admin-layout');
     }
 }

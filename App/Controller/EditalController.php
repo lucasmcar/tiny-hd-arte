@@ -6,6 +6,7 @@ use App\Core\View\View;
 use App\Model\Edital;
 use App\Model\Log;
 
+use App\Core\Security\Jwt\JwtHandler;
 use App\Helper\InputFilterHelper;
 use App\Core\Security\Csrf;
 
@@ -72,8 +73,8 @@ class EditalController
             $jwt = $_SESSION['jwt'] ?? null;
             $usuarioId = null;
             if ($jwt) {
-                $decoded = \App\Core\Security\Jwt\JwtHandler::validateToken($jwt);
-                $usuarioId = $decoded->sub ?? null; // Extrai o 'sub' do token decodificado
+                $decoded = JwtHandler::validateToken($jwt);
+                $usuarioId = (int)$decoded['sub']; // Extrai o 'sub' do token decodificado
             }
 
             $success = $edital->create([
@@ -101,7 +102,7 @@ class EditalController
         session_start();
 
         // Verificar autenticação
-        if (!isset($_SESSION['jwt']) || !\App\Core\Security\Jwt\JwtHandler::validateToken($_SESSION['jwt'])) {
+        if (!isset($_SESSION['jwt']) || !JwtHandler::validateToken($_SESSION['jwt'])) {
             http_response_code(401);
             echo json_encode(['success' => false, 'message' => 'Não autenticado']);
             ob_end_flush();
@@ -172,7 +173,7 @@ class EditalController
         session_start();
 
         // Verificar autenticação
-        if (!isset($_SESSION['jwt']) || !\App\Core\Security\Jwt\JwtHandler::validateToken($_SESSION['jwt'])) {
+        if (!isset($_SESSION['jwt']) || !JwtHandler::validateToken($_SESSION['jwt'])) {
             http_response_code(403);
             echo json_encode(['success' => false, 'message' => 'Não autenticado']);
             ob_end_flush();

@@ -36,6 +36,7 @@ class LogController
         $logModel = new Log();
         if ($filter) {
             return $logModel
+                ->join('usuarios', 'logs_atividades.usuario_id = usuarios.id')
                 ->where("acao", "LIKE", "%$filter%")
                 ->orWhere("tabela_afetada", "LIKE", "%$filter%")
                 ->orWhere("detalhes", "LIKE", "%$filter%")
@@ -43,7 +44,9 @@ class LogController
                 ->orWhere("JSON_UNQUOTE(JSON_EXTRACT(detalhes, '$.filename'))", "LIKE", "%$filter%")
                 ->get();
         }
-        return $logModel->all();
+        return $logModel
+        ->join('usuarios', 'logs_atividades.usuario_id = usuarios.id')
+        ->get();
     }
 
     // Endpoint para listar logs via AJAX

@@ -25,6 +25,7 @@
                         <th><input type="checkbox" id="selectAll"></th>
                         <th>Data</th>
                         <th>Ação</th>
+                        <th>Usuário</th>
                         <th>Tabela</th>
                         <th>ID Registro</th>
                         <th>Detalhes</th>
@@ -37,6 +38,7 @@
                                 <td><input type="checkbox" class="log-checkbox" value="{{ $log['id'] }}"></td>
                                 <td>{{ date('d/m/Y H:i', strtotime($log['data_acao'])) }}</td>
                                 <td>{{ htmlspecialchars($log['acao']) }}</td>
+                                <td>{{ htmlspecialchars($log['usuario']) }}</td>
                                 <td>{{ htmlspecialchars($log['tabela_afetada']) }}</td>
                                 <td>{{ $log['id_registro'] ?? 'N/A' }}</td>
                                 <td>

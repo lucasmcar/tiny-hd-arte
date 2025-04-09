@@ -175,7 +175,7 @@
         </div>
         <a href="/contato" class="btn btn-hda mt-4">Entre em contato</a>
     </div>
-</section>
+</section>-->
 
 <!-- Seção Artigos Recentes -->
 <section id="artigos" class="hda-section bg-dark text-white">

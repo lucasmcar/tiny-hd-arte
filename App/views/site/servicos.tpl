@@ -1,5 +1,7 @@
 <div class="container mt-5 text-center hda-section">
-    <h2 class="mb-4">Nossos Serviços</h2>
+    <h2 class="mb-4 hda-title">Nossos Serviços</h2>
+
+     <p class="hda-text">Na HD Arte Produções e Eventos, oferecemos e realizamos uma ampla gama de serviços para transformar o seu evento em uma experiência única. Nossa expertise abrange:</p>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         
         {% foreach $servicos as $index => $servico %}
@@ -21,7 +23,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>{{ $servico['descricao'] }}</p>
+                            <p>{{ isset($servico['mais']) ? $servico['mais'] : $servico['descricao'] }}</p>
                         </div>
                     </div>
                 </div>

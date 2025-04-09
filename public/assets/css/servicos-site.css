@@ -9,6 +9,21 @@ body {
     padding-top: 100px; /* Espaço para o navbar fixo - ajuste conforme a altura real */
 }
 
+.hda-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.hda-text {
+    color: #e0e0e0;
+    font-size: 1.1rem;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
 /* Estilo dos cards inspirado na hda */
 .service-card {
     background: #222;

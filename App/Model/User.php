@@ -21,12 +21,10 @@ class User extends ModelBase
     public function updateLastLogin($id, $lastLogin)
     {
         $sql = "UPDATE usuarios SET ultimo_login = :ultimo_login WHERE id = :id";
-        error_log("Query updateLastLogin: $sql, ultimo_login: $lastLogin, id: $id");
         $this->db->prepare($sql);
         $this->db->bind(':ultimo_login', $lastLogin);
-        $this->db->bind(':id', $id);
+        $this->db->bind(':id', $id, null);
         $result = $this->db->execute([]);
-        error_log("Update ultimo_login result: " . ($result ? 'success' : 'failed'));
         return $result;
     }
 

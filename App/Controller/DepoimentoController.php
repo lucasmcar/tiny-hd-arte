@@ -20,13 +20,15 @@ class DepoimentoController
 
         $depoimento = new Depoimento();
 
-        $depoimento->setNome($data['nome']);
-        $depoimento->setProfissao($data['profissao']);
-        $depoimento->setTitulo($data['titulo']);
-        $depoimento->setDepoimento($data['depoimento']);
+        $depoimento->create([
+            'nome' => $data['nome'],
+            'profissao' => $data['profissao'],
+            'titulo' => $data['titulo'],
+            'depoimento' => $data['depoimento']
+        ]);
 
-        $depoimentoRepository = new DepoimentoRepository();
-        $depoimentoRepository->criaDepoimento($depoimento);
+        
+
 
         header('location: /depoimentos/todos');
     }
@@ -75,7 +77,6 @@ class DepoimentoController
             'assets/js/main-admin.js'
         ];
 
-        error_log("Renderizando depoimentos: página $paginaAtual de $totalPaginas, total: $totalDepoimentos");
         return new View('admin/depoimentos', $data, $styles, $scripts, 'admin-layout');
     
     }
@@ -106,7 +107,7 @@ class DepoimentoController
         $styles = ['/assets/css/gerenciar-depoimentos.css'];
         $scripts = ['/assets/js/gerenciar-depoimentos.js', '/assets/js/main-admin.js'];
 
-        error_log("Gerenciando depoimentos: página $paginaAtual de $totalPaginas, pendentes: $totalPendentes");
+     
         return new View('admin/gerenciar-depoimentos', [
             'title' => 'Gerenciar Depoimentos',
             'depoimentos' => $depoimentosPagina,

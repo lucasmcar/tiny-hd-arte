@@ -83,7 +83,7 @@ class DB implements IConnection
     {
         $this->execute([]);
         $arrayResult = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-        return !empty($arrayResult) ? $arrayResult : ["retorno" => "Sem Resultado"];
+        return !empty($arrayResult) ? $arrayResult : [];
     }
 
     public function queryWithParams(string $sql, array $params = [], int $fetchMode = PDO::FETCH_ASSOC) : array
@@ -92,7 +92,7 @@ class DB implements IConnection
         // Passa os parâmetros diretamente para execute()
         $this->execute($params);
         $arrayResult = $this->stmt->fetchAll($fetchMode);
-        return !empty($arrayResult) ? $arrayResult : ["retorno" => "Sem Resultado"];
+        return !empty($arrayResult) ? $arrayResult : [];
     }
 
     public function getTotalResults(array $results) : int

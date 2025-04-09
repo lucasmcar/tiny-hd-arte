@@ -113,9 +113,6 @@ class Router  implements IRouter
             $routeObj = $routeEntry['route'];
             $routeDomain = $routeObj->getDomain();
 
-            // Debug log para análise
-            error_log("Rota registrada [{$idx}]: Método: {$routeObj->getMethod()} | Caminho: {$routeObj->getPath()} | Domínio: " . ($routeDomain ?? 'nenhum'));
-
             // Se existe um domínio definido, precisa bater com o domínio atual
             if ($routeDomain !== null && $routeDomain !== $currentDomain) {
                 continue;

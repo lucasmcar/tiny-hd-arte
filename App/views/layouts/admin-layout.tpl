@@ -319,6 +319,16 @@
             <li><a href="/admin/home" class="nav-link" data-page="home"><i class="bi bi-house-door"></i><span>Dashboard</span></a></li>
             <li>
                 <a href="#" class="nav-link dropdown-toggle">
+                    <i class="bi bi-briefcase"></i><span>Consultoria</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item nav-link" data-page="consultoria"><i class="bi bi-journal-plus"></i>Cadastro</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="consultoria/lista"><i class="bi bi-list"></i>Registros</a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="#" class="nav-link dropdown-toggle">
                     <i class="bi bi-calendar-event"></i><span>Eventos</span>
                 </a>
                 <ul class="dropdown-menu">
@@ -401,6 +411,7 @@
 
     @js('https://code.jquery.com/jquery-3.6.0.min.js')
     @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
+    @js('https://cdn.tiny.cloud/1/e2ef7lxoq8ldecctbgxoj7caqa6wetrp2dve7j1z1h52b5j9/tinymce/7/tinymce.min.js')
     {{ $scripts }}
 
     <!-- Script Inline para Passar o Tempo de Expiração -->

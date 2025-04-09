@@ -2,6 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/assets/imgs/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Consultoria especializada em editais culturais, produção executiva e captação de recursos para projetos artísticos. Ajude sua produtora cultural a alcançar sucesso com estratégias eficazes de financiamento e gestão.">
     <meta name="keywords" content="consultoria, editais culturais, produção executiva, captação de recursos, projetos artísticos, produtora cultural, financiamento, gestão, hd arte, gestao">
@@ -268,7 +269,7 @@
                         Projetos
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
-                        <li><a class="dropdown-item" href="/projetos">Todos os Projetos</a></li>
+                        <li><a class="dropdown-item" href="/projetos">Cases</a></li>
                         <li><a class="dropdown-item" href="/projetos/aprovados">Projetos Aprovados</a></li>
                         <li><a class="dropdown-item" href="/projetos/em-andamento">Projetos em Andamento</a></li>
                     </ul>

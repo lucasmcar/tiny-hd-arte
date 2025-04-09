@@ -11,6 +11,7 @@ class ModelBase
     protected $db;
     private $conditions = [];
     private $bindings = [];
+    private $joins = [];
 
     public function __construct()
     {
@@ -121,20 +122,29 @@ class ModelBase
     // Executa a consulta com as condições
     public function get()
     {
-        if (empty($this->conditions)) {
+        if (empty($this->conditions) && empty($this->joins)) {
             return $this->all();
         }
 
-        $sql = "SELECT * FROM {$this->table} WHERE ";
-        $conditionsStr = '';
-        foreach ($this->conditions as $index => [$logic, $condition]) {
-            if ($index === 0) {
-                $conditionsStr .= $condition;
-            } else {
-                $conditionsStr .= " $logic $condition";
-            }
+        $sql = "SELECT * FROM {$this->table} ";
+
+        if (!empty($this->joins)) {
+            $sql .= ' ' . implode(' ', $this->joins);
         }
-        $sql .= $conditionsStr;
+
+        // Adiciona a cláusula WHERE, se houver
+        if (!empty($this->conditions)) {
+            $sql .= " WHERE ";
+            $conditionsStr = '';
+            foreach ($this->conditions as $index => [$logic, $condition]) {
+                if ($index === 0) {
+                    $conditionsStr .= $condition;
+                } else {
+                    $conditionsStr .= " $logic $condition";
+                }
+            }
+            $sql .= $conditionsStr;
+        }
 
         $stmt = $this->connect()->prepare($sql);
         foreach ($this->bindings as $param => $value) {
@@ -146,7 +156,29 @@ class ModelBase
         // Reseta as condições e bindings para a próxima consulta
         $this->conditions = [];
         $this->bindings = [];
+        $this->joins = [];
 
         return $results;
+    }
+
+    // Adiciona um INNER JOIN
+    public function join($table, $condition)
+    {
+        $this->joins[] = "INNER JOIN $table ON $condition";
+        return $this;
+    }
+
+    // Adiciona um LEFT JOIN
+    public function leftJoin($table, $condition)
+    {
+        $this->joins[] = "LEFT JOIN $table ON $condition";
+        return $this;
+    }
+
+    // Adiciona um RIGHT JOIN
+    public function rightJoin($table, $condition)
+    {
+        $this->joins[] = "RIGHT JOIN $table ON $condition";
+        return $this;
     }
 }

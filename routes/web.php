@@ -41,6 +41,11 @@ $router->group('/admin', function($router) {
         $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
         //$router->get('/nova/conta', 'UserController', 'registrar');
 
+
+        //Consultoria
+        $router->get('/consultoria', 'ConsultoriaController','index');
+        $router->get('/consultoria/lista', 'ConsultoriaController', 'listaClientes');
+        $router->get('/consultoria/perfil-cliente', 'ConsultoriaController', 'perfilCliente');
         
         //Eventos
         $router->get('/evento', 'EventoController','index');

@@ -58,7 +58,7 @@ class MailerHelper
         try {
             return $this->mail->send();
         } catch (Exception $e) {
-            error_log("Erro ao enviar e-mail: {$this->mail->ErrorInfo}");
+            
             return false;
         }
     }
