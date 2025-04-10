@@ -322,11 +322,12 @@
                     <i class="bi bi-briefcase"></i><span>Consultoria</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#" class="dropdown-item nav-link" data-page="consultoria"><i class="bi bi-journal-plus"></i>Cadastro</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="consultoria"><i class="bi bi-person-plus-fill"></i>Cadastro</a></li>
                     <li><a href="#" class="dropdown-item nav-link" data-page="consultoria/lista"><i class="bi bi-list"></i>Registros</a></li>
                 </ul>
             </li>
 
+            <!-- Gestao de projetos -->
             <li>
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="bi bi-tools"></i><span>Gestão de Projetos</span>
@@ -337,6 +338,17 @@
                 </ul>
             </li>
             
+            <!-- Eventos Culturais -->
+            <li>
+                <a href="#" class="nav-link dropdown-toggle">
+                    <i class="bi bi-tools"></i><span>Eventos Culturais</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#" class="dropdown-item nav-link" data-page="eventos-culturais"><i class="bi bi-clipboard-data"></i>Cadastro</a></li>
+                    <li><a href="#" class="dropdown-item nav-link" data-page="eventos-culturais/listaEventos"><i class="bi bi-list"></i>Registros</a></li>
+                </ul>
+            </li>
+
             <li>
                 <a href="#" class="nav-link dropdown-toggle">
                     <i class="bi bi-calendar-event"></i><span>Eventos</span>

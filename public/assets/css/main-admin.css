@@ -13,7 +13,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 250px;
+    width: 275px;
     height: 100%;
     background: #222; /* Cinza escuro Netflix */
     padding: 20px;
@@ -86,7 +86,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .sidebar a i {
-    margin-right: 10px;
+    margin-right: 5px;
     font-size: 1.2rem;
 }
 
