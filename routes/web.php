@@ -67,6 +67,27 @@ $router->group('/admin', function($router) {
         $router->post('/eventos-culturais/salvarChecklist', 'EventosCulturaisController', 'salvarChecklist');
         $router->post('/eventos-culturais/salvarFinancas', 'EventosCulturaisController', 'salvarFinancas');
 
+        //Agenciamento
+        $router->get('/agenciamento-artistas', 'AgenciamentoArtistasController', 'index');
+        $router->post('/agenciamento-artistas/salvarArtista', 'AgenciamentoArtistasController', 'salvarArtista');
+        $router->get('/agenciamento-artistas/listaArtistas', 'AgenciamentoArtistasController','listaArtistas');
+        $router->get('/agenciamento-artistas/detalhesArtista', 'AgenciamentoArtistasController', 'detalhesArtista');
+
+        $router->get('/agenciamento-artistas/contratos', 'AgenciamentoArtistasController', 'contratos');
+        $router->post('/agenciamento-artistas/salvarContrato', 'AgenciamentoArtistasController', 'salvarContrato');
+        $router->get('/agenciamento-artistas/listaContratos', 'AgenciamentoArtistasController', 'listaContratos');
+        $router->get('/agenciamento-artistas/detalhesContrato', 'AgenciamentoArtistasController', 'detalhesContrato');
+
+        $router->get('/agenciamento-artistas/agenda', 'AgenciamentoArtistasController', 'agenda');
+        $router->post('/agenciamento-artistas/salvarEvento', 'AgenciamentoArtistasController', 'salvarEvento');
+        $router->get('/agenciamento-artistas/listaAgenda', 'AgenciamentoArtistasController', 'listaAgenda');
+        $router->get('/agenciamento-artistas/detalhesEvento', 'AgenciamentoArtistasController', 'detalhesEvento');
+
+        $router->get('/agenciamento-artistas/historico', 'AgenciamentoArtistasController', 'historico');
+        $router->post('/agenciamento-artistas/salvarAvaliacaoEvento', 'AgenciamentoArtistasController', 'salvarAvaliacaoEvento');
+        $router->get('/agenciamento-artistas/listaHistorico', 'AgenciamentoArtistasController', 'listaHistorico');
+        $router->get('/agenciamento-artistas/detalhesHistorico', 'AgenciamentoArtistasController', 'detalhesHistorico');
+
         //Eventos
         $router->get('/evento', 'EventoController','index');
         $router->get('/evento/participantes', 'EventoController','participantes');

@@ -54,10 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function initializeNavLinks() {
-    // Links da navbar (.nav-link)
-    document.querySelectorAll(".nav-link").forEach((link) => {
+    // Links da navbar (.nav-link), exceto os que são accordion-toggle
+    document.querySelectorAll(".nav-link:not(.accordion-toggle)").forEach((link) => {
       link.removeEventListener("click", handleNavClick);
       link.addEventListener("click", handleNavClick);
+      console.log("Listener de navegação adicionado ao link:", link.textContent);
     });
 
     // Remove qualquer listener anterior para evitar duplicatas
@@ -66,12 +67,89 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", handleDynamicLinkClick);
   }
 
+  function initializeAccordion() {
+    // Links do acordeão (accordion-toggle)
+    document.querySelectorAll(".accordion-toggle").forEach((toggle) => {
+      toggle.removeEventListener("click", handleAccordionClick);
+      toggle.addEventListener("click", handleAccordionClick);
+      console.log("Listener de acordeão adicionado ao item:", toggle.textContent);
+    });
+  }
+
+  /*function handleAccordionClick(e) {
+    e.preventDefault();
+    e.stopPropagation(); // Impede que o evento se propague para outros listeners
+    const submenu = this.nextElementSibling;
+    const isActive = submenu.classList.contains("active");
+
+    // Fecha todos os outros submenus
+    document.querySelectorAll(".accordion-menu").forEach(menu => {
+      if (menu !== submenu) {
+        menu.classList.remove("active");
+        menu.previousElementSibling.classList.remove("active");
+      }
+    });
+
+    // Alterna o submenu atual
+    if (isActive) {
+      submenu.classList.remove("active");
+      this.classList.remove("active");
+      console.log("Submenu fechado:", this.textContent);
+    } else {
+      submenu.classList.add("active");
+      this.classList.add("active");
+      console.log("Submenu aberto:", this.textContent);
+    }
+  }*/
+
+    function handleAccordionClick(e) {
+      e.preventDefault();
+      e.stopPropagation(); // Impede que o evento se propague para outros listeners
+  
+      const submenu = this.nextElementSibling;
+      const isActive = submenu.classList.contains("active");
+  
+      console.log("Estado atual do submenu antes de alternar:", isActive ? "Ativo" : "Inativo");
+  
+      // Fecha todos os outros submenus
+      document.querySelectorAll(".accordion-menu").forEach(menu => {
+          if (menu !== submenu) {
+              menu.classList.remove("active");
+              menu.previousElementSibling.classList.remove("active");
+              menu.style.maxHeight = "0"; // Garante que o max-height seja 0 ao fechar outros submenus
+              console.log("Fechando outro submenu:", menu.previousElementSibling.textContent);
+          }
+      });
+  
+      // Alterna o submenu atual
+      if (isActive) {
+          submenu.classList.remove("active");
+          this.classList.remove("active");
+          submenu.style.maxHeight = "0"; // Define max-height como 0 ao fechar
+          console.log("Submenu fechado:", this.textContent);
+      } else {
+          submenu.classList.add("active");
+          this.classList.add("active");
+          // Define o max-height como a altura real do conteúdo
+          submenu.style.maxHeight = submenu.scrollHeight + "px";
+          console.log("Submenu aberto:", this.textContent);
+      }
+  
+      // Log para verificar o estado final do submenu
+      console.log("Estado final do submenu após alternar:", submenu.classList.contains("active") ? "Ativo" : "Inativo");
+  }
+
   function handleNavClick(event) {
     event.preventDefault();
-    const page = event.currentTarget.getAttribute("data-page");
-    console.log("Carregando página:", page);
-    loadPage(`/admin/${page}`);
-    closeSidebar();
+    const link = event.currentTarget;
+
+    // Deve ser um item navegável (com data-page)
+    const page = link.getAttribute("data-page");
+    if (page) {
+      console.log("Carregando página:", page);
+      loadPage(`/admin/${page}`);
+      closeSidebar(); // Fecha o sidebar para itens navegáveis
+    }
   }
 
   function handleDynamicLinkClick(event) {
@@ -81,7 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const url = target.getAttribute("data-url");
       console.log("Clique detectado em elemento com data-url:", url);
       loadPage(url);
-      closeSidebar();
+      closeSidebar(); // Fecha o sidebar para links com data-url
     }
   }
 
@@ -173,7 +251,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Reconfigura o sidebar e os links de navegação
           initializeSidebar();
           initializeNavLinks();
-          closeSidebar();
+          initializeAccordion(); // Reconfigura o acordeão após carregar a página
 
           const newStyles = Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).map((link) =>
             link.getAttribute("href")
@@ -251,6 +329,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Inicializar eventos no carregamento inicial
   initializeSidebar();
   initializeNavLinks();
+  initializeAccordion(); // Inicializa o acordeão no carregamento inicial
   closeSidebar();
 
   if (window.location.pathname === "/admin/home") {

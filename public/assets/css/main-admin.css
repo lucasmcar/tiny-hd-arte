@@ -57,6 +57,25 @@ body::-webkit-scrollbar-thumb:hover {
     background: #dd6a6a;
 }
 
+/* Estilo do Sidebar */
+.sidebar {
+    position: fixed;
+    top: 60px;
+    left: -250px;
+    width: 250px;
+    height: calc(100% - 60px);
+    background: #222;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    transition: left 0.3s ease;
+    overflow: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -71,7 +90,7 @@ body::-webkit-scrollbar-thumb:hover {
     display: flex;
     align-items: center;
     padding: 12px 15px;
-    color: #e0e0e0; /* Texto claro */
+    color: #e0e0e0;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
@@ -81,19 +100,71 @@ body::-webkit-scrollbar-thumb:hover {
 
 .sidebar a:hover,
 .sidebar a.nav-link:hover {
-    background: #333; /* Cinza mais claro no hover */
-    color: #e50914; /* Vermelho Netflix */
+    background: #333;
+    color: #e50914;
 }
 
 .sidebar a i {
-    margin-right: 5px;
+    margin-right: 10px;
     font-size: 1.2rem;
 }
 
-.sidebar a span {
-    flex: 1;
+/* Estilo do Acordeão */
+.accordion-toggle {
+    position: relative;
+    justify-content: space-between;
 }
 
+.accordion-icon {
+    transition: transform 0.3s ease;
+}
+
+.accordion-toggle.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-menu {
+    max-height: 0; /* Começa com altura 0 */
+    padding-left: 20px;
+    background: #2a2a2a; /* Um tom mais escuro para o submenu */
+    border-radius: 5px;
+    margin-top: 5px;
+    overflow: hidden; /* Esconde o conteúdo enquanto a altura é 0 */
+    transition: max-height 0.3s ease, padding 0.3s ease; /* Transição suave para altura e padding */
+}
+
+.accordion-menu.active {
+    padding-top: 10px; /* Adiciona padding ao abrir */
+    padding-bottom: 10px;
+}
+
+.accordion-menu li {
+    margin-bottom: 5px;
+}
+
+.accordion-menu a {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+.accordion-menu a:hover {
+    background: #444;
+    color: #e50914;
+}
+
+@media (max-width: 768px) {
+   
+    .sidebar.active {
+        left: 0;
+    }
+    .main-content.shifted {
+        margin-left: 200px;
+    }
+   
+    .accordion-menu {
+        padding-left: 10px;
+    }
+}
 .main-content {
     flex: 1;
     margin-left: 250px; /* Espaço para a sidebar */
