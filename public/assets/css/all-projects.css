@@ -9,11 +9,16 @@
 .project-card {
     display: flex;
     flex-direction: column;
-    background: #fff;
+    background: #181818; /* Fundo cinza escuro no estilo Netflix */
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
     overflow: hidden;
     height: 100%; /* Garante que o card ocupe toda a altura disponível */
+    transition: transform 0.3s ease; /* Transição para hover */
+}
+
+.project-card:hover {
+    transform: scale(1.03); /* Efeito de hover sutil no estilo Netflix */
 }
 
 .project-media {
@@ -21,6 +26,8 @@
     height: 200px; /* Altura fixa para consistência */
     object-fit: cover; /* Mantém a proporção sem distorcer */
     display: block;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px; /* Bordas arredondadas no topo */
 }
 
 .card-body {
@@ -29,16 +36,19 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background: #181818; /* Mesmo fundo do card */
 }
 
 .card-title {
     font-size: 1.25rem;
+    color: #fff; /* Texto branco */
     margin-bottom: 10px;
+    font-weight: 600; /* Peso mais forte para o título */
 }
 
 .card-text {
     font-size: 1rem;
-    color: #666;
+    color: #e0e0e0; /* Texto cinza claro no estilo Netflix */
     margin-bottom: 15px;
     flex-grow: 1;
 }
@@ -46,35 +56,41 @@
 .btn-hda {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #e50914; /* Vermelho Netflix */
     color: #fff;
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
 .btn-hda:hover {
-    background-color: #0056b3;
+    background-color: #f40612; /* Vermelho mais claro no hover */
 }
 
 .hda-section {
     padding: 40px 0;
+    background-color: #1a1a1a; /* Fundo escuro para a seção */
 }
 
 .hda-title {
     font-size: 2.5rem;
     margin-bottom: 20px;
+    color: #fff; /* Texto branco */
+    font-weight: 600;
 }
 
 .hda-text {
     font-size: 1.1rem;
-    color: #333;
+    color: #e0e0e0; /* Texto cinza claro */
 }
 
 .section-title {
     font-size: 1.75rem;
     margin: 30px 0 20px;
+    color: #e50914; /* Vermelho Netflix para títulos de seção */
+    font-weight: bold;
 }
 
 .mb-5 {

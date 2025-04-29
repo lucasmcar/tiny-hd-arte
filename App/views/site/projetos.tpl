@@ -53,6 +53,7 @@
     {% endif; %}
 </section>
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const videoCards = document.querySelectorAll('.project-card video');
