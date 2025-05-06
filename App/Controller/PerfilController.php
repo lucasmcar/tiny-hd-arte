@@ -23,8 +23,8 @@ class PerfilController
             ]
         ];
 
-        $styles = ['/assets/css/perfil.css'];
-        $scripts = ['/assets/js/perfil.js'];
+        $styles = ['/assets/css/perfil.min.css'];
+        $scripts = ['/assets/js/perfil.min.js'];
 
         return new View('admin/perfil', [
             'adminData' => $adminData

@@ -16,11 +16,11 @@ class ProjetosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/projetos-culturais.css'
+            '/assets/css/admin/projetos-culturais.min.css'
         ];
 
         $scripts = [
-            '/assets/js/projetos-culturais.js'
+            '/assets/js/projetos-culturais.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -38,7 +38,7 @@ class ProjetosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/projetos-culturais.css'
+            '/assets/css/admin/projetos-culturais.min.css'
         ];
 
         $scripts = [];
@@ -64,11 +64,11 @@ class ProjetosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/projetos-culturais.css'
+            '/assets/css/admin/projetos-culturais.min.css'
         ];
 
         $scripts = [
-            '/assets/js/projetos-culturais-detalhes.js'
+            '/assets/js/projetos-culturais-detalhes.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

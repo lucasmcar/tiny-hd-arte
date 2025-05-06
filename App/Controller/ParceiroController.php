@@ -43,8 +43,8 @@ class ParceiroController
         // Simulação de dados (substitua pelo seu banco de dados)
 
 
-        $styles = ['/assets/css/parceiros.css'];
-        $scripts = ['/assets/js/main-admin.js', '/assets/js/parceiros.js'];
+        $styles = ['/assets/css/parceiros.min.css'];
+        $scripts = ['/assets/js/main-admin.min.js', '/assets/js/parceiros.min.js'];
 
         $data = [
             'title' => 'Gerenciar Parceiros',

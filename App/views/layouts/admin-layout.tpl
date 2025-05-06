@@ -459,9 +459,9 @@
         {{ $content }}
     </main>
 
-    @js('https://code.jquery.com/jquery-3.6.0.min.js')
-    @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
-    @js('https://cdn.tiny.cloud/1/e2ef7lxoq8ldecctbgxoj7caqa6wetrp2dve7j1z1h52b5j9/tinymce/7/tinymce.min.js')
+    @js('https://code.jquery.com/jquery-3.6.0.min.min.js')
+    @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.min.js')
+    @js('https://cdn.tiny.cloud/1/e2ef7lxoq8ldecctbgxoj7caqa6wetrp2dve7j1z1h52b5j9/tinymce/7/tinymce.min.min.js')
     {{ $scripts }}
 
     <!-- Script Inline para Passar o Tempo de Expiração -->

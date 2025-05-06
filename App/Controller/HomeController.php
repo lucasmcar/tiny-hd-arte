@@ -27,11 +27,11 @@ class HomeController extends Controller
         $depoimentosData = $depoimentos->verDepoimentos();
 
         $styles = [
-            'assets/css/home.css',
+            'assets/css/home.min.css',
         ];
 
         $scripts = [
-            '/assets/js/main.js'
+            '/assets/js/main.min.js'
         ];
 
         $data = [
@@ -56,11 +56,11 @@ class HomeController extends Controller
         ];
 
         $styles = [
-            'assets/css/sobre.css',
+            'assets/css/sobre.min.css',
         ];
 
         $scripts = [
-            '/assets/js/sobre.js'
+            '/assets/js/sobre.min.js'
         ];
 
         return new View(view: 'site/sobre', vars: $data, styles: $styles, scripts: $scripts);
@@ -122,7 +122,7 @@ class HomeController extends Controller
     ];
 
     $styles = [
-        '/assets/css/servicos-site.css'
+        '/assets/css/servicos-site.min.css'
     ];
 
     return new View(view: 'site/servicos', vars: $data, styles: $styles);
@@ -151,7 +151,7 @@ class HomeController extends Controller
         ];
 
         $styles = [
-            '/assets/css/equipe.css'
+            '/assets/css/equipe.min.css'
         ];
 
         return new View(view: 'site/equipe', vars: $data, styles: $styles);
@@ -175,7 +175,7 @@ class HomeController extends Controller
 
         
         $styles = [
-            '/assets/css/depoimentos-site.css'
+            '/assets/css/depoimentos-site.min.css'
         ];
 
 
@@ -189,11 +189,11 @@ class HomeController extends Controller
         ];
 
         $styles = [
-            'assets/css/contato.css',
+            'assets/css/contato.min.css',
         ];
 
         $script = [
-            'assets/js/contato.js'
+            'assets/js/contato.min.js'
         ];
 
         return new View(view: 'site/contato', vars: $data, styles: $styles, scripts: $script);

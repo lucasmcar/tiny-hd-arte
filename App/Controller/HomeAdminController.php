@@ -28,10 +28,10 @@ class HomeAdminController
         ];
 
         $styles = [
-            '/assets/css/main-admin.css'
+            '/assets/css/main-admin.min.css'
         ];
         $scripts =[
-            'assets/js/main-admin.js'
+            'assets/js/main-admin.min.js'
         ];
 
         return new View('admin/home', $data, $styles, $scripts, 'admin-layout');
@@ -48,7 +48,7 @@ class HomeAdminController
         ];
 
         $styles = [
-            '/assets/css/main.css'
+            '/assets/css/main.min.css'
         ];
         $scripts =[];
 
@@ -64,10 +64,10 @@ class HomeAdminController
     {
         
         $styles = [
-            '/assets/css/servicos.css'
+            '/assets/css/servicos.min.css'
         ];
         $scripts =[
-            '/assets/js/servicos.js'
+            '/assets/js/servicos.min.js'
         ];
         $data = [
             'title' => 'Todos os Serviços',

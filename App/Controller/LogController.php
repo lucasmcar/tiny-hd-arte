@@ -20,11 +20,11 @@ class LogController
         ];
 
         $styles = [
-            '/assets/css/admin/logs.css'
+            '/assets/css/admin/logs.min.css'
         ];
 
         $scripts = [
-            '/assets/js/logs.js'
+            '/assets/js/logs.min.js'
         ];
 
         return new View(view: 'admin/logs', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');

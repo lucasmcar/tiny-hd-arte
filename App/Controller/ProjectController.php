@@ -27,7 +27,7 @@ class ProjectController
             'all_projects' => $allProjects
         ];
 
-        $styles = ['/assets/css/all-project.css'];
+        $styles = ['/assets/css/all-project.min.css'];
         $scripts = []; // Para interatividade, se necessário
 
         return new View('site/projetos', $data, $styles);
@@ -49,9 +49,9 @@ class ProjectController
             'project' => $project
         ];
 
-        $styles = ['/assets/css/project.css'];
+        $styles = ['/assets/css/project.min.css'];
         $scripts = [
-            '/assets/js/event-carousel.js'
+            '/assets/js/event-carousel.min.js'
         ];
 
         return new View('site/projects', $data, $styles, $scripts);
@@ -457,7 +457,7 @@ Arte Negra do Sul Edição 2025 - Roaunet';*/
             'all_projects' => $projects
         ];
 
-        $styles = ['/assets/css/project.css'];
+        $styles = ['/assets/css/project.min.css'];
 
 
         return new View('site/projetos', $data, $styles);

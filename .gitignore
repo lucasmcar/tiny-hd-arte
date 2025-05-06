@@ -3,3 +3,5 @@ vendor/
 .vscode/
 /public/uploads/*
 .idea/
+/node_modules
+/assets/

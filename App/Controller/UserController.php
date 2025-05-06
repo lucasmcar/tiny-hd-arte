@@ -17,10 +17,10 @@ class UserController
         ];
 
         $styles = [
-            '/assets/css/admin/login.css'
+            '/assets/css/admin/login.min.css'
         ];
         $scripts = [
-            '/assets/js/main-admin.js'
+            '/assets/js/main-admin.min.js'
         ];
 
 
@@ -34,10 +34,10 @@ class UserController
         ];
 
         $styles = [
-            '/assets/css/cria_conta.css'
+            '/assets/css/cria_conta.min.css'
         ];
         $scripts = [
-            '/assets/js/cria_conta.js'
+            '/assets/js/cria_conta.min.js'
         ];
 
         return new View(view: 'admin/cria_conta', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');

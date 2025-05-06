@@ -25,6 +25,7 @@ $router->post('/contato/email', 'HomeController','enviarEmail');
 
 
 $router->group('/admin', function($router) {
+    $router->get('/insert', 'UserController', 'insertData');
     $router->get('/login', 'UserController','login');
     $router->get('/logout', 'UserController', 'logout');
     $router->post('/signIn', 'UserController','signIn');
@@ -39,7 +40,7 @@ $router->group('/admin', function($router) {
         //Blog
         $router->get('/novo/blog', 'BlogController', 'novoBlog');
         $router->get('/lista/blogs', 'BlogController', 'listaBlogs');
-        //$router->get('/nova/conta', 'UserController', 'registrar');
+        $router->get('/nova/conta', 'UserController', 'registrar');
 
 
         //Consultoria

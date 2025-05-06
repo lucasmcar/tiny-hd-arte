@@ -20,11 +20,11 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [
-            '/assets/js/admin-agenciamento-artistas.js'
+            '/assets/js/admin-agenciamento-artistas.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -42,7 +42,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -68,7 +68,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -153,11 +153,11 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [
-            '/assets/js/admin-agenciamento-contratos.js'
+            '/assets/js/admin-agenciamento-contratos.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -176,7 +176,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -203,7 +203,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -274,11 +274,11 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [
-            '/assets/js/admin-agenciamento-agenda.js'
+            '/assets/js/admin-agenciamento-agenda.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -297,7 +297,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -324,7 +324,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -391,11 +391,11 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [
-            '/assets/js/admin-agenciamento-historico.js'
+            '/assets/js/admin-agenciamento-historico.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -414,7 +414,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];
@@ -441,7 +441,7 @@ class AgenciamentoArtistasController
         ];
 
         $styles = [
-            '/assets/css/admin/agenciamento-artistas.css'
+            '/assets/css/admin/agenciamento-artistas.min.css'
         ];
 
         $scripts = [];

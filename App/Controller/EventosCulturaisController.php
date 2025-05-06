@@ -17,11 +17,11 @@ class EventosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/eventos-culturais.css'
+            '/assets/css/admin/eventos-culturais.min.css'
         ];
 
         $scripts = [
-            '/assets/js/eventos-culturais.js'
+            '/assets/js/eventos-culturais.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -39,7 +39,7 @@ class EventosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/eventos-culturais.css'
+            '/assets/css/admin/eventos-culturais.min.css'
         ];
 
         $scripts = [];
@@ -65,11 +65,11 @@ class EventosCulturaisController
         ];
 
         $styles = [
-            '/assets/css/admin/eventos-culturais.css'
+            '/assets/css/admin/eventos-culturais.min.css'
         ];
 
         $scripts = [
-            '/assets/js/eventos-culturais-detalhes.js'
+            '/assets/js/eventos-culturais-detalhes.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

@@ -13,10 +13,10 @@ class EventoController
         ];
 
         $styles = [
-            'assets/css/admin/evento.css',
+            'assets/css/admin/evento.min.css',
         ];
         $scripts = [
-            'assets/js/evento.js',
+            'assets/js/evento.min.js',
         ];
 
         return new View(view: 'admin/evento', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');
@@ -35,11 +35,11 @@ class EventoController
         ];
 
         $styles = [
-            'assets/css/admin/participante.css',
+            'assets/css/admin/participante.min.css',
         ];
 
         $scripts = [
-            'assets/js/participante.js',
+            'assets/js/participante.min.js',
         ];
 
         return new View(view: 'admin/participante', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');

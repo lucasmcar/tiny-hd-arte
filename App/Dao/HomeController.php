@@ -25,11 +25,11 @@ class HomeController extends Controller
         $depoimentosData = $depoimentos->verDepoimentos();*/
 
         $styles = [
-            'assets/css/home.css',
+            'assets/css/home.min.css',
         ];
 
         $scripts = [
-            '/assets/js/main.js'
+            '/assets/js/main.min.js'
         ];
 
         $data = [

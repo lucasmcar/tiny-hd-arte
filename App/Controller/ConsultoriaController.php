@@ -15,11 +15,11 @@ class ConsultoriaController
         ];
 
         $styles = [
-            '/assets/css/admin/consultoria.css'
+            '/assets/css/admin/consultoria.min.css'
         ];
 
         $scripts = [
-            '/assets/js/consultoria.js'
+            '/assets/js/consultoria.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -105,11 +105,11 @@ class ConsultoriaController
         ];
 
         $styles = [
-            '/assets/css/admin/consultoria.css'
+            '/assets/css/admin/consultoria.min.css'
         ];
 
         $scripts = [
-            '/assets/js/consultoria-list.js'
+            '/assets/js/consultoria-list.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
@@ -134,11 +134,11 @@ class ConsultoriaController
         ];
 
         $styles = [
-            '/assets/css/admin/consultoria.css'
+            '/assets/css/admin/consultoria.min.css'
         ];
 
         $scripts = [
-            'assets/js/cliente-consultoria.js'
+            'assets/js/cliente-consultoria.min.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

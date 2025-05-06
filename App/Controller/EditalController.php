@@ -43,11 +43,11 @@ class EditalController
 
         $styles = [
 
-            '/assets/css/admin/edital.css'
+            '/assets/css/admin/edital.min.css'
         ];
         $scripts = [
-            '/assets/js/main-admin.js',
-            '/assets/js/edital.js'
+            '/assets/js/main-admin.min.js',
+            '/assets/js/edital.min.js'
         ];
         return new View(view: 'admin/edital', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');
     }
