@@ -36,6 +36,9 @@ $router->group('/admin', function($router) {
         //Clinte
         $router->get('/clientes', 'ClienteController', 'index');
         $router->post('/cliente/novo', 'ClienteController', 'novoCliente');
+
+        //Perfil
+        $router->post('/profile/updateProfile', 'PerfilController', 'updateProfile');
         
         //Blog
         $router->get('/novo/blog', 'BlogController', 'novoBlog');

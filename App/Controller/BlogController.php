@@ -161,7 +161,7 @@ class BlogController
         ];
 
         $scripts =[
-            '/assets/js/tiny-init.min.js'
+            '/assets/js/ckeditor5/ckeditor5.js'
         ];
 
         if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {

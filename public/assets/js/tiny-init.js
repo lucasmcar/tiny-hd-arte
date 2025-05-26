@@ -47,7 +47,7 @@ function initializeTinyMCE() {
                 method: 'POST',
                 body: formData,
                 headers: {
-                    'X-CSRF-Token': document.querySelector('input[name="_csrf_token"]')?.value
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_csrf_token"]')?.value
                 }
             })
             .then(response => response.json())
@@ -98,7 +98,7 @@ function initializeTinyMCE() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-Token': document.querySelector('input[name="_csrf_token"]')?.value
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_csrf_token"]')?.value
                 },
                 body: JSON.stringify({ title: title, content: content })
             })

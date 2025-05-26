@@ -307,7 +307,7 @@
             <h4 class="text-white p-3">Painel Administrativo</h4>
         </div>
         <div class="profile">
-            <img src="/assets/imgs/michelle.jpg" alt="Perfil" class="rounded-circle">
+            <img src="{{ $_SESSION['foto'] ? $_SESSION['foto'] : '/assets/imgs/default.jpg' }}" alt="Perfil" class="rounded-circle">
         </div>
     </div>
 
@@ -459,9 +459,8 @@
         {{ $content }}
     </main>
 
-    @js('https://code.jquery.com/jquery-3.6.0.min.min.js')
-    @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.min.js')
-    @js('https://cdn.tiny.cloud/1/e2ef7lxoq8ldecctbgxoj7caqa6wetrp2dve7j1z1h52b5j9/tinymce/7/tinymce.min.min.js')
+    @js('https://code.jquery.com/jquery-3.6.0.min.js')
+    @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js')
     {{ $scripts }}
 
     <!-- Script Inline para Passar o Tempo de Expiração -->
@@ -531,7 +530,7 @@
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-Token': document.querySelector('input[name="_csrf_token"]')?.value
+                    'X-CSRF-TOKEN': document.querySelector('input[name="_csrf_token"]')?.value
                 }
             })
             .then(response => response.json())

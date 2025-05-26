@@ -1,56 +1,38 @@
+/* Estilo para a seção de Gerenciamento de Perfil */
 .gerenciar-perfil-section {
-    background-color: #141414;
     padding: 40px 0;
-    width: 100%;
+    background-color: #1a1a1a; /* Fundo escuro no estilo Netflix */
+    color: #e0e0e0; /* Texto claro */
 }
 
-.container {
-    max-width: 1200px;
-    width: 100%;
+.gerenciar-perfil-section .container {
+    max-width: 80%; /* Limita a largura para melhor legibilidade */
     margin: 0 auto;
-    padding: 0 20px;
 }
 
 .header-info {
+    text-align: center;
     margin-bottom: 30px;
 }
 
 .hda-title {
-    color: #fff;
     font-size: 2.5rem;
-    font-weight: bold;
-    margin: 0;
+    color: #fff; /* Texto branco */
+    font-weight: 600;
 }
 
 .config-section {
-    background-color: #222;
+    background-color: #2a2a2a; /* Fundo um pouco mais claro que a seção principal */
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
 .section-title {
-    color: #e50914;
-    font-size: 1.8rem;
-    margin: 0 0 15px;
-}
-
-/* Estilos específicos para os e-mails (incluindo dinâmicos) */
-.email-item input.email-input {
-    width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    background-color: #333;
-    border: 1px solid #444;
-    border-radius: 5px;
-    color: #fff;
-    font-size: 1rem;
-    flex-grow: 1; /* Garante que o input ocupe o espaço disponível */
-}
-
-.email-item input.email-input:focus {
-    outline: none;
-    border-color: #e50914;
+    font-size: 1.75rem;
+    color: #e50914; /* Vermelho Netflix */
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
 .form-group {
@@ -59,93 +41,188 @@
 
 .form-group label {
     display: block;
-    color: #ccc;
+    font-size: 1rem;
+    color: #e0e0e0; /* Texto claro */
     margin-bottom: 5px;
-    font-size: 1.1rem;
 }
 
 .form-group input {
     width: 100%;
-    max-width: 300px;
-    padding: 8px;
-    background-color: #333;
-    border: 1px solid #444;
-    border-radius: 5px;
-    color: #fff;
+    padding: 10px;
     font-size: 1rem;
+    color: #e0e0e0;
+    background-color: #444; /* Fundo cinza escuro para inputs */
+    border: 1px solid #555;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
 }
 
 .form-group input:focus {
-    outline: none;
-    border-color: #e50914;
+    border-color: #e50914; /* Vermelho Netflix no foco */
+}
+
+.profile-info {
+    font-size: 1rem;
+    color: #b3b3b3; /* Cinza claro para informações não editáveis */
 }
 
 .profile-pic {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
-    margin-bottom: 10px;
-    border: 2px solid #444;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .action-btn {
+    display: inline-block;
     padding: 10px 20px;
-    background-color: #e50914;
+    background-color: #e50914; /* Vermelho Netflix */
     color: #fff;
+    text-align: center;
+    text-decoration: none;
     border: none;
     border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
+    font-weight: 600;
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .action-btn:hover {
-    background-color: #f40612;
+    background-color: #f40612; /* Vermelho mais claro no hover */
 }
 
-#admins-list, #emails-list {
-    margin-top: 15px;
+.remove-btn {
+    background-color: #555; /* Cinza escuro para botões de remoção */
+    color: #e0e0e0;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+    background-color: #777;
 }
 
 .admin-item, .email-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
-    color: #ccc;
+    padding: 10px;
+    background-color: #333; /* Fundo cinza escuro para itens */
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
 .email-input {
     flex-grow: 1;
-}
-
-.remove-btn {
-    padding: 5px 10px;
+    margin-right: 10px;
+    padding: 5px;
     background-color: #444;
-    color: #fff;
-    border: none;
+    border: 1px solid #555;
+    color: #e0e0e0;
     border-radius: 5px;
-    cursor: pointer;
-}
-
-.remove-btn:hover {
-    background-color: #666;
 }
 
 .save-btn {
     display: block;
-    margin: 20px auto 0;
+    width: 100%;
+    max-width: 200px;
+    margin: 20px auto;
+    text-align: center;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-    .form-group input {
-        max-width: 100%;
+/* Ajustes responsivos */
+@media (max-width: 767.98px) {
+    .hda-title {
+        font-size: 2rem;
     }
 
-    .admin-item, .email-item {
-        flex-direction: column;
-        align-items: flex-start;
+    .section-title {
+        font-size: 1.5rem;
     }
+
+    .form-group input {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .profile-pic {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hda-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.3rem;
+    }
+
+    .form-group input {
+        font-size: 0.8rem;
+    }
+
+    .action-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* Novo: Estilos para a Modal */
+.modal-content {
+    background: #222;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 8px;
+}
+
+.modal-header {
+    border-bottom: 1px solid #333;
+}
+
+.modal-title {
+    font-weight: 600;
+    color: #fff;
+}
+
+.modal-body {
+    font-size: 1rem;
+    color: #e0e0e0;
+}
+
+.modal-footer {
+    border-top: 1px solid #333;
+}
+
+.btn-secondary-netflix {
+    background: #333;
+    color: #e0e0e0;
+    border: none;
+    padding: 8px 20px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn-secondary-netflix:hover {
+    background: #444;
 }

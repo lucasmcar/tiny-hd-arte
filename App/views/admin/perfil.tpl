@@ -1,14 +1,33 @@
+@csrf
 <section class="gerenciar-perfil-section">
     <div class="container">
         <div class="header-info">
-            <h2 class="hda-title">Gerenciar Perfil do Administrador</h2>
+            <h2 class="hda-title">{{ $title }}</h2>
+        </div>
+
+        <!-- Informações do Perfil -->
+        <div class="config-section">
+            <h3 class="section-title">Informações do Perfil</h3>
+            <div class="form-group">
+                <label for="admin-name">Nome:</label>
+                <input type="text" id="admin-name" name="admin_name" value="{{ htmlspecialchars($adminData['nome']) }}">
+            </div>
+
+            <div class="form-group">
+                <label for="admin-name">Nome:</label>
+                <input type="text" id="admin-email" name="admin_email" value="{{ htmlspecialchars($adminData['email']) }}">
+            </div>
+            <div class="form-group">
+                <label>Data de Cadastro:</label>
+                <span class="profile-info">{{ date('d/m/Y', strtotime($adminData['data_cadastro'])) }}</span>
+            </div>
         </div>
 
         <!-- Foto de Perfil -->
         <div class="config-section">
             <h3 class="section-title">Foto de Perfil</h3>
             <div class="form-group">
-                <img src="{{ $adminData['foto_perfil'] }}" alt="Foto de Perfil" id="profile-pic-preview" class="profile-pic">
+                <img src="{{ $adminData['foto'] }}" alt="Foto de Perfil" id="profile-pic-preview" class="profile-pic">
                 <input type="file" id="profile-pic-upload" accept="image/*" style="display: none;">
                 <button class="action-btn" id="upload-profile-pic">Alterar Foto</button>
             </div>
@@ -43,12 +62,16 @@
                 <button class="action-btn" id="add-admin-btn">Adicionar Administrador</button>
             </div>
             <div id="admins-list">
-                {% foreach $adminData['admins'] as $index => $admin %}
+            {% if isset($admins) %}
+                {% foreach $admins as $index => $admin %}
                     <div class="admin-item" data-id="{{ $admin['id'] }}">
                         <span>{{ $admin['nome'] }} ({{ $admin['email'] }})</span>
                         <button class="remove-btn">Remover</button>
                     </div>
                 {% endforeach; %}
+            {% else %}
+                <div>Não há administradores cadastrados para esse perfil</div>
+            {% endif; %}
             </div>
         </div>
 
@@ -61,12 +84,16 @@
                 <button class="action-btn" id="add-email-btn"><i class="bi bi-plus"></i></button>
             </div>
             <div id="emails-list">
-                {% foreach $adminData['emails_empresa'] as $index => $email %}
+            {% if isset($emails_empresa) %}
+                {% foreach $emails_empresa as $index => $email %}
                     <div class="email-item" data-id="{{ $email['id'] }}">
-                        <input type="email" value="{{ $email['email'] }}" class="email-input">
+                        <span> {{ $email['email'] }} </span>
                         <button class="remove-btn">Remover</button>
                     </div>
                 {% endforeach; %}
+            {% else %}
+                <div>Não há emails cadastrados</div>
+            {% endif; %}
             </div>
         </div>
 
@@ -76,6 +103,24 @@
             <div class="form-group">
                 <label for="display-name">Nome Exibido:</label>
                 <input type="text" id="display-name" name="display_name" value="{{ $adminData['nome_exibicao'] }}">
+            </div>
+        </div>
+
+        <!-- Modal de Confirmação de Salvamento -->
+        <div class="modal fade" id="saveProfileModal" tabindex="-1" aria-labelledby="saveProfileModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="saveProfileModalLabel">Confirmação</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="modalMessage">
+                        Salvando dados...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary-netflix" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                </div>
             </div>
         </div>
 

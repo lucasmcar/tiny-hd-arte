@@ -7,6 +7,7 @@ use App\Helper\InputFilterHelper;
 use App\Model\User;
 use App\Core\Security\Jwt\JwtHandler;
 use App\Core\Security\Csrf;
+use App\Repository\UserRepository;
 
 class UserController
 {
@@ -54,12 +55,13 @@ class UserController
 
     public function insertData()
     {
-        $usuario = new User();
+        $repository = new UserRepository();
 
-        $usuario->create([
-            'nome' => 'Teste',
+        $repository->create([
+            'nome' => 'Michelle',
             'email' => 'teste@teste.com.br',
             'senha' => password_hash('123456', PASSWORD_BCRYPT),
+            'foto' => '/assets/imgs/michelle.jpg',
             'usuario' => 'teste',
         ]);
     }
@@ -77,8 +79,9 @@ class UserController
             return;
         }
 
-        $user = new User();
-        $email = $user->findForSign($data['email']);
+        $userRepository = new UserRepository();
+        $email = $userRepository->findForSign($data['email']);
+        
 
 
         if ($email && password_verify($data['senha'], $email[0]['senha'])) {
@@ -98,10 +101,11 @@ class UserController
             if (!session_id()) {
                 session_start();
             }
+            
             $_SESSION['jwt'] = $jwt; // Armazena o token na sessão
             $_SESSION['jwt_exp'] = $payload['exp']; // Armazena a expiração do token na sessão
-
-            $user->updateLastLogin($email[0]['id'], date('Y-m-d H:i:s'));
+            $_SESSION['foto'] = $email[0]['foto'];
+            $userRepository->updateLastLogin($email[0]['id'], date('Y-m-d H:i:s'));
 
             // Redireciona para /admin/home
             header('Location: /admin/home');
