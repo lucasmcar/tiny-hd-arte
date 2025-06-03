@@ -58,7 +58,12 @@ class ModelBase
         $sql = "INSERT INTO {$this->table} ({$fields}) VALUES ({$values})";
         $this->connect()->prepare($sql);
         foreach ($this->fillable as $field) {
-            $this->connect()->bind(":$field", $data[$field]);
+            if(!isset($data[$field])){
+                $data[$field] = null;
+            }
+            if(isset($data[$field])){
+                $this->connect()->bind(":$field", $data[$field]);
+            }
         }
         $this->connect()->execute();
         return $this->connect()->lastInsertId();
@@ -120,6 +125,16 @@ class ModelBase
         $column = "LOWER($column)"; // Adiciona LOWER para tornar a comparação insensível a maiúsculas/minúsculas
         $value = strtolower($value); // Garante que o valor também seja convertido para minúsculas
         $this->conditions[] = ['OR', "$column $operator $paramName"];
+        $this->bindings[$paramName] = $value;
+        return $this;
+    }
+
+    public function andWhere($column, $operator, $value)
+    {
+        $paramName = ":param_" . count($this->bindings); // Gera um nome único para o binding
+        $column = "LOWER($column)"; // Adiciona LOWER para tornar a comparação insensível a maiúsculas/minúsculas
+        $value = strtolower($value); // Garante que o valor também seja convertido para minúsculas
+        $this->conditions[] = ['AND', "$column $operator $paramName"];
         $this->bindings[$paramName] = $value;
         return $this;
     }

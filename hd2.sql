@@ -10,7 +10,7 @@ CREATE TABLE usuarios (
     email VARCHAR(255) UNIQUE NOT NULL,
     senha VARCHAR(255) NOT NULL,
     data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    foto VARCHAR(255) DEFAULT '/assets/images/default-profile.jpg',
+    foto VARCHAR(255) DEFAULT '/assets/imgs/default.jpg',
     funcao ENUM('admin', 'editor') DEFAULT 'admin',
     ultimo_login TIMESTAMP NULL,
     INDEX idx_usuario (usuario),

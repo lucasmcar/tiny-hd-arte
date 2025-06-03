@@ -13,9 +13,10 @@ class User extends ModelBase
         'nome',
         'email',
         'senha',
-        'foto',
+        'nome_exibicao',
         'usuario',
-        'funcao'
+        'funcao',
+        'criado_por'
     ];
 
     /**
@@ -32,6 +33,14 @@ class User extends ModelBase
         $this->db->bind(':id', $id, null);
         $result = $this->db->execute([]);
         return $result;
+    }
+
+    public function deleteByRole($roleName)
+    {
+        $sql = "DELETE FROM usuarios WHERE funcao = :funcao";
+        $this->db->prepare($sql);
+        $this->db->bind(':funcao', $roleName);
+        return $this->db->execute([]);
     }
 
     

@@ -1,3 +1,4 @@
+@csrf
 <section class="gerenciar-parceiros-section">
     <div class="container">
         <div class="header-info">
@@ -12,6 +13,8 @@
                     <div class="table-cell">Tipo</div>
                     <div class="table-cell">E-mail</div>
                     <div class="table-cell">Telefone</div>
+                    <div class="table-cell">Redes Sociais</div>
+                    <div class="table-cell">Descrição</div>
                     <div class="table-cell">Ações</div>
                 </div>
                 {% foreach $parceiros as $index => $item %}
@@ -20,6 +23,26 @@
                         <div class="table-cell">{{ $item['tipo'] }}</div>
                         <div class="table-cell">{{ $item['email'] }}</div>
                         <div class="table-cell">{{ $item['telefone'] }}</div>
+                        <div class="table-cell">
+                            {% if $item['redes_sociais'] %}
+                                {% set redes = json_decode($item['redes_sociais'], true) %}
+                                {% if $redes['tiktok'] %}
+                                    <a href="{{ $redes['tiktok'] }}" target="_blank"><i class="bi bi-tiktok"></i></a>
+                                {% endif; %}
+                                {% if $redes['linkedin'] %}
+                                    <a href="{{ $redes['linkedin'] }}" target="_blank"><i class="bi bi-linkedin"></i></a>
+                                {% endif; %}
+                                {% if $redes['instagram'] %}
+                                    <a href="{{ $redes['instagram'] }}" target="_blank"><i class="bi bi-instagram"></i></a>
+                                {% endif; %}
+                                {% if $redes['facebook'] %}
+                                    <a href="{{ $redes['facebook'] }}" target="_blank"><i class="bi bi-facebook"></i></a>
+                                {% endif; %}
+                            {% else %}
+                                <span>-</span>
+                            {% endif; %}
+                        </div>
+                        <div class="table-cell">{{ $item['descricao'] ? substr($item['descricao'], 0, 50) ~ '...' : '-' }}</div>
                         <div class="table-cell">
                             <button class="action-btn edit-btn" data-id="{{ $item['id'] }}"><i class="bi bi-pen"></i></button>
                             <button class="action-btn delete-btn" data-id="{{ $item['id'] }}"><i class="bi bi-trash"></i></button>
@@ -74,6 +97,26 @@
                         <div class="form-group">
                             <label for="partnerPhone">Telefone</label>
                             <input type="text" id="partnerPhone" name="telefone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerTiktok">TikTok (URL)</label>
+                            <input type="url" id="partnerTiktok" name="redes_sociais[tiktok]" placeholder="https://tiktok.com/@usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerLinkedin">LinkedIn (URL)</label>
+                            <input type="url" id="partnerLinkedin" name="redes_sociais[linkedin]" placeholder="https://linkedin.com/in/usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerInstagram">Instagram (URL)</label>
+                            <input type="url" id="partnerInstagram" name="redes_sociais[instagram]" placeholder="https://instagram.com/usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerFacebook">Facebook (URL)</label>
+                            <input type="url" id="partnerFacebook" name="redes_sociais[facebook]" placeholder="https://facebook.com/usuario">
+                        </div>
+                        <div class="form-group">
+                            <label for="partnerDescription">Descrição</label>
+                            <textarea id="partnerDescription" name="descricao" placeholder="Descreva o parceiro"></textarea>
                         </div>
                         <button type="submit" class="action-btn save-btn">Salvar</button>
                     </form>

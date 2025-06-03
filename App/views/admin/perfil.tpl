@@ -59,6 +59,8 @@
                 <input type="text" id="new-admin-name" name="new_admin_name">
                 <label for="new-admin-email">E-mail:</label>
                 <input type="email" id="new-admin-email" name="new_admin_email">
+                <label for="new-admin-senha">Senha:</label>
+                <input type="password" id="new-admin-senha" name="new_admin_senha">
                 <button class="action-btn" id="add-admin-btn">Adicionar Administrador</button>
             </div>
             <div id="admins-list">

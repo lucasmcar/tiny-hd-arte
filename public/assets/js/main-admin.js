@@ -76,17 +76,22 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /*function handleAccordionClick(e) {
+  function handleAccordionClick(e) {
     e.preventDefault();
-    e.stopPropagation(); // Impede que o evento se propague para outros listeners
+    e.stopPropagation();
+
     const submenu = this.nextElementSibling;
     const isActive = submenu.classList.contains("active");
+
+    console.log("Estado atual do submenu antes de alternar:", isActive ? "Ativo" : "Inativo");
 
     // Fecha todos os outros submenus
     document.querySelectorAll(".accordion-menu").forEach(menu => {
       if (menu !== submenu) {
         menu.classList.remove("active");
         menu.previousElementSibling.classList.remove("active");
+        menu.style.maxHeight = "0";
+        console.log("Fechando outro submenu:", menu.previousElementSibling.textContent);
       }
     });
 
@@ -94,49 +99,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (isActive) {
       submenu.classList.remove("active");
       this.classList.remove("active");
+      submenu.style.maxHeight = "0";
       console.log("Submenu fechado:", this.textContent);
     } else {
       submenu.classList.add("active");
       this.classList.add("active");
+      submenu.style.maxHeight = submenu.scrollHeight + "px";
       console.log("Submenu aberto:", this.textContent);
     }
-  }*/
 
-    function handleAccordionClick(e) {
-      e.preventDefault();
-      e.stopPropagation(); // Impede que o evento se propague para outros listeners
-  
-      const submenu = this.nextElementSibling;
-      const isActive = submenu.classList.contains("active");
-  
-      console.log("Estado atual do submenu antes de alternar:", isActive ? "Ativo" : "Inativo");
-  
-      // Fecha todos os outros submenus
-      document.querySelectorAll(".accordion-menu").forEach(menu => {
-          if (menu !== submenu) {
-              menu.classList.remove("active");
-              menu.previousElementSibling.classList.remove("active");
-              menu.style.maxHeight = "0"; // Garante que o max-height seja 0 ao fechar outros submenus
-              console.log("Fechando outro submenu:", menu.previousElementSibling.textContent);
-          }
-      });
-  
-      // Alterna o submenu atual
-      if (isActive) {
-          submenu.classList.remove("active");
-          this.classList.remove("active");
-          submenu.style.maxHeight = "0"; // Define max-height como 0 ao fechar
-          console.log("Submenu fechado:", this.textContent);
-      } else {
-          submenu.classList.add("active");
-          this.classList.add("active");
-          // Define o max-height como a altura real do conteúdo
-          submenu.style.maxHeight = submenu.scrollHeight + "px";
-          console.log("Submenu aberto:", this.textContent);
-      }
-  
-      // Log para verificar o estado final do submenu
-      console.log("Estado final do submenu após alternar:", submenu.classList.contains("active") ? "Ativo" : "Inativo");
+    console.log("Estado final do submenu após alternar:", submenu.classList.contains("active") ? "Ativo" : "Inativo");
   }
 
   function handleNavClick(event) {
@@ -148,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (page) {
       console.log("Carregando página:", page);
       loadPage(`/admin/${page}`);
-      closeSidebar(); // Fecha o sidebar para itens navegáveis
+      closeSidebar();
     }
   }
 
@@ -159,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const url = target.getAttribute("data-url");
       console.log("Clique detectado em elemento com data-url:", url);
       loadPage(url);
-      closeSidebar(); // Fecha o sidebar para links com data-url
+      closeSidebar();
     }
   }
 
@@ -251,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
           // Reconfigura o sidebar e os links de navegação
           initializeSidebar();
           initializeNavLinks();
-          initializeAccordion(); // Reconfigura o acordeão após carregar a página
+          initializeAccordion();
 
           const newStyles = Array.from(doc.querySelectorAll('link[rel="stylesheet"]')).map((link) =>
             link.getAttribute("href")
@@ -326,11 +298,63 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Função para lidar com o logout
+  function handleLogout(event) {
+    event.preventDefault();
+    const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
+    if (!csrfToken) {
+      console.error("Token CSRF não encontrado.");
+      return;
+    }
+
+    fetch('/admin/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': csrfToken,
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({ _csrf_token: csrfToken })
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        return response.text(); // Primeiro obtém o texto bruto
+      })
+      .then(text => {
+        try {
+          const data = JSON.parse(text); // Tenta parsear como JSON
+          if (data.success) {
+            console.log("Logout realizado com sucesso:", data.message);
+            window.location.href = '/admin/login';
+          } else {
+            console.error("Erro no logout:", data.message);
+          }
+        } catch (e) {
+          console.error("Resposta não é JSON válida:", text, e);
+          window.location.href = '/admin/login'; // Fallback para redirecionamento
+        }
+      })
+      .catch(error => {
+        console.error("Erro ao fazer logout:", error);
+        window.location.href = '/admin/login'; // Fallback para redirecionamento
+      });
+  }
+
   // Inicializar eventos no carregamento inicial
   initializeSidebar();
   initializeNavLinks();
-  initializeAccordion(); // Inicializa o acordeão no carregamento inicial
+  initializeAccordion();
   closeSidebar();
+
+  // Adicionar listener específico para o link de logout
+  const logoutLink = document.querySelector('a[href="/admin/logout"]');
+  if (logoutLink) {
+    logoutLink.removeEventListener("click", handleLogout);
+    logoutLink.addEventListener("click", handleLogout);
+    console.log("Listener de logout adicionado ao link:", logoutLink.textContent);
+  }
 
   if (window.location.pathname === "/admin/home") {
     closeSidebar();

@@ -301,6 +301,7 @@
     </style>
 </head>
 <body>
+@csrf
     <div class="top-navbar">
         <div style="display: flex; align-items: center;">
             <button id="toggle-sidebar"><i class="bi bi-list"></i></button>
@@ -425,7 +426,7 @@
         </li>
 
         <li><a href="#" class="nav-link" data-page="todos/servicos"><i class="bi bi-briefcase"></i><span>Serviços</span></a></li>
-        <li><a href="/admin/logout" class="nav-link"><i class="bi bi-box-arrow-right"></i><span>Sair</span></a></li>
+        <li><a href="/admin/logout"  class="nav-link"><i class="bi bi-box-arrow-right"></i><span>Sair</span></a></li>
     </ul>
 </div>
 

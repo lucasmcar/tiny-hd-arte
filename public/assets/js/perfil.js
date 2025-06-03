@@ -9,6 +9,7 @@ function initializeProfileManagement() {
     const addEmailBtn = document.getElementById('add-email-btn');
     const newAdminName = document.getElementById('new-admin-name');
     const newAdminEmail = document.getElementById('new-admin-email');
+    const newAdminSenha = document.getElementById('new-admin-senha'); // Campo global de senha
     const saveProfileBtn = document.getElementById('saveProfileBtn');
     const adminsList = document.getElementById('admins-list');
     const emailsList = document.getElementById('emails-list');
@@ -32,7 +33,7 @@ function initializeProfileManagement() {
         }
     });
 
-    // Alterar Senha
+    // Alterar Senha do Usuário Logado
     changePasswordBtn.addEventListener('click', () => {
         const currentPassword = document.getElementById('current-password').value;
         const newPassword = document.getElementById('new-password').value;
@@ -50,19 +51,24 @@ function initializeProfileManagement() {
     addAdminBtn.addEventListener('click', () => {
         const nome = newAdminName.value.trim();
         const email = newAdminEmail.value.trim();
+        const senha = newAdminSenha.value.trim();
 
         if (nome && email) {
             const newAdmin = {
                 nome: nome,
                 email: email,
-                funcao: 'admin'
+                senha: senha || undefined
             };
 
-            // Adiciona ao DOM
+            // Adiciona ao DOM com a senha armazenada em um input
             const adminItem = document.createElement('div');
             adminItem.className = 'admin-item';
-            adminItem.dataset.id = Date.now(); // ID temporário até salvar no backend
-            adminItem.innerHTML = `<span>${newAdmin.nome} (${newAdmin.email})</span><button class="remove-btn">Remover</button>`;
+            adminItem.dataset.id = Date.now(); // ID temporário
+            adminItem.innerHTML = `
+                <span>${newAdmin.nome} (${newAdmin.email})</span>
+                <input type="password" class="form-control admin-password" placeholder="Senha" value="${newAdmin.senha || ''}">
+                <button class="remove-btn btn btn-danger">Remover</button>
+            `;
             adminsList.appendChild(adminItem);
 
             // Remove a mensagem de "não há administradores"
@@ -73,6 +79,7 @@ function initializeProfileManagement() {
 
             newAdminName.value = '';
             newAdminEmail.value = '';
+            newAdminSenha.value = ''; // Limpa o campo global
         } else {
             alert('Preencha nome e e-mail.');
         }
@@ -86,17 +93,14 @@ function initializeProfileManagement() {
             const emailItem = document.createElement('div');
             emailItem.className = 'email-item';
             emailItem.dataset.id = id;
-            emailItem.innerHTML = `
-                <span>${email}</span>
-                <button class="remove-btn">Remover</button>
-            `;
+            emailItem.innerHTML = `<span>${email}</span><button class="remove-btn">Remover</button>`;
             emailsList.appendChild(emailItem);
             const noEmailsMessage = emailsList.querySelector('div:not(.email-item)');
             if (noEmailsMessage) {
                 noEmailsMessage.remove();
             }
 
-            document.getElementById('new-email').value = ''; // Limpa o campo
+            document.getElementById('new-email').value = '';
         } else {
             alert('Preencha o e-mail!');
         }
@@ -114,21 +118,30 @@ function initializeProfileManagement() {
     // Salvar Tudo
     saveProfileBtn.addEventListener('click', () => {
         const profileData = {
+            nome_exibicao: document.getElementById('display-name').value,
+            admin_name: document.getElementById('admin-name').value,
+            admin_email: document.getElementById('admin-email').value,
             foto_perfil: document.getElementById('profile-pic-preview').src,
-            senha: document.getElementById('new-password').value || undefined,
-            admins: Array.from(adminsList.children).filter(item => item.classList.contains('admin-item')).map(item => {
-                const span = item.querySelector('span');
-                if (!span) {
-                    console.warn('Span não encontrado em um item de admin:', item);
-                    return null;
-                }
-                const text = span.textContent;
-                return {
-                    id: item.dataset.id,
-                    nome: text.split(' (')[0],
-                    email: text.match(/\(([^)]+)\)/)?.[1] || ''
-                };
-            }).filter(item => item !== null),
+            admins: Array.from(adminsList.children)
+                .filter(item => item.classList.contains('admin-item'))
+                .map(item => {
+                    const span = item.querySelector('span');
+                    const passwordInput = item.querySelector('.admin-password');
+                    if (!span || !passwordInput) {
+                        console.warn('Span ou input de senha não encontrado:', item);
+                        return null;
+                    }
+                    const text = span.textContent;
+                    const [nome, emailPart] = text.split(' (');
+                    const email = emailPart ? emailPart.replace(')', '') : '';
+                    return {
+                        id: item.dataset.id,
+                        nome: nome,
+                        email: email,
+                        senha: passwordInput.value || undefined // Captura a senha do input
+                    };
+                })
+                .filter(item => item !== null),
             emails_empresa: Array.from(emailsList.children)
                 .filter(item => item.classList.contains('email-item'))
                 .map(item => {
@@ -137,19 +150,14 @@ function initializeProfileManagement() {
                         console.warn('Span não encontrado em um item de email:', item);
                         return null;
                     }
-                    const text = span.textContent.trim(); // Remove espaços extras
                     return {
                         id: item.dataset.id,
-                        email: text
+                        email: span.textContent.trim()
                     };
                 })
-                .filter(item => item !== null),
-            nome_exibicao: document.getElementById('display-name').value,
-            admin_name: document.getElementById('admin-name').value,
-            admin_email: document.getElementById('admin-email').value
+                .filter(item => item !== null)
         };
 
-        // Simula uma chamada ao backend
         modalMessage.textContent = 'Salvando dados...';
         modal.show();
 
@@ -172,7 +180,7 @@ function initializeProfileManagement() {
             return response.json();
         })
         .then(data => {
-            console.log("Resposta do backend:", data); // Log para depuração
+            console.log("Resposta do backend:", data);
             if (data.success) {
                 modalMessage.textContent = data.message || 'Perfil salvo com sucesso!';
                 modalMessage.style.color = '#e0e0e0';
@@ -180,7 +188,6 @@ function initializeProfileManagement() {
                 // Atualiza a lista de e-mails
                 emailsList.innerHTML = '';
                 if (data.data.emails_empresa && data.data.emails_empresa.length > 0) {
-                    console.log("E-mails a renderizar:", data.data.emails_empresa);
                     data.data.emails_empresa.forEach(email => {
                         const emailItem = document.createElement('div');
                         emailItem.className = 'email-item';
@@ -189,23 +196,24 @@ function initializeProfileManagement() {
                         emailsList.appendChild(emailItem);
                     });
                 } else {
-                    console.log("Nenhum e-mail retornado para renderizar.");
                     emailsList.innerHTML = '<div>Não há e-mails cadastrados</div>';
                 }
 
                 // Atualiza a lista de administradores
                 adminsList.innerHTML = '';
                 if (data.data.admins && data.data.admins.length > 0) {
-                    console.log("Administradores a renderizar:", data.data.admins);
                     data.data.admins.forEach(admin => {
                         const adminItem = document.createElement('div');
                         adminItem.className = 'admin-item';
                         adminItem.dataset.id = admin.id;
-                        adminItem.innerHTML = `<span>${admin.nome} (${admin.email})</span><button class="remove-btn">Remover</button>`;
+                        adminItem.innerHTML = `
+                            <span>${admin.nome} (${admin.email})</span>
+                            <small>(Criado por ID: ${admin.created_by})</small>
+                            <button class="remove-btn btn btn-danger">Remover</button>
+                        `;
                         adminsList.appendChild(adminItem);
                     });
                 } else {
-                    console.log("Nenhum administrador retornado para renderizar.");
                     adminsList.innerHTML = '<div>Não há administradores cadastrados para esse perfil</div>';
                 }
 

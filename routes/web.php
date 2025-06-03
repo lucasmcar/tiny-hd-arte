@@ -27,11 +27,13 @@ $router->post('/contato/email', 'HomeController','enviarEmail');
 $router->group('/admin', function($router) {
     $router->get('/insert', 'UserController', 'insertData');
     $router->get('/login', 'UserController','login');
-    $router->get('/logout', 'UserController', 'logout');
+    $router->post('/logout', 'UserController', 'logout');
     $router->post('/signIn', 'UserController','signIn');
     $router->group('', function($router){
         $router->get('/home', 'HomeAdminController','home');
         $router->get('/perfil', 'PerfilController', 'perfil');
+        $router->get('/configuracoes/site', 'SiteController', 'site');
+        $router->post('/configuracoes/site/updateSite', 'SiteController', 'updateSite');
 
         //Clinte
         $router->get('/clientes', 'ClienteController', 'index');

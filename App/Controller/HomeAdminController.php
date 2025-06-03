@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Core\View\View;
 use App\Model\User;
+use App\Model\Administrador;
 use App\Repository\DepoimentoRepository;
+use App\Core\Security\Jwt\JwtHandler;
 
 class HomeAdminController
 {
@@ -16,10 +18,23 @@ class HomeAdminController
             exit;
         }
 
+        $data = [];
+        if (session_id()) {
+            $data = JwtHandler::validateToken($_SESSION['jwt']);
+        }
+
+        $user = new User();
+        
+        $userResult = $user->findForSign($data['email']);
+
+        $user= new USer();
+
+        $result = $user->where('criado_por','=', $userResult[0]['id'])->get();
+
 
         $data = [
             'title' => 'Administração',
-            'totalUsers' => 2,
+            'totalUsers' => (count($result) > 0 ? count($result) : 0),
             'totalDepoimentos' => 3,
             'totalPosts' => 4,
             'totalEventos' => 10,

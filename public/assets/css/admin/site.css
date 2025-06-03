@@ -1,0 +1,76 @@
+body {
+    background-color: #141414;
+    color: #fff;
+}
+
+.card {
+    border: none;
+    border-radius: 8px;
+}
+
+.card-header {
+    background-color: #221f1f;
+    border-bottom: 1px solid #333;
+}
+
+.form-control {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #fff;
+    width: 100%;
+}
+
+.form-control:focus {
+    background-color: #444;
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #e50914;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #f40612;
+}
+
+.btn-success {
+    background-color: #46a049;
+}
+
+.btn-success:hover {
+    background-color: #3d8e40;
+}
+
+.highlight-item, .testimonial-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #222;
+    border-radius: 4px;
+}
+
+.highlight-item .remove-btn, .testimonial-item .remove-btn {
+    float: right;
+}
+
+/* Estilos para thumbnails */
+.thumbnail-container {
+    margin: 10px;
+}
+
+.thumbnail-img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.thumbnail-details {
+    margin-top: 10px;
+}
+
+.thumbnail-input {
+    margin-bottom: 5px;
+}

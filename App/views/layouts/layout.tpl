@@ -12,7 +12,8 @@
     @css(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css)
     @css(/assets/css/main.css)
     @css(https://fonts.googleapis.com/icon?family=Material+Icons)
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="preconnect"  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
+    <link rel="stylesheet"  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"/>
     {{ $styles }}
 
     <title>{{ $title }}</title>
@@ -333,11 +334,22 @@
             </div>
         </div>
     </footer>
-
+    <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+    
     <!-- Bootstrap JS -->
     @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.min.js')
     @js('/assets/js/main.min.js')
     @js('/assets/js/fetch.min.js')
+    @js('https://vlibras.gov.br/app/vlibras-plugin.js')
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
     {{ $scripts }}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
