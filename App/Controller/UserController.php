@@ -21,7 +21,9 @@ class UserController
             '/assets/css/admin/login.min.css'
         ];
         $scripts = [
-            '/assets/js/main-admin.min.js'
+            
+            '/assets/js/main-admin.min.js',
+            '/assets/js/login.min.js',
         ];
 
 
@@ -75,43 +77,41 @@ class UserController
             '_csrf_token'
         ]);
 
+        // Verifica o token CSRF
         if (!Csrf::verifyToken($data['_csrf_token'])) {
-            header('location: /admin/login');
+            http_response_code(400);
+            echo json_encode(['success' => false, 'message' => 'Token CSRF inválido.']);
             return;
         }
 
         $userRepository = new UserRepository();
         $email = $userRepository->findForSign($data['email']);
-        
-
 
         if ($email && password_verify($data['senha'], $email[0]['senha'])) {
-
             $payload = [
-                'iat' => time(),              // Issued at
-                'exp' => time() + (60 * 60),  // Expira em 1 hora
-                'sub' => $email[0]['id'],         // Subject (ID do usuário)
-                'name' => $email[0]['nome'],      // Nome do usuário
-                'email' => $email[0]['email']     // E-mail do usuário
+                'iat' => time(),
+                'exp' => time() + (60 * 60),
+                'sub' => $email[0]['id'],
+                'name' => $email[0]['nome'],
+                'email' => $email[0]['email']
             ];
 
-            // Gera o token com JwtHandler
             $jwt = JwtHandler::generateToken($payload);
 
-            // Inicia a sessão se não estiver ativa
             if (!session_id()) {
                 session_start();
             }
-            
-            $_SESSION['jwt'] = $jwt; // Armazena o token na sessão
-            $_SESSION['jwt_exp'] = $payload['exp']; // Armazena a expiração do token na sessão
+
+            $_SESSION['jwt'] = $jwt;
+            $_SESSION['jwt_exp'] = $payload['exp'];
             $_SESSION['foto'] = $email[0]['foto'];
             $userRepository->updateLastLogin($email[0]['id'], date('Y-m-d H:i:s'));
 
-            // Redireciona para /admin/home
-            header('Location: /admin/home');
+            // Retorna sucesso em JSON
+            echo json_encode(['success' => true, 'message' => 'Login realizado com sucesso!', 'redirect' => '/admin/home']);
         } else {
-            header('location: /admin/login');
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'E-mail ou senha inválidos.', 'redirect' => '/admin/login']);
         }
     }
 

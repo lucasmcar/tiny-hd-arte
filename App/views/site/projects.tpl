@@ -141,7 +141,3 @@
         </div>
     </section>
 {% endif; %}
-
-<script>
-
-</script>

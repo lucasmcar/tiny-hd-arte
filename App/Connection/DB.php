@@ -16,7 +16,7 @@ class DB implements IConnection
     public function __construct()
     {
         $this->user = $_ENV['USER'] ?? 'root';
-        $this->password = $_ENV['PASS'] ?? 'root';
+        $this->password = $_ENV['PASS'] ?? '';
         $this->host = $_ENV['HOST'] ?? 'localhost';
         $this->db = $_ENV['DATABASE'] ?? 'default_db';
         $this->instance = $this->getConnection();

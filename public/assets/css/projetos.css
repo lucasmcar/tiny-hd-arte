@@ -1,11 +1,11 @@
-/* Estilo para a seção de Configuração do Site */
-.site-config-section {
+/* Estilo para as seções de Projetos */
+.projects-section, .project-details-section {
     padding: 40px 0;
     background: linear-gradient(135deg, #141414 0%, #000 100%);
     color: #e0e0e0;
 }
 
-.site-config-section .container-fluid {
+.container-fluid {
     max-width: 90%;
     margin: 0 auto;
     padding: 0 15px;
@@ -52,13 +52,6 @@
     margin-bottom: 10px;
 }
 
-.subsection-title {
-    font-size: 1.3rem;
-    color: #b3b3b3;
-    font-weight: 500;
-    margin-bottom: 8px;
-}
-
 .form-group {
     margin-bottom: 12px;
 }
@@ -71,31 +64,54 @@
     font-weight: 500;
 }
 
-.form-control {
-    width: 100%;
-    padding: 8px;
-    font-size: 0.95rem;
-    color: #e0e0e0;
-    background: #333;
-    border: 2px solid transparent;
+.detail-text {
+    display: block;
+    padding: 5px;
+    background: #2a2a2a;
     border-radius: 5px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #e50914;
-    box-shadow: 0 0 10px rgba(229, 9, 20, 0.6);
-}
-
-.radio-label {
-    margin-left: 5px;
     color: #e0e0e0;
-    font-size: 0.95rem;
 }
 
-.thumbnail-container {
-    margin: 10px 0;
+.table-container {
+    overflow-x: auto;
+}
+
+.projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #222;
+}
+
+.projects-table th, .projects-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+.projects-table th {
+    background: #221f1f;
+    color: #e50914;
+    font-weight: 600;
+}
+
+.projects-table td {
+    color: #e0e0e0;
+}
+
+.project-link {
+    color: #e50914;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-link:hover {
+    color: #ff4d4d;
+    text-decoration: underline;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 10px;
 }
 
 .thumbnail-img {
@@ -103,40 +119,29 @@
     height: 100px;
     object-fit: cover;
     border-radius: 4px;
-    display: block;
 }
 
-.thumbnail-details {
-    margin-top: 5px;
+.thumbnail-img-small {
+    width: 100px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.show-item, .attraction-item {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: #2a2a2a;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
 }
 
 .list-container {
     max-height: 200px;
     overflow-y: auto;
     margin-top: 10px;
-}
-
-.highlight-item, .testimonial-item {
-    margin-bottom: 8px;
-    padding: 8px;
-    background: #2a2a2a;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.remove-btn {
-    background: #555;
-    color: #e0e0e0;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 5px;
-    transition: background 0.3s ease;
-}
-
-.remove-btn:hover {
-    background: #777;
 }
 
 .action-btn {
@@ -184,21 +189,20 @@
     .section-title {
         font-size: 1.4rem;
     }
-    .subsection-title {
-        font-size: 1.1rem;
-    }
-    .form-control {
+    .projects-table th, .projects-table td {
         font-size: 0.9rem;
-    }
-    .action-btn {
-        padding: 6px 10px;
-        font-size: 0.9rem;
+        padding: 8px;
     }
     .config-grid {
         grid-template-columns: 1fr;
     }
-    .list-container {
-        max-height: 150px;
+    .thumbnail-img {
+        width: 120px;
+        height: 80px;
+    }
+    .thumbnail-img-small {
+        width: 80px;
+        height: 60px;
     }
 }
 
@@ -209,20 +213,39 @@
     .section-title {
         font-size: 1.2rem;
     }
-    .subsection-title {
-        font-size: 1rem;
-    }
-    .form-control {
+    .projects-table th, .projects-table td {
         font-size: 0.8rem;
-    }
-    .action-btn {
-        padding: 5px 8px;
-        font-size: 0.8rem;
+        padding: 6px;
     }
     .save-btn {
         max-width: 180px;
     }
-    .list-container {
-        max-height: 120px;
+    .thumbnail-img {
+        width: 100px;
+        height: 70px;
     }
+    .thumbnail-img-small {
+        width: 70px;
+        height: 50px;
+    }
+}
+
+.image-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.overlay-image {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 5px;
 }

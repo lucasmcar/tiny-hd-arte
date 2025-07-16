@@ -32,78 +32,56 @@ class ProjectController
 
         return new View('site/projetos', $data, $styles);
     }
+
+
     public function show($params)
     {
+        $projectOrCaptation = null;
         $slug = $params[0] ?? '';
 
-        $project = $this->fetchProjectBySlug($slug);
-        if (!$project) {
-            http_response_code(404);
-            return new View('errors/404', ['title' => 'Projeto Não Encontrado'], [], [], 'main-layout');
+        $captationArray = $this->fetchProjectsInCaptation($slug);
+
+        if ($captationArray) {
+            $projectOrCaptation = $this->fetchProjectsInCaptation($slug);
+
+            $project = $projectOrCaptation;
+            if (!$project) {
+                http_response_code(404);
+                return new View('errors/404', ['title' => 'Projeto Não Encontrado'], [], [], 'main-layout');
+            }
+
+            $data = [
+                'title' => $project['title'],
+                'project' => $project
+            ];
+            $styles = ['/assets/css/projetos.min.css'];
+            $scripts = ['/assets/js/projeto-detalhe.min.js']; // Se necessário
+
+            return new View('site/projeto-detalhe', $data, $styles, $scripts);
+        } else {
+            $projectOrCaptation =  $this->fetchProjectBySlug($slug);
+
+            $project = $projectOrCaptation;
+            if (!$project) {
+                http_response_code(404);
+                return new View('errors/404', ['title' => 'Projeto Não Encontrado'], [], [], 'main-layout');
+            }
+
+            $data = [
+                'title' => $project['title'],
+                'project' => $project
+            ];
+            $styles = ['/assets/css/project.min.css'];
+            $scripts = ['/assets/js/event-carousel.min.js']; // Se necessário
+
+            return new View('site/projects', $data, $styles, $scripts);
         }
-
-        error_log("Project Data: " . print_r($project, true));
-
-        $data = [
-            'title' => $project['title'],
-            'project' => $project
-        ];
-
-        $styles = ['/assets/css/project.min.css'];
-        $scripts = [
-            '/assets/js/event-carousel.min.js'
-        ];
-
-        return new View('site/projects', $data, $styles, $scripts);
     }
+
 
     private function fetchProjectBySlug($slug)
     {
         $projects = [
-            'festa-junina-2025' => [
-                'title' => 'Festa Junina de Porto Alegre 2025',
-                'description' => 'Uma das maiores festas culturais do estado.',
-                'image' => '/assets/imgs/festa-junina-2025.jpg',
-                'details' => 'Realizada em Junho de 2025.',
-                'author' => 'João Silva',
-                'post_date' => '2025-03-15',
-                'content' => 'A Festa Junina de Porto Alegre 2025 foi um marco cultural, reunindo milhares de pessoas em uma celebração vibrante. Com apresentações de quadrilhas, shows de artistas locais e uma variedade de comidas típicas, o evento destacou a riqueza da tradição gaúcha. O planejamento começou meses antes, com captação de recursos via editais culturais.',
-                'extra_image' => '/assets/imgs/festa-junina-2025-extra.jpg',
-                'sponsors' => [
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
-                ]
-            ],
-
-            'festival-musica-2024' => [
-                'title' => 'Festival de Música 2024',
-                'description' => 'Evento nacional com artistas renomados.',
-                'image' => '/assets/imgs/festival-musica-2024.jpg',
-                'details' => 'Ocorrido em Agosto de 2024.',
-                'author' => 'Maria Oliveira',
-                'post_date' => '2024-09-01',
-                'content' => 'O Festival de Música 2024 trouxe ao palco grandes nomes da música brasileira, como Anitta e Jorge Ben Jor. Realizado em São Paulo, o evento contou com uma produção impecável e um público de mais de 10.000 pessoas. A HD Arte foi responsável pela gestão financeira e logística, garantindo o sucesso do festival.',
-                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg',
-                'sponsors' => [
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
-                ]
-            ],
-
-            'show-local-2023' => [
-                'title' => 'Show local 2023',
-                'description' => 'Evento local de 2023 com artistas renomados.',
-                'image' => '/assets/imgs/show-local-2023.jpg',
-                'details' => 'Ocorrido em Agosto de 2023.',
-                'author' => 'Maria Paula',
-                'post_date' => '2023-10-01',
-                'content' => 'O festival local que ocorreu em agosto desse mes, trouxe grandes convidados da música nacional e também mostrou ao público revelações locais.',
-                'extra_image' => '/assets/imgs/festival-musica-2024-extra.jpg',
-                'sponsors' => [
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],
-                ]
-            ],
 
             'circuito-urbano-restinga' => [
                 'title' => 'Circuito Urbano Na Restinga 2025',
@@ -116,8 +94,7 @@ class ProjectController
                 'extra_image' => '/assets/imgs/cur-extra.jpg',
                 'sponsors' => [
                     /*['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 1'],
-                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],*/
-                ],
+                    ['logo' => '/assets/imgs/logo1.jpg', 'name' => 'Patrocinador 2'],*/],
                 'shows' => [
                     [
                         'title' => 'Atração Confirmada',
@@ -175,8 +152,8 @@ class ProjectController
                         'slug' => 'show2',
                         'participants' => 'Família Preto Bom'
                     ],
-                    
-                    
+
+
                 ],
                 'attractions' => [
                     [
@@ -311,7 +288,7 @@ class ProjectController
 
 
 
-                // Adicione mais atrações aqui, se necessário
+                    // Adicione mais atrações aqui, se necessário
                 ]
             ],
             'campanha-pre-lancamento' => [
@@ -380,17 +357,6 @@ class ProjectController
 
     private function fetchAllProjects()
     {
-
-        /* 'Territórios Criativos - SEDAC RS 2025
-RS - Seguro Circuito Urbano na Restinga - Projeto de Cultura Hip Hop
-Projeto PNAB 32/RS Música - Memória Popular 4 Edições
-Festival Zumbi PNAB RS - Festivais e Mostras
-PNAB POA - LIGA dos Blocos de Carnaval de Rua Descentralizados de Porto Alegre e RS
-Nossa Arte Circula RS 2024 - 2 Projetos Contemplados
-Especial Luiz Melodia de Paulo Dionísio e Gilberto Oliveira
-Meu Canto de Luciara Batista
-Arte Negra do Sul Edição 2025 - Roaunet';*/
-
         return [
             'circuito-urbano-restinga' => [
                 'title' => 'Circuito Urbano na Restinga 2025',
@@ -400,38 +366,9 @@ Arte Negra do Sul Edição 2025 - Roaunet';*/
                 'image' => '/assets/imgs/cur.jpg',
                 'video' => '',
                 'is_featured' => true,
-                'status' => 'ongoing' // Aprovado
+                'status' => 'completed' // Alterado de 'ongoing' para 'completed'
             ],
-            'festa-junina-2025' => [
-                'title' => 'Festa Junina de Porto Alegre 2025',
-                'slug' => 'festa-junina-2025',
-                'description' => 'Uma das maiores festas culturais do estado.',
-                'short_description' => 'Porto Alegre, 2025 - Público: 5.000',
-                'image' => '/assets/imgs/festa-junina-2025.jpg',
-                'video' => '/assets/videos/festa-junina-2025-trailer.mp4',
-                'is_featured' => true,
-                'status' => 'approved' // Aprovado
-            ],
-            'festival-musica-2024' => [
-                'title' => 'Festival de Música 2024',
-                'slug' => 'festival-musica-2024',
-                'description' => 'Evento nacional com artistas renomados.',
-                'short_description' => 'São Paulo, 2024 - Público: 10.000',
-                'image' => '/assets/imgs/festival-musica-2024.jpg',
-                'video' => null,
-                'is_featured' => true,
-                'status' => 'approved' // Aprovado
-            ],
-            'show-local-2023' => [
-                'title' => 'Show Local 2023',
-                'slug' => 'show-local-2023',
-                'description' => 'Evento comunitário com artistas locais.',
-                'short_description' => 'Curitiba, 2023 - Público: 2.000',
-                'image' => '/assets/imgs/show-local-2023.jpg',
-                'video' => null,
-                'is_featured' => false,
-                'status' => 'approved' // Em andamento
-            ],
+
             'campanha-pre-lancamento' => [
                 'title' => 'Campanha de Benfeitoria',
                 'slug' => 'campanha-pre-lancamento',
@@ -461,5 +398,249 @@ Arte Negra do Sul Edição 2025 - Roaunet';*/
 
 
         return new View('site/projetos', $data, $styles);
+    }
+
+    public function emCaptacao()
+    {
+
+        $projects = $this->fetchProjectsInCaptation();
+        $data = [
+
+            'title' => 'Projetos Em Captação',
+            'all_projects' => $projects
+        ];
+        $styles = ['/assets/css/projetos.min.css'];
+      
+        return new View('site/em-captacao', $data, $styles);
+    }
+
+    public function projetosOcorridos()
+    {
+
+        $projects = $this->fetchAllProjects();
+        $completedProjects = array_filter($projects, function ($project) {
+            return $project['status'] === 'completed';
+        });
+
+        $data = [
+            'title' => 'Projetos Ocorridos',
+            'all_projects' => $completedProjects
+        ];
+
+        $styles = ['/assets/css/projetos-ocorridos.min.css']; // Novo arquivo CSS, ajuste conforme necessário
+
+        return new View('site/projetos-ocorridos', $data, $styles);
+    }
+
+    private function fetchProjectsInCaptation($slug = null)
+    {
+        $inCaptatiion = [
+            [
+                'title' => 'Nazari Estúdio: Uma História de Música e Transformação',
+                'slug' => 'nazari-estudio',
+                'description' => 'Produção de minidocumentário e oficinas de música.',
+                'short_description' => 'Porto Alegre, RS, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/nazari-estudio.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '2413782',
+                'proponente' => 'Marco Antonio Nazari',
+                'cnpj_cpf' => 'CNPJ: 22.291.782/0001-06 / CPF: 302.749.580-15',
+                'uf' => 'RS',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Música',
+                'segmento' => 'Empreendimentos, Ações Educacionais e Culturais / Capacitação / Treinamento',
+                'tipologia' => 'Projetos Normais',
+                'tipicidade' => 'Mescla',
+                'processo' => '01400.034343/2024-11',
+                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
+                'valor_captacao' => 'R$ 149.910,75',
+                'periodo_captacao' => '01/01/2025 a 31/12/2025',
+                'periodo_execucao' => '31/12/2024 a 31/12/2025',
+                'situacao' => 'Captação total autorizada (desde 14/02/2025)',
+                'resumo' => 'Produção de um minidocumentário de 20 minutos sobre o Nazari Estúdio e sua importância para a cena musical de Porto Alegre. O projeto inclui oficinas gratuitas de música para jovens do bairro Menino Deus afetados por enchentes...',
+                'plano_imediato' => 'Não disponível',
+                'post_date' => '2025-01-03',
+                'content' => 'Produção de um minidocumentário de 20 minutos sobre o Nazari Estúdio e sua importância para a cena musical de Porto Alegre. O projeto inclui oficinas gratuitas de música para jovens do bairro Menino Deus afetados por enchentes, com aulas de bateria, violão, guitarra, cavaquinho, piano e percussão ministradas por músicos renomados. Contrapartidas incluem workshops e apresentações em escolas locais, promovendo acesso, inclusão e continuidade cultural.',
+                'extra_image' => '/assets/imgs/nazari-estudio-extra.jpg',
+            ],
+            [
+                'title' => 'O espetáculo infantil O Urso com Música na Barriga – Atimonautas circula pelo RS',
+                'slug' => 'urso-com-musica',
+                'description' => 'Apresentações de teatro de bonecos.',
+                'short_description' => 'Regiões dos rios RS, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/urso-com-musica.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '2414593',
+                'proponente' => 'Denis Moreira de Sousa',
+                'cnpj_cpf' => 'CNPJ: 23.735.636/0001-87',
+                'uf' => 'RS',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Artes Cênicas',
+                'segmento' => 'Teatro de Formas Animadas / Mamulengo / Bonecos / Congada',
+                'tipologia' => 'Programa Rouanet Emergencial RS',
+                'tipicidade' => 'Editais Compartilhados',
+                'processo' => '01400.035197/2024-33',
+                'portaria' => 'Nº 0245/25 – Publicada em 08/04/2025',
+                'valor_captacao' => 'Não disponível',
+                'periodo_captacao' => '01/01/2025 a 31/12/2025',
+                'periodo_execucao' => '31/12/2024 a 31/12/2025',
+                'situacao' => 'Captação total autorizada (desde 09/04/2025)',
+                'resumo' => 'Realização de 14 apresentações gratuitas do espetáculo de bonecos O Urso com Música na Barriga, baseado em obra de Erico Veríssimo...',
+                'plano_imediato' => 'Não disponível',
+                'post_date' => '2025-04-08',
+                'content' => 'Realização de 14 apresentações gratuitas do espetáculo de bonecos O Urso com Música na Barriga, baseado em obra de Erico Veríssimo, em 7 cidades das regiões dos rios Taquari, Jacuí, Antas, Sinos e Lago Guaíba. A peça aborda preconceito e bullying contra crianças especiais e neurodivergentes, promovendo cultura, inclusão e empatia para alunos do ensino fundamental público.',
+                'extra_image' => '/assets/imgs/urso-com-musica-extra.jpg',
+            ],
+            [
+                'title' => 'Arte Negra do Sul – Tributo a Compositores Negros Brasileiros',
+                'slug' => 'arte-negra-sul',
+                'description' => 'Espetáculo multimídia afro-brasileiro.',
+                'short_description' => 'Porto Alegre, RS, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/arte-negra-sul.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '245671',
+                'proponente' => 'HD\'Arte Produção e Eventos LTDA',
+                'cnpj_cpf' => 'CNPJ: 91.467.126/0001-26',
+                'uf' => 'RS',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Artes Cênicas',
+                'segmento' => 'Teatro Musical (com dramaturgia, danças e canções)',
+                'tipologia' => 'Samba',
+                'tipicidade' => 'Cultura Afro-brasileira',
+                'processo' => '01400.018545/2024-16',
+                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
+                'valor_captacao' => 'R$ 540.020,00',
+                'periodo_captacao' => '01/01/2025 a 30/09/2025',
+                'periodo_execucao' => '01/09/2024 a 30/09/2025',
+                'situacao' => 'Captação total autorizada',
+                'resumo' => 'Espetáculo multimídia com 25 artistas e profissionais negros, celebrando o legado afro-brasileiro...',
+                'plano_imediato' => 'Sim – Projeto com contrato de patrocínio',
+                'post_date' => '2025-01-03',
+                'content' => 'Espetáculo multimídia com 25 artistas e profissionais negros, celebrando o legado afro-brasileiro por meio da dança, música, poesia e imagem. Homenageia compositores negros brasileiros e atua como instrumento de retomada cultural pós-tragédia climática no RS, promovendo inclusão, memória e resistência cultural.',
+                'extra_image' => '/assets/imgs/arte-negra-sul-extra.jpg',
+            ],
+            [
+                'title' => 'Preta Poesia Feminina – Circulação Nacional e Estadual (RS)',
+                'slug' => 'preta-poesia-feminina',
+                'description' => 'Espetáculo cênico homenageando poetisas negras.',
+                'short_description' => 'Nacional e RS, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/preta-poesia-feminina.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '238461 / 2414581',
+                'proponente' => 'Silvia Maria da Silva Duarte LTDA',
+                'cnpj_cpf' => 'CNPJ: 12.270.754/0001-40',
+                'uf' => 'RS',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Artes Cênicas',
+                'segmento' => 'Circulação Nacional: Apresentação ou Performance de Teatro / Circulação RS: Teatro Musical',
+                'tipologia' => 'Projetos Normais / Programa Rouanet Emergencial RS',
+                'tipicidade' => 'Projetos Normais / Editais Compartilhados',
+                'processo' => '01400.027023/2023-16 (Nacional) / 01400.035185/2024-17 (RS)',
+                'portaria' => 'Nº 0242/25 – 07/04/2025 (Nacional) / Nº 0246/25 – 08/04/2025 (RS)',
+                'valor_captacao' => 'R$ 477.307,91 (Nacional) / R$ 170.640,00 (RS)',
+                'periodo_captacao' => '01/01/2025 a 31/12/2025',
+                'periodo_execucao' => 'Nacional: 10/10/2023 a 31/12/2025 / RS: 31/12/2024 a 31/12/2025',
+                'situacao' => 'Captação total autorizada para ambos os projetos',
+                'resumo' => 'Espetáculo cênico que homenageia cinco poetisas negras gaúchas (Ana dos Santos, Delma Gonçalves, Isabete Fagundes Almeida, Fátima Farias e Lilian Rocha)...',
+                'plano_imediato' => 'Não disponível',
+                'post_date' => '2025-04-07',
+                'content' => 'Espetáculo cênico que homenageia cinco poetisas negras gaúchas (Ana dos Santos, Delma Gonçalves, Isabete Fagundes Almeida, Fátima Farias e Lilian Rocha). A atriz e encenadora Silvia Duarte dramatiza 30 poemas numa montagem dirigida por Silvana Rodrigues, transformando poesia em literatura falada no palco. O projeto atua em duas frentes: Circulação Nacional com apresentações em várias regiões do país, e Circulação RS em 4 municípios gaúchos afetados pelas enchentes (Porto Alegre, Canoas, São Leopoldo e Pelotas), contribuindo para a reconstrução simbólica e cultural.',
+                'extra_image' => '/assets/imgs/preta-poesia-feminina-extra.jpg',
+            ],
+            [
+                'title' => 'Retomada Terreirão do Samba – Ancestralidade e Cultura Afro-Brasileira em Canoas',
+                'slug' => 'retomada-terreirao',
+                'description' => 'Oficinas e eventos culturais afro-brasileiros.',
+                'short_description' => 'Canoas, RS, 2025 - Público: a estimar',
+                'image' => '/assets/imgs/retomada-terreirao.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '2414843',
+                'proponente' => 'Luciara Batista Bento – MEI',
+                'cnpj_cpf' => 'CNPJ: 43.748.434/0001-87',
+                'uf' => 'RS',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Artes Cênicas',
+                'segmento' => 'Ações Educativo-Culturais / Capacitação / Treinamento',
+                'tipologia' => 'Samba',
+                'tipicidade' => 'Cultura Afro-brasileira',
+                'processo' => '01400.035463/2024-28',
+                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
+                'valor_captacao' => 'R$ 249.628,50',
+                'periodo_captacao' => '01/01/2025 a 31/12/2025',
+                'periodo_execucao' => '31/01/2025 a 31/01/2026',
+                'situacao' => 'Captação total autorizada',
+                'resumo' => 'Fortalecimento da identidade afro-brasileira em Canoas (RS) por meio de oficinas, atividades formativas e eventos culturais...',
+                'plano_imediato' => 'Sim – Evento de grande porte planejado',
+                'post_date' => '2025-01-03',
+                'content' => 'Fortalecimento da identidade afro-brasileira em Canoas (RS) por meio de oficinas, atividades formativas e eventos culturais, incluindo saraus, aulas de capoeira, exposições, workshops de dança afro e encontros musicais. Destaque para encontro no Museu e Arquivo Histórico de Canoas com feira de empreendedorismo cultural, oficinas da cadeia produtiva do carnaval e ações sustentáveis. O projeto culmina em evento de grande porte, reafirmando o Terreirão como espaço de memória, resistência e celebração da cultura negra local.',
+                'extra_image' => '/assets/imgs/retomada-terreirao-extra.jpg',
+            ],
+            [
+                'title' => '35ª Winter Fest 2025 – Festival 75 anos Jaraguá do Sul – Sociedade Alvorada',
+                'slug' => 'winter-fest-2025',
+                'description' => 'Festival celebrando tradições germânicas.',
+                'short_description' => 'Jaraguá do Sul, SC, 2025 - Público: 10.000',
+                'image' => '/assets/imgs/winter-fest-2025.jpg',
+                'video' => '',
+                'is_featured' => true,
+                'status' => 'ongoing',
+                'pronac' => '252271',
+                'proponente' => 'Sociedade Recreativa Alvorada',
+                'cnpj_cpf' => 'CNPJ: 83.784.546/0001-08',
+                'uf' => 'SC',
+                'mecanismo' => 'Mecenato (Art. 18)',
+                'area_cultural' => 'Música',
+                'segmento' => 'Apresentação / Gravação de Música Regional',
+                'tipologia' => 'Festival, Bienal, Festa ou Feira',
+                'tipicidade' => 'Projetos Especiais',
+                'processo' => '01400.010264/2025-98',
+                'portaria' => 'Nº 0344/25 – Publicada em 20/05/2025',
+                'valor_captacao' => 'R$ 672.185,25',
+                'periodo_captacao' => '20/05/2025 a 31/12/2025',
+                'periodo_execucao' => '26/04/2025 a 31/12/2025',
+                'situacao' => 'Captação autorizada (projeto com limite de 10% inicial)',
+                'resumo' => 'Edição especial do festival em comemoração aos 75 anos da Sociedade Recreativa Alvorada, enaltecendo tradições germânicas...',
+                'plano_imediato' => 'Não disponível',
+                'post_date' => '2025-05-20',
+                'content' => 'Edição especial do festival em comemoração aos 75 anos da Sociedade Recreativa Alvorada, enaltecendo tradições germânicas e identidade cultural de Jaraguá do Sul (SC). Programação com danças tradicionais (CTG e folclore alemão), desfiles de trajes típicos, apresentações étnicas, gastronomia regional, coroação do rei e rainha, shows musicais e competições culturais. Público esperado de até 10 mil pessoas, promovendo integração comunitária e fortalecimento cultural da região Sul do Brasil.',
+                'extra_image' => '/assets/imgs/winter-fest-2025-extra.jpg',
+            ],
+        ];
+
+        if ($slug == null) {
+
+            return $inCaptatiion;
+        } else if ($this->getArraKey($slug, $inCaptatiion) !== null) {
+
+            $idx = $this->getArraKey($slug, $inCaptatiion);
+            return $inCaptatiion[$idx];
+        } else {
+
+            return null;
+        }
+    }
+
+
+    private function getArraKey(string $slug, array $array)
+    {
+        if (is_array($array) && $slug !== null) {
+            foreach ($array as $key => $item) {
+                if (isset($item['slug']) && $item['slug'] === $slug) {
+                    return $key;
+                }
+            }
+        }
+
+        return null;
     }
 }

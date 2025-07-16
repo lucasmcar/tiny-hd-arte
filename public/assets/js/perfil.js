@@ -9,14 +9,13 @@ function initializeProfileManagement() {
     const addEmailBtn = document.getElementById('add-email-btn');
     const newAdminName = document.getElementById('new-admin-name');
     const newAdminEmail = document.getElementById('new-admin-email');
-    const newAdminSenha = document.getElementById('new-admin-senha'); // Campo global de senha
+    const newAdminSenha = document.getElementById('new-admin-senha');
     const saveProfileBtn = document.getElementById('saveProfileBtn');
     const adminsList = document.getElementById('admins-list');
     const emailsList = document.getElementById('emails-list');
     const modal = new bootstrap.Modal(document.getElementById('saveProfileModal'));
     const modalMessage = document.getElementById('modalMessage');
 
-    // Captura o token CSRF
     const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
     if (!csrfToken) {
         console.error('Token CSRF não encontrado. Verifique o HTML.');
@@ -33,7 +32,7 @@ function initializeProfileManagement() {
         }
     });
 
-    // Alterar Senha do Usuário Logado
+    // Alterar Senha
     changePasswordBtn.addEventListener('click', () => {
         const currentPassword = document.getElementById('current-password').value;
         const newPassword = document.getElementById('new-password').value;
@@ -54,32 +53,22 @@ function initializeProfileManagement() {
         const senha = newAdminSenha.value.trim();
 
         if (nome && email) {
-            const newAdmin = {
-                nome: nome,
-                email: email,
-                senha: senha || undefined
-            };
-
-            // Adiciona ao DOM com a senha armazenada em um input
+            const newAdmin = { nome, email, senha: senha || undefined };
             const adminItem = document.createElement('div');
             adminItem.className = 'admin-item';
-            adminItem.dataset.id = Date.now(); // ID temporário
+            adminItem.dataset.id = Date.now();
             adminItem.innerHTML = `
                 <span>${newAdmin.nome} (${newAdmin.email})</span>
-                <input type="password" class="form-control admin-password" placeholder="Senha" value="${newAdmin.senha || ''}">
-                <button class="remove-btn btn btn-danger">Remover</button>
+                <button class="remove-btn">Remover</button>
             `;
             adminsList.appendChild(adminItem);
 
-            // Remove a mensagem de "não há administradores"
             const noAdminsMessage = adminsList.querySelector('div:not(.admin-item)');
-            if (noAdminsMessage) {
-                noAdminsMessage.remove();
-            }
+            if (noAdminsMessage) noAdminsMessage.remove();
 
             newAdminName.value = '';
             newAdminEmail.value = '';
-            newAdminSenha.value = ''; // Limpa o campo global
+            newAdminSenha.value = '';
         } else {
             alert('Preencha nome e e-mail.');
         }
@@ -87,18 +76,16 @@ function initializeProfileManagement() {
 
     // Adicionar Novo E-mail
     addEmailBtn.addEventListener('click', () => {
-        const email = document.getElementById('new-email').value;
+        const email = document.getElementById('new-email').value.trim();
         if (email) {
-            const id = Date.now(); // ID temporário
             const emailItem = document.createElement('div');
             emailItem.className = 'email-item';
-            emailItem.dataset.id = id;
+            emailItem.dataset.id = Date.now();
             emailItem.innerHTML = `<span>${email}</span><button class="remove-btn">Remover</button>`;
             emailsList.appendChild(emailItem);
+
             const noEmailsMessage = emailsList.querySelector('div:not(.email-item)');
-            if (noEmailsMessage) {
-                noEmailsMessage.remove();
-            }
+            if (noEmailsMessage) noEmailsMessage.remove();
 
             document.getElementById('new-email').value = '';
         } else {
@@ -126,34 +113,18 @@ function initializeProfileManagement() {
                 .filter(item => item.classList.contains('admin-item'))
                 .map(item => {
                     const span = item.querySelector('span');
-                    const passwordInput = item.querySelector('.admin-password');
-                    if (!span || !passwordInput) {
-                        console.warn('Span ou input de senha não encontrado:', item);
-                        return null;
-                    }
-                    const text = span.textContent;
-                    const [nome, emailPart] = text.split(' (');
+                    if (!span) return null;
+                    const [nome, emailPart] = span.textContent.split(' (');
                     const email = emailPart ? emailPart.replace(')', '') : '';
-                    return {
-                        id: item.dataset.id,
-                        nome: nome,
-                        email: email,
-                        senha: passwordInput.value || undefined // Captura a senha do input
-                    };
+                    return { id: item.dataset.id, nome, email };
                 })
                 .filter(item => item !== null),
             emails_empresa: Array.from(emailsList.children)
                 .filter(item => item.classList.contains('email-item'))
                 .map(item => {
                     const span = item.querySelector('span');
-                    if (!span) {
-                        console.warn('Span não encontrado em um item de email:', item);
-                        return null;
-                    }
-                    return {
-                        id: item.dataset.id,
-                        email: span.textContent.trim()
-                    };
+                    if (!span) return null;
+                    return { id: item.dataset.id, email: span.textContent.trim() };
                 })
                 .filter(item => item !== null)
         };
@@ -161,7 +132,6 @@ function initializeProfileManagement() {
         modalMessage.textContent = 'Salvando dados...';
         modal.show();
 
-        // Envia os dados para o backend
         fetch('/admin/profile/updateProfile', {
             method: 'POST',
             headers: {
@@ -172,11 +142,7 @@ function initializeProfileManagement() {
             body: JSON.stringify({ ...profileData, _csrf_token: csrfToken })
         })
         .then(response => {
-            if (!response.ok) {
-                return response.text().then(text => {
-                    throw new Error(`Erro HTTP ${response.status}: ${text}`);
-                });
-            }
+            if (!response.ok) throw new Error(`Erro HTTP ${response.status}`);
             return response.json();
         })
         .then(data => {
@@ -184,39 +150,6 @@ function initializeProfileManagement() {
             if (data.success) {
                 modalMessage.textContent = data.message || 'Perfil salvo com sucesso!';
                 modalMessage.style.color = '#e0e0e0';
-
-                // Atualiza a lista de e-mails
-                emailsList.innerHTML = '';
-                if (data.data.emails_empresa && data.data.emails_empresa.length > 0) {
-                    data.data.emails_empresa.forEach(email => {
-                        const emailItem = document.createElement('div');
-                        emailItem.className = 'email-item';
-                        emailItem.dataset.id = email.id;
-                        emailItem.innerHTML = `<span>${email.email}</span><button class="remove-btn">Remover</button>`;
-                        emailsList.appendChild(emailItem);
-                    });
-                } else {
-                    emailsList.innerHTML = '<div>Não há e-mails cadastrados</div>';
-                }
-
-                // Atualiza a lista de administradores
-                adminsList.innerHTML = '';
-                if (data.data.admins && data.data.admins.length > 0) {
-                    data.data.admins.forEach(admin => {
-                        const adminItem = document.createElement('div');
-                        adminItem.className = 'admin-item';
-                        adminItem.dataset.id = admin.id;
-                        adminItem.innerHTML = `
-                            <span>${admin.nome} (${admin.email})</span>
-                            <small>(Criado por ID: ${admin.created_by})</small>
-                            <button class="remove-btn btn btn-danger">Remover</button>
-                        `;
-                        adminsList.appendChild(adminItem);
-                    });
-                } else {
-                    adminsList.innerHTML = '<div>Não há administradores cadastrados para esse perfil</div>';
-                }
-
                 setTimeout(() => modal.hide(), 2000);
             } else {
                 modalMessage.textContent = data.message || 'Erro ao salvar o perfil.';

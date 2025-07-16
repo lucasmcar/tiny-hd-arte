@@ -1,39 +1,40 @@
 @csrf
-<div class="container-fluid mt-4">
-    <h1 class="text-white">{{ $title }}</h1>
-
-    <!-- Seção de Destaque -->
-    <div class="card bg-dark text-white mb-4">
-        <div class="card-header">Imagens de Destaque</div>
-        <div class="card-body">
-            <div class="form-group">
-                <label for="highlightTitle">Título da Seção</label>
-                <input type="text" class="form-control bg-dark text-white" id="highlightTitle" placeholder="Ex.: Em Alta">
-            </div>
-            <div id="highlightImages" class="mt-3 row">
-                <!-- Imagens serão adicionadas dinamicamente ou carregadas como thumbnails -->
-            </div>
-            <button id="addHighlightImage" class="btn btn-primary mt-2">Adicionar Imagem</button>
-            <div class="form-group mt-3">
-                <label for="overlayColor">Cor do Overlay</label>
-                <input type="color" class="form-control" id="overlayColor" value="#ffffff">
-            </div>
-        </div>
+<div class="container-fluid mt-4 site-config-section" aria-label="Seção de Configuração do Site">
+    <div class="header-info" role="banner">
+        <h1 class="hda-title">{{ $title }}</h1>
     </div>
 
-    <!-- Seção de Depoimentos -->
-    <div class="card bg-dark text-white">
-        <div class="card-header">Depoimentos</div>
-        <div class="card-body">
+    <div class="config-grid" role="main">
+        <!-- Seção de Destaque -->
+        <div class="config-section highlight-section" role="region" aria-labelledby="highlight-title">
+            <h3 class="section-title" id="highlight-title">Imagens de Destaque</h3>
             <div class="form-group">
-                <label>Mostrar Depoimentos?</label>
+                <label for="highlightTitle" class="form-label">Título da Seção</label>
+                <input type="text" class="form-control" id="highlightTitle" placeholder="Ex.: Em Alta" aria-required="true">
+            </div>
+            <div id="highlightImages" class="mt-3 row thumbnail-container" role="list" aria-live="polite">
+                <!-- Imagens serão adicionadas dinamicamente -->
+            </div>
+            <button id="addHighlightImage" class="action-btn" aria-label="Adicionar nova imagem de destaque">Adicionar Imagem</button>
+            <div class="form-group mt-3">
+                <label for="overlayColor" class="form-label">Cor do Overlay</label>
+                <input type="color" class="form-control" id="overlayColor" value="#ffffff" aria-label="Selecionar cor do overlay">
+            </div>
+        </div>
+
+        <!-- Seção de Depoimentos -->
+        <div class="config-section testimonials-section" role="region" aria-labelledby="testimonials-title">
+            <h3 class="section-title" id="testimonials-title">Depoimentos</h3>
+            <div class="form-group">
+                <label class="form-label">Mostrar Depoimentos?</label>
                 <div>
-                    <input type="radio" name="showTestimonials" value="yes" id="showYes"> <label for="showYes">Sim</label>
-                    <input type="radio" name="showTestimonials" value="no" id="showNo" checked> <label for="showNo">Não</label>
+                    <input type="radio" name="showTestimonials" value="yes" id="showYes" aria-label="Sim"> <label for="showYes" class="radio-label">Sim</label>
+                    <input type="radio" name="showTestimonials" value="no" id="showNo" checked aria-label="Não"> <label for="showNo" class="radio-label">Não</label>
                 </div>
             </div>
-            <div id="testimonialsSection" style="display: none;">
-                <div id="testimonialsList" class="mt-3">
+            <div id="testimonialsSection" style="display: none;" role="region" aria-labelledby="testimonials-list-title">
+                <h4 class="subsection-title" id="testimonials-list-title">Lista de Depoimentos</h4>
+                <div id="testimonialsList" class="mt-3 list-container" role="list" aria-live="polite">
                     <!-- Depoimentos aprovados serão carregados dinamicamente -->
                 </div>
             </div>
@@ -41,5 +42,5 @@
     </div>
 
     <!-- Botão de Salvar -->
-    <button id="saveSiteConfig" class="btn btn-success mt-4">Salvar Configurações</button>
+    <button id="saveSiteConfig" class="action-btn save-btn" aria-label="Salvar configurações do site">Salvar Configurações</button>
 </div>

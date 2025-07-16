@@ -271,8 +271,10 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="projectsDropdown">
                         <li><a class="dropdown-item" href="/projetos">Cases</a></li>
-                        <li><a class="dropdown-item" href="/projetos/aprovados">Projetos Aprovados</a></li>
-                        <li><a class="dropdown-item" href="/projetos/em-andamento">Projetos em Andamento</a></li>
+                        <li><a class="dropdown-item" href="/projetos/status/em-captacao">Em Captação</a></li>
+                        <li><a class="dropdown-item" href="/projetos/status/ocorridos">Ocorridos</a></li>
+                        <li><a class="dropdown-item" href="/projetos/status/aprovados">Projetos Aprovados</a></li>
+                        <li><a class="dropdown-item" href="/projetos/status/em-andamento">Projetos em Andamento</a></li>
                     </ul>
                 </li>
                     <li class="nav-item"><a class="nav-link" href="/equipe">Equipe</a></li>

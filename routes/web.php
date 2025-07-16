@@ -16,10 +16,15 @@ $router->get('/equipe', 'HomeController','equipe');
 $router->get('/novo/depoimento', 'HomeController','criaDepoimento');
 $router->post('/depoimentos/criar', 'DepoimentoController','criar');
 $router->get('/search', 'SearchController','search');
+
 $router->get('/projetos', 'ProjectController', 'index');
-$router->get('/projetos/aprovados', 'ProjectController', 'approved'); // Projetos aprovados
-$router->get('/projetos/em-andamento', 'ProjectController', 'ongoing');
+$router->get('/projetos/status/aprovados', 'ProjectController', 'approved'); // Projetos aprovados
+$router->get('/projetos/status/em-andamento', 'ProjectController', 'ongoing');
+$router->get('/projetos/status/em-captacao', 'ProjectController', 'emCaptacao'); // Projetos em captação
+$router->get('/projeto/projeto-detalhes/{slug}', 'ProjectController', 'show'); // Em captação
+$router->get('/projetos/status/ocorridos', 'ProjectController', 'projetosOcorridos');
 $router->get('/projetos/{slug}', 'ProjectController', 'show');
+
 $router->get('/artigo/{created_at}/{slug}', 'BlogController', 'mostrarArtigo');
 $router->post('/contato/email', 'HomeController','enviarEmail');
 
