@@ -7,35 +7,46 @@ $router->notFound(function(){
     include '../App/views/not-found/not-found.tpl';
 });
 
-$router->get('/', 'HomeController', 'index');
-$router->get('/sobre', 'HomeController', 'sobre');   
-$router->get('/contato', 'HomeController','contato');
-$router->get('/depoimentos/todos', 'HomeController','depoimentos');
-$router->get('/servicos', 'HomeController','servico');
-$router->get('/equipe', 'HomeController','equipe');
-$router->get('/novo/depoimento', 'HomeController','criaDepoimento');
-$router->post('/depoimentos/criar', 'DepoimentoController','criar');
-$router->get('/search', 'SearchController','search');
+$router->get('/', 'Home\HomeController', 'index');
+$router->get('/sobre', 'Home\HomeController', 'sobre');   
+$router->get('/contato', 'Home\HomeController','contato');
 
-$router->get('/projetos', 'ProjectController', 'index');
-$router->get('/projetos/status/aprovados', 'ProjectController', 'approved'); // Projetos aprovados
-$router->get('/projetos/status/em-andamento', 'ProjectController', 'ongoing');
-$router->get('/projetos/status/em-captacao', 'ProjectController', 'emCaptacao'); // Projetos em captação
-$router->get('/projeto/projeto-detalhes/{slug}', 'ProjectController', 'show'); // Em captação
-$router->get('/projetos/status/ocorridos', 'ProjectController', 'projetosOcorridos');
-$router->get('/projetos/{slug}', 'ProjectController', 'show');
+
+//Depoimnetos
+$router->get('/depoimentos/todos', 'Home\Depoimentoontroller','depoimentos');
+$router->get('/novo/depoimento', 'Home\DepoimentoController','criaDepoimento');
+$router->post('/depoimentos/criar', 'Home\DepoimentoController','criar');
+$router->get('/procurar', 'Home\ProcuraController','procurar');
+
+
+//Equipe
+$router->get('/equipe', 'Home\EquipeController','index');
+
+
+//Servicos
+$router->get('/servicos', 'Home\ServicoController', 'index');
+
+
+$router->get('/projetos', 'ProjetoController', 'index');
+$router->get('/projetos/status/aprovados', 'ProjetoController', 'approved'); // Projetos aprovados
+$router->get('/projetos/status/em-andamento', 'ProjetoController', 'ongoing');
+$router->get('/projetos/status/em-captacao', 'ProjetoController', 'emCaptacao'); // Projetos em captação
+$router->get('/projeto/projeto-detalhes/{slug}', 'ProjetoController', 'show'); // Em captação
+$router->get('/projetos/status/ocorridos', 'ProjetoController', 'projetosOcorridos');
+$router->get('/projetos/{slug}', 'ProjetoController', 'show');
 
 $router->get('/artigo/{created_at}/{slug}', 'BlogController', 'mostrarArtigo');
 $router->post('/contato/email', 'HomeController','enviarEmail');
 
 
 $router->group('/admin', function($router) {
+    $router->get('/token', 'UserController', 'getCsrfToken');
     $router->get('/insert', 'UserController', 'insertData');
     $router->get('/login', 'UserController','login');
     $router->post('/logout', 'UserController', 'logout');
     $router->post('/signIn', 'UserController','signIn');
     $router->group('', function($router){
-        $router->get('/home', 'HomeAdminController','home');
+        $router->get('/dashboard', 'DashboardController','show');
         $router->get('/perfil', 'PerfilController', 'perfil');
         $router->get('/configuracoes/site', 'SiteController', 'site');
         $router->post('/configuracoes/site/updateSite', 'SiteController', 'updateSite');
@@ -57,6 +68,10 @@ $router->group('/admin', function($router) {
         $router->get('/consultoria', 'ConsultoriaController','index');
         $router->get('/consultoria/lista', 'ConsultoriaController', 'listaClientes');
         $router->get('/consultoria/perfil-cliente', 'ConsultoriaController', 'perfilCliente');
+
+        //Equipe
+        $router->get('/equipe/cadastro', 'Home\EquipeController', 'cadastroEquipe');
+        $router->get('/equipe/lista', 'Home\EquipeController', 'listaEquipe');
         
         //Gestão de projetos culturais
         $router->get('/projetos-culturais', 'ProjetosCulturaisController', 'index');
@@ -68,6 +83,7 @@ $router->group('/admin', function($router) {
         $router->post('/projetos-culturais/salvarIncentivo', 'ProjetosCulturaisController','salvarIncentivo');
         $router->post('/projetos-culturais/salvarResultados', 'ProjetosCulturaisController','salvarResultados');
 
+        $router->get('/projetos-captacao', 'ProjetosCulturaisController', 'cadastroEmCaptacao');
 
         //Eventos culturais
         $router->get('/eventos-culturais', 'EventosCulturaisController', 'index');

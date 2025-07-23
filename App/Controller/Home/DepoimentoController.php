@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Home;
 
 use App\Helper\InputFilterHelper;
 use App\Model\Depoimento;
@@ -163,5 +163,39 @@ class DepoimentoController
         ob_end_clean();
         echo json_encode($response);
         exit;
+    }
+
+    public function depoimentos()
+    {
+
+        $depoimentos = new DepoimentoRepository();
+        $depoimentosData = $depoimentos->verDepoimentos();
+
+
+
+
+        $data = [
+            'title' => 'Depoimentos',
+            //Retornar depoimentos do banco de dados
+            'depoimentos' =>  $depoimentosData,
+
+        ];
+
+        
+        $styles = [
+            '/assets/css/depoimentos-site.min.css'
+        ];
+
+
+        return new View(view: 'site/depoimento', vars: $data, styles: $styles);
+    }
+
+    public function criaDepoimento()
+    {
+        $data = [
+            'title' => 'Cria Depoimento',
+        ];
+
+        return new View(view: 'site/cria-depoimento', vars: $data);
     }
 }

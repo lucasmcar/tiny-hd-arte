@@ -4,7 +4,7 @@ namespace App\Model;
 use App\Model\ModelBase;
 
 
-class User extends ModelBase
+class Usuario extends ModelBase
 {
 
     protected $table = 'usuarios';

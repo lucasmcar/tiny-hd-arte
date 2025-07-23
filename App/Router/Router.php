@@ -44,6 +44,11 @@ class Router  implements IRouter
         $this->addRoute('DELETE', $path, $controller, $action, $middleware, $domain);
     }
 
+    public function options($path, $controller, $action = '', $middleware = [], $domain = null)
+    {
+        $this->addRoute('OPTIONS', $path, $controller, $action, $middleware, $domain);
+    }
+
     public function group($prefix, $callback, $middleware = [])
     {
         $previousPrefix = $this->prefix;

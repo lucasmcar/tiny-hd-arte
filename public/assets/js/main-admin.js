@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
           activeStyles = newStyles;
           activeScripts = newScripts;
 
-          if (url === "/admin/home") {
+          if (url === "/admin/dashboard") {
             closeSidebar();
             animateCounters();
           }
@@ -356,7 +356,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Listener de logout adicionado ao link:", logoutLink.textContent);
   }
 
-  if (window.location.pathname === "/admin/home") {
+  if (window.location.pathname === "/admin/dashboard") {
     closeSidebar();
     animateCounters();
   }

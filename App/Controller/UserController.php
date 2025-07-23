@@ -4,10 +4,11 @@ namespace App\Controller;
 
 use App\Core\View\View;
 use App\Helper\InputFilterHelper;
-use App\Model\User;
+use App\Model\Usuario;
 use App\Core\Security\Jwt\JwtHandler;
 use App\Core\Security\Csrf;
-use App\Repository\UserRepository;
+use App\Repository\UsuarioRepository;
+use PhpParser\Node\Expr\Throw_;
 
 class UserController
 {
@@ -21,7 +22,7 @@ class UserController
             '/assets/css/admin/login.min.css'
         ];
         $scripts = [
-            
+
             '/assets/js/main-admin.min.js',
             '/assets/js/login.min.js',
         ];
@@ -46,18 +47,15 @@ class UserController
         return new View(view: 'admin/cria_conta', vars: $data, styles: $styles, scripts: $scripts, layout: 'admin-layout');
     }
 
+
     public function criarUsuario()
     {
-        $data = InputFilterHelper::filterInputs(INPUT_POST, [
-            'nome',
-            'email',
-            'senha'
-        ]);
+        throw "Not implementend";
     }
 
     public function insertData()
     {
-        $repository = new UserRepository();
+        $repository = new UsuarioRepository();
 
         $repository->create([
             'nome' => 'Michelle',
@@ -71,11 +69,15 @@ class UserController
 
     public function signIn()
     {
-        $data = InputFilterHelper::filterInputs(INPUT_POST, [
-            'email',
-            'senha',
-            '_csrf_token'
-        ]);
+        if (json_decode(file_get_contents('php://input'), true)) {
+            $data = json_decode(file_get_contents('php://input'), true);
+        } else {
+            $data = InputFilterHelper::filterInputs(INPUT_POST, [
+                'email',
+                'senha',
+                '_csrf_token'
+            ]);
+        }
 
         // Verifica o token CSRF
         if (!Csrf::verifyToken($data['_csrf_token'])) {
@@ -84,7 +86,7 @@ class UserController
             return;
         }
 
-        $userRepository = new UserRepository();
+        $userRepository = new UsuarioRepository();
         $email = $userRepository->findForSign($data['email']);
 
         if ($email && password_verify($data['senha'], $email[0]['senha'])) {
@@ -206,5 +208,23 @@ class UserController
 
         header('Location: /admin/login');
         exit;
+    }
+
+    public function getCsrfToken()
+    {
+
+        header('Content-Type: application/json');
+
+        if (!session_id()) {
+            session_start();
+        }
+
+        if (empty($_SESSION['_csrf_token'])) {
+            $_SESSION['_csrf_token'] = Csrf::generateToken();
+        }
+
+        echo json_encode([
+            'csrfToken' => $_SESSION['_csrf_token']
+        ]);
     }
 }

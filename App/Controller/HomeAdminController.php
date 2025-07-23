@@ -12,44 +12,7 @@ class HomeAdminController
 {
     public function home()
     {
-        if (!empty($_GET)) {
-            // Redirecionar para /admin/home sem parâmetros
-            header('Location: /admin/home');
-            exit;
-        }
-
-        $data = [];
-        if (session_id()) {
-            $data = JwtHandler::validateToken($_SESSION['jwt']);
-        }
-
-        $user = new User();
         
-        $userResult = $user->findForSign($data['email']);
-
-        $user= new USer();
-
-        $result = $user->where('criado_por','=', $userResult[0]['id'])->get();
-
-
-        $data = [
-            'title' => 'Administração',
-            'totalUsers' => (count($result) > 0 ? count($result) : 0),
-            'totalDepoimentos' => 3,
-            'totalPosts' => 4,
-            'totalEventos' => 10,
-            'totalProjetos' => 14,
-            'totalServicos' => 8,
-        ];
-
-        $styles = [
-            '/assets/css/main-admin.min.css'
-        ];
-        $scripts =[
-            'assets/js/main-admin.min.js'
-        ];
-
-        return new View('admin/home', $data, $styles, $scripts, 'admin-layout');
     }
 
     public function main()

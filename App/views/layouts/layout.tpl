@@ -284,7 +284,7 @@
                 <div class="divider"></div>
                 <!-- Campo de Pesquisa com Contêiner de Resultados -->
                 <div class="search-container">
-                    <form class="search-form" action="/search" method="GET">
+                    <form class="search-form" action="procurar" method="GET">
                         <input type="text" class="search-input" name="q" placeholder="Pesquisar..." id="searchInput">
                         <i class="bi bi-search search-icon"></i>
                     </form>
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Função para buscar resultados
     async function fetchResults(query) {
         try {
-            const response = await fetch(`/search?q=${encodeURIComponent(query)}`, {
+            const response = await fetch(`/procurar?q=${encodeURIComponent(query)}`, {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'

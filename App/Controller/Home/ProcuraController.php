@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Home;
 
-class SearchController
+class ProcuraController
 {
-    public function search($params = [])
+    public function procurar($params = [])
     {
         
 

@@ -26,27 +26,27 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Mecanismo:</label>
-                <span class="detail-text" id="mecanismo">Mecenato (Simulado)</span>
+                <span class="detail-text" id="mecanismo">{{ $project['mecanismo'] }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Área Cultural:</label>
-                <span class="detail-text" id="area_cultural">{{ $project['description'] == 'Música' ? 'Música' : ($project['description'] == 'Hip Hop' ? 'Artes Cênicas' : 'Multicultural') }}</span>
+                <span class="detail-text" id="area_cultural">{{ $project['area_cultural'] == 'Música' ? 'Música' : ($project['description'] == 'Hip Hop' ? 'Artes Cênicas' : 'Multicultural') }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Segmento:</label>
-                <span class="detail-text" id="segmento">{{ $project['description'] == 'Hip Hop' ? 'Ações Educativo-Culturais' : ($project['description'] == 'Música' ? 'Apresentação Musical' : 'Eventos Culturais') }}</span>
+                <span class="detail-text" id="segmento">{{ $project['segmento'] == 'Hip Hop' ? 'Ações Educativo-Culturais' : ($project['description'] == 'Música' ? 'Apresentação Musical' : 'Eventos Culturais') }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Tipologia:</label>
-                <span class="detail-text" id="tipologia">{{ $project['description'] == 'Festival' ? 'Festival' : 'Projeto Normal' }}</span>
+                <span class="detail-text" id="tipologia">{{ $project['tipologia'] == 'Festival' ? 'Festival' : 'Projeto Normal' }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Tipicidade:</label>
-                <span class="detail-text" id="tipicidade">Não disponível</span>
+                <span class="detail-text" id="tipicidade">{{ $project['tipicidade'] }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Processo:</label>
-                <span class="detail-text" id="processo">Não disponível</span>
+                <span class="detail-text" id="processo">{{ $project['processo'] }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Portaria de Autorização:</label>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Valor Autorizado para Captação:</label>
-                <span class="detail-text" id="valor_captacao">Não disponível</span>
+                <span class="detail-text" id="valor_captacao">{{ $project['valor_captacao'] }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Período de Captação:</label>
@@ -66,7 +66,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Situação Atual:</label>
-                <span class="detail-text" id="situacao">{{ $project['status'] == 'ongoing' ? 'Captação em andamento' : 'Captação autorizada' }}</span>
+                <span class="detail-text" id="situacao">{{ $project['situacao'] == 'ongoing' ? 'Captação em andamento' : 'Captação autorizada' }}</span>
             </div>
         </div>
 
@@ -80,8 +80,11 @@
             <div class="form-group">
                 <label class="form-label">Imagens Relacionadas:</label>
                 <div class="image-gallery">
-                    <img src="{{ $project['image'] }}" alt="{{ $project['title'] }} - Imagem Principal" class="thumbnail-img">
-                    {% if $project['extra_image'] %}
+                    {% if isset($project['image']) %}
+                        <img src="{{ $project['image'] }}" alt="{{ $project['title'] }} - Imagem Principal" class="thumbnail-img">
+                    {% endif; %}
+                    
+                    {% if isset($project['extra_image']) %}
                         <img src="{{ $project['extra_image'] }}" alt="{{ $project['title'] }} - Imagem Adicional" class="thumbnail-img">
                     {% endif; %}
                 </div>

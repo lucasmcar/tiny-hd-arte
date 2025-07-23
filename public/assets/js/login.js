@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 feedback.style.color = '#e50914';
                 // Redireciona com base no campo 'redirect'
                 setTimeout(() => {
-                    window.location.href = result.redirect || '/admin/home';
+                    window.location.href = result.redirect || '/admin/dashboard';
                 }, 1500); // Dá 1.5s para o usuário ver a mensagem
             } else {
                 // Erro no login

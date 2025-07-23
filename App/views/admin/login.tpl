@@ -3,7 +3,7 @@
     <div class="logo-container">
         <img src="/assets/imgs/logo.png" alt="Logo HD Arte" class="logo">
     </div>
-    <h2 class="login-title">Entrar</h2>
+   
     <form action="/admin/signIn" method="post" class="login-form" aria-label="Formulário de Login">
         <div class="form-group">
             <label for="email" class="form-label">E-mail</label>
@@ -17,7 +17,6 @@
         <button type="submit" class="login-btn">Entrar</button>
         <div class="links">
             <a href="/conta/esqueci-senha" class="forgot-password">Esqueceu a senha?</a>
-            <a href="/conta/criar" class="create-account">Criar conta</a>
         </div>
         <div class="feedback" id="loginFeedback"></div>
     </form>

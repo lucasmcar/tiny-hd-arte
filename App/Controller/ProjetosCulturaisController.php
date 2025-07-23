@@ -9,6 +9,7 @@ class ProjetosCulturaisController
     // Simulação de armazenamento de projetos (substitua por um banco de dados)
     private static $projetos = [];
 
+    
     public function index()
     {
         $data = [
@@ -29,6 +30,7 @@ class ProjetosCulturaisController
             return new View('admin/projetos-culturais/index', $data, $styles, $scripts, 'admin-layout');
         }
     }
+
 
     public function listaProjetos()
     {
@@ -221,5 +223,24 @@ class ProjetosCulturaisController
         header('Content-Type: application/json');
         echo json_encode($response);
         exit;
+    }
+
+
+    public function cadastroEmCaptacao()
+    {
+        $data = [];
+        $styles = [
+            '/assets/css/admin/projetos-captacao.min.css'
+        ];
+        $scripts = [
+            '/assets/js/projetos-captacao.min.js'
+        ];
+
+        return new View(
+            view: 'admin/projeto-captacao/cadastro', 
+            vars: $data, 
+            styles: $styles, 
+            scripts: $scripts, 
+            layout: 'admin-layout');
     }
 }

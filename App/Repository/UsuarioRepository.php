@@ -2,16 +2,16 @@
 
 namespace App\Repository;
 
-use App\Model\User;
+use App\Model\Usuario;
 
-class UserRepository
+class UsuarioRepository
 {
 
     private $model;
 
     public function __construct()
     {
-        $this->model = new User();
+        $this->model = new Usuario();
     }
 
     public function create(array $data)
@@ -27,5 +27,10 @@ class UserRepository
     public function updateLastLogin($id, $lastLogin)
     {
         $this->model->updateLastLogin($id, $lastLogin);
+    }
+
+    public function getWhere(string $param, string $operator, int|string $value )
+    {
+        return $this->model->where($param, $operator, $value)->get();
     }
 }
