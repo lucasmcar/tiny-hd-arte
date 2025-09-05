@@ -275,11 +275,15 @@
                         <li><a class="dropdown-item" href="/projetos/status/ocorridos">Ocorridos</a></li>
                         <li><a class="dropdown-item" href="/projetos/status/aprovados">Projetos Aprovados</a></li>
                         <li><a class="dropdown-item" href="/projetos/status/em-andamento">Projetos em Andamento</a></li>
+                        <li><a class="dropdown-item" href="/eventos">Eventos</a></li>
+                        <li><a class="dropdown-item" href="/eventos/ingressos">Ingressos a venda</a></li>
                     </ul>
+                    
                 </li>
-                    <li class="nav-item"><a class="nav-link" href="/equipe">Equipe</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/consultoria">Consultoria</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                
+                <a class="nav-link" href="/equipe">Equipe</a></li>
+                
+                <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
                 </ul>
                 <div class="divider"></div>
                 <!-- Campo de Pesquisa com Contêiner de Resultados -->
@@ -351,70 +355,14 @@
     <script>
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
+    @js('https://js.stripe.com/v3/')
+    <script>
+        const stripe = Stripe('{{ $_ENV["STRIPE_KEY"] }}');
+    </script>
 
     {{ $scripts }}
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('searchInput');
-    const searchResults = document.getElementById('searchResults');
-    const searchContainer = document.querySelector('.search-container'); // Corrigido aqui
+    <script>
 
-    // Função para buscar resultados
-    async function fetchResults(query) {
-        try {
-            const response = await fetch(`/procurar?q=${encodeURIComponent(query)}`, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-            if (!response.ok) throw new Error('Erro na busca');
-            const data = await response.json();
-            displayResults(data);
-        } catch (error) {
-            console.error('Erro ao buscar resultados:', error);
-            searchResults.innerHTML = '<a href="#">Erro ao carregar resultados</a>';
-        }
-    }
-
-    // Função para exibir resultados como links
-    function displayResults(results) {
-        searchResults.innerHTML = ''; // Limpa resultados anteriores
-        if (results.length === 0) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        results.forEach(result => {
-            const link = document.createElement('a');
-            link.href = result.url; // URL específica do resultado
-            link.textContent = result.title; // Título do resultado
-            searchResults.appendChild(link);
-        });
-        searchResults.style.display = 'block';
-    }
-
-    // Evento de digitação com debounce
-    let timeout;
-    searchInput.addEventListener('input', function () {
-        clearTimeout(timeout);
-        const query = this.value.trim();
-        if (query.length < 2) { // Mínimo de 2 caracteres
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        timeout = setTimeout(() => fetchResults(query), 300); // Debounce de 300ms
-    });
-
-    // Esconder resultados ao clicar fora
-    document.addEventListener('click', function (e) {
-        if (!searchContainer.contains(e.target)) {
-            searchResults.style.display = 'none';
-        }
-    });
-
-});
-</script>
+    </script>
 </body>
 </html>

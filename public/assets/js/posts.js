@@ -1,4 +1,4 @@
-console.log('Posts JS carregado');
+
 
 // Evita redeclaração de mainContent
 if (typeof window.mainContent === 'undefined') {
@@ -65,11 +65,11 @@ function setupEventDelegation() {
             if (postLink) {
                 event.preventDefault();
                 const postId = postLink.getAttribute('data-post-id');
-                console.log('Clicou no post-link com ID:', postId); // Log para debug
+             
                 loadPostDetails(postId);
             } else if (backBtn) {
                 event.preventDefault();
-                console.log('Clicou no botão Voltar à Lista'); // Log para debug
+             
                 loadPostList();
             }
         });

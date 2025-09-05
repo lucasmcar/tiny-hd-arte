@@ -1,11 +1,11 @@
-console.log('logs.js carregado');
+
 
 function initializeLogEvents() {
-    console.log('Inicializando eventos de logs');
+    
 
     const filterInput = document.getElementById('log-filter');
     if (filterInput) {
-        console.log('Campo de filtro encontrado');
+        
         filterInput.removeEventListener('input', handleFilterInput);
         filterInput.addEventListener('input', handleFilterInput);
     } else {
@@ -14,7 +14,6 @@ function initializeLogEvents() {
 
     const selectAll = document.getElementById('selectAll');
     if (selectAll) {
-        console.log('Checkbox selectAll encontrado');
         selectAll.removeEventListener('change', handleSelectAll);
         selectAll.addEventListener('change', handleSelectAll);
     } else {
@@ -36,21 +35,21 @@ function initializeLogEvents() {
 
 function handleFilterInput() {
     const filter = this.value.toLowerCase();
-    console.log('Filtro digitado:', filter);
+    
     loadLogs(filter);
 }
 
 function handleSelectAll() {
     const checkboxes = document.querySelectorAll('.log-checkbox');
-    console.log('Checkboxes encontrados:', checkboxes.length);
+    
     checkboxes.forEach(cb => {
         cb.checked = this.checked;
-        console.log('Checkbox atualizado:', cb.value, cb.checked);
+        
     });
 }
 
 function handleExportPdf() {
-    console.log('Exportando PDF');
+    
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     doc.autoTable({ html: '.logs-table' });
@@ -60,7 +59,7 @@ function handleExportPdf() {
 function handleClearLogs() {
     const selected = Array.from(document.querySelectorAll('.log-checkbox:checked'))
         .map(cb => cb.value);
-    console.log('Logs selecionados para limpeza:', selected);
+    
     if (selected.length === 0) {
         showStatus('Nenhum log selecionado.');
         return;
@@ -85,12 +84,12 @@ function handleClearLogs() {
 }
 
 function loadLogs(filter = '') {
-    console.log('Carregando logs com filtro:', filter);
+   
     fetch('/admin/configuracoes/list-logs' + (filter ? `?filter=${encodeURIComponent(filter)}` : ''), {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
     })
     .then(response => {
-        console.log('Status da resposta:', response.status);
+        
         if (!response.ok) {
             return response.text().then(text => {
                 throw new Error(`Erro na requisição: ${response.status} - ${text}`);
@@ -99,7 +98,7 @@ function loadLogs(filter = '') {
         return response.json();
     })
     .then(data => {
-        console.log('Dados recebidos:', data);
+        
         const tbody = document.getElementById('logs-tbody');
         const noLogs = document.getElementById('no-logs');
 
@@ -111,13 +110,13 @@ function loadLogs(filter = '') {
         tbody.innerHTML = '';
 
         if (!data.logs || data.logs.length === 0) {
-            console.log('Nenhum log encontrado');
+          
             tbody.innerHTML = '<tr><td colspan="6">Nenhum log encontrado.</td></tr>';
             noLogs.style.display = 'block';
             return;
         }
 
-        console.log('Renderizando', data.logs.length, 'logs');
+        
         noLogs.style.display = 'none';
         data.logs.forEach(log => {
             const details = log.detalhes ? JSON.parse(log.detalhes) : {};
@@ -134,7 +133,6 @@ function loadLogs(filter = '') {
             `;
             tbody.appendChild(tr);
         });
-        console.log('Tabela atualizada, reiniciando eventos');
         initializeLogEvents();
     })
     .catch(error => console.error('Erro ao carregar logs:', error));

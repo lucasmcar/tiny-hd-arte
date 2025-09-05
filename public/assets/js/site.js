@@ -1,4 +1,4 @@
-console.log('Script site.min.js carregado com sucesso!');
+
 
 function initializeSiteConfig() {
     const highlightImages = document.getElementById('highlightImages');
@@ -198,8 +198,6 @@ function initializeSiteConfig() {
             console.error('Erro detalhado:', error);
             alert('Erro na requisição. Verifique o console.');
         });
-
-        console.log('Configurações salvas:', Object.fromEntries(configData));
     });
 }
 

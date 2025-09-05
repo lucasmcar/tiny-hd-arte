@@ -1,6 +1,6 @@
-/* console.log("Editor.js carregado com sucesso!");
 
-function initializeEditor() {
+
+/*function initializeEditor() {
     const editorContent = document.getElementById("content");
     const toolbarButtons = document.querySelectorAll(".toolbar-btn");
     const headingSelect = document.getElementById("heading-select");
@@ -273,7 +273,6 @@ function initializeEditor() {
 
 initializeEditor(); */
 
-console.log("Editor.js carregado com sucesso!");
 
 function initializeEditor() {
     const editorContent = document.getElementById("content");

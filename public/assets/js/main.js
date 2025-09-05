@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const script = document.createElement("script");
       script.src = src;
       script.onload = () => {
-        console.log(`Script carregado: ${src}`);
+       
         callback();
       };
       script.onerror = () => console.error(`Erro ao carregar script: ${src}`);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function removeDynamicStyles() {
     document.querySelectorAll('link[data-dynamic="true"]').forEach((link) => {
       link.remove();
-      console.log(`Estilo removido: ${link.href}`);
+      
     });
   }
 
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .querySelectorAll('script[data-dynamic="true"]')
       .forEach((script) => {
         script.remove();
-        console.log(`Script removido: ${script.src}`);
+       
       });
   }
 
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loading").style.display = "block";
     fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
       .then((response) => {
-        console.log("Resposta da página:", response.status);
+        
         return response.text();
       })
       .then((html) => {
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mainContentNew = doc.querySelector("main");
         if (mainContentNew) {
           mainContent.innerHTML = mainContentNew.innerHTML;
-          console.log("Conteúdo carregado no main-content");
+          
 
           // Extrair novos estilos e scripts
           const newStyles = Array.from(
@@ -98,4 +98,64 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("loading").style.display = "none";
       });
   }
+
+
+  const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const searchContainer = document.querySelector('.search-container'); // Corrigido aqui
+
+    // Função para buscar resultados
+    async function fetchResults(query) {
+        try {
+            const response = await fetch(`/procurar?q=${encodeURIComponent(query)}`, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            if (!response.ok) throw new Error('Erro na busca');
+            const data = await response.json();
+            displayResults(data);
+        } catch (error) {
+            console.error('Erro ao buscar resultados:', error);
+            searchResults.innerHTML = '<a href="#">Erro ao carregar resultados</a>';
+        }
+    }
+
+    // Função para exibir resultados como links
+    function displayResults(results) {
+        searchResults.innerHTML = ''; // Limpa resultados anteriores
+        if (results.length === 0) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        results.forEach(result => {
+            const link = document.createElement('a');
+            link.href = result.url; // URL específica do resultado
+            link.textContent = result.title; // Título do resultado
+            searchResults.appendChild(link);
+        });
+        searchResults.style.display = 'block';
+    }
+
+    // Evento de digitação com debounce
+    let timeout;
+    searchInput.addEventListener('input', function () {
+        clearTimeout(timeout);
+        const query = this.value.trim();
+        if (query.length < 2) { // Mínimo de 2 caracteres
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        timeout = setTimeout(() => fetchResults(query), 300); // Debounce de 300ms
+    });
+
+    // Esconder resultados ao clicar fora
+    document.addEventListener('click', function (e) {
+        if (!searchContainer.contains(e.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
 });

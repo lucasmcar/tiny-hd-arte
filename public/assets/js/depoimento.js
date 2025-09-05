@@ -1,7 +1,7 @@
-console.log('depoimentos.js carregado');
+
 
 function initializeDepoimentoEvents() {
-    console.log('Inicializando eventos de depoimentos');
+
 
     const loading = document.getElementById('loading');
     const csrfToken = document.querySelector('input[name="_csrf_token"]')?.value;
@@ -36,7 +36,7 @@ function initializeDepoimentoEvents() {
                 loading.style.display = 'none';
             }
             if (data.success) {
-                console.log('Depoimento excluído com sucesso, recarregando depoimentos');
+                
                 loadDepoimentos(); // Recarrega os depoimentos dinamicamente
             } else {
                 alert('Erro ao excluir depoimento: ' + data.message);
@@ -62,7 +62,7 @@ function initializeDepoimentoEvents() {
 }
 
 function loadDepoimentos(pagina = 1) {
-    console.log('Carregando depoimentos, página:', pagina);
+    
     const loading = document.getElementById('loading');
     if (loading) loading.style.display = 'block';
 
@@ -174,7 +174,7 @@ function updatePagination(paginaAtual, totalPaginas) {
 
 // Inicializa eventos e carrega depoimentos com base na URL inicial
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Evento DOMContentLoaded disparado em depoimentos.js');
+    
     if (window.location.pathname.includes('/admin/todos/depoimentos')) {
         const urlParams = new URLSearchParams(window.location.search);
         const paginaInicial = parseInt(urlParams.get('pagina')) || 1;

@@ -1,4 +1,4 @@
-console.log('Script gerenciar-perfil.js carregado com sucesso!');
+
 
 function initializeProfileManagement() {
     const profilePicPreview = document.getElementById('profile-pic-preview');
@@ -42,7 +42,7 @@ function initializeProfileManagement() {
             alert('As senhas não coincidem!');
             return;
         }
-        console.log('Alterando senha:', { currentPassword, newPassword });
+
         alert('Senha alterada com sucesso! (Simulação)');
     });
 
@@ -146,7 +146,6 @@ function initializeProfileManagement() {
             return response.json();
         })
         .then(data => {
-            console.log("Resposta do backend:", data);
             if (data.success) {
                 modalMessage.textContent = data.message || 'Perfil salvo com sucesso!';
                 modalMessage.style.color = '#e0e0e0';
@@ -164,7 +163,7 @@ function initializeProfileManagement() {
             setTimeout(() => modal.hide(), 2000);
         });
 
-        console.log('Perfil salvo:', profileData);
+       
     });
 }
 

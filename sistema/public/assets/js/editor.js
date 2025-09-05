@@ -1,4 +1,3 @@
-console.log("Editor.js carregado com sucesso!");
 
 function initializeEditor() {
   const editorContent = document.getElementById("content");

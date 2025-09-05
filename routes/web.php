@@ -22,6 +22,18 @@ $router->get('/procurar', 'Home\ProcuraController','procurar');
 //Equipe
 $router->get('/equipe', 'Home\EquipeController','index');
 
+//Eventos
+$router->get('/eventos/ingressos', 'Home\IngressoController', 'index');
+
+//Tela venda/compra de ingressos
+$router->get('/evento/ingresso/compra/{slug}', 'Home\IngressoController', 'telaCompraIngresso');
+
+
+$router->post('/notificacao-pix', 'Home\IngressoController', 'notificacaoPix');
+$router->post('/status-pagamento', 'Home\IngressoController', 'notificacaoPix');
+
+$router->post('/criar-pagamento', 'Home\IngressoController', 'criarPagamento');
+$router->post('/webhook', 'Home\IngressoController', 'webhook'); // w
 
 //Servicos
 $router->get('/servicos', 'Home\ServicoController', 'index');

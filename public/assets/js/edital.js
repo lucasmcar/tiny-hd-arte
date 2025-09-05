@@ -1,7 +1,6 @@
-console.log('editais.js carregado');
 
 function initializeEditalEvents() {
-    console.log('Inicializando eventos de editais');
+   
 
     const submitButton = document.getElementById('submitUpload');
     const uploadForm = document.getElementById('upload-edital-form');
@@ -36,7 +35,7 @@ function initializeEditalEvents() {
                 }
 
                 if (data.success) {
-                    console.log('Upload bem-sucedido, chamando loadEditais');
+                   
                     loadEditais();
                 }
             })
@@ -95,7 +94,7 @@ function initializeEditalEvents() {
             return response.json();
         })
         .then(data => {
-            console.log('Dados recebidos:', data);
+            
             if (loading) {
                 loading.style.display = 'none';
             }
@@ -138,7 +137,7 @@ function initializeEditalEvents() {
 }
 
 function loadEditais(pagina = 1) {
-    console.log('Carregando editais, página:', pagina);
+    
     const loading = document.getElementById('loading');
     if (loading) loading.style.display = 'block';
 

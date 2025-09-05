@@ -1,7 +1,6 @@
-console.log('Script gerenciar-parceiros.js carregado com sucesso!');
 
 function initializeEvents() {
-    console.log('Inicializando eventos...');
+    
 
     // Botão Adicionar Parceiro
     const addPartnerBtn = document.getElementById('addPartnerBtn');
@@ -17,7 +16,7 @@ function initializeEvents() {
     }
 
     if (addPartnerBtn && addPartnerModal && closeAddModal && addPartnerForm) {
-        console.log('Elementos do modal de adição encontrados.');
+        
 
         // Abrir Modal
         addPartnerBtn.addEventListener('click', function () {
@@ -25,20 +24,20 @@ function initializeEvents() {
             document.querySelector('#addPartnerModal .modal-header h3').textContent = 'Adicionar Novo Parceiro';
             addPartnerForm.reset();
             addPartnerModal.removeAttribute('data-edit-id');
-            console.log('Modal de adição aberto.');
+            
         });
 
         // Fechar Modal
         closeAddModal.addEventListener('click', function () {
             addPartnerModal.classList.remove('active');
-            console.log('Modal de adição fechado.');
+           
         });
 
         // Fechar ao clicar fora do modal
         addPartnerModal.addEventListener('click', function (e) {
             if (e.target === addPartnerModal) {
                 addPartnerModal.classList.remove('active');
-                console.log('Modal fechado ao clicar fora.');
+                
             }
         });
 
@@ -85,7 +84,7 @@ function initializeEvents() {
             })
             .then(data => {
                 if (data.success) {
-                    console.log('Parceiro salvo com sucesso:', data);
+                    
                     // Atualizar a tabela dinamicamente
                     const redesIcons = [];
                     if (redesSociais.tiktok) redesIcons.push(`<a href="${redesSociais.tiktok}" target="_blank"><i class="bi bi-tiktok"></i></a>`);
@@ -155,7 +154,7 @@ function initializeEvents() {
         if (e.target.closest('.edit-btn')) {
             const button = e.target.closest('.edit-btn');
             const id = button.getAttribute('data-id');
-            console.log('Editar parceiro ID:', id);
+           
 
             // Preenche o formulário com os dados do parceiro
             const row = button.closest('.table-row');
@@ -186,8 +185,7 @@ function initializeEvents() {
         if (e.target.closest('.delete-btn')) {
             const button = e.target.closest('.delete-btn');
             const id = button.getAttribute('data-id');
-            console.log('Excluir parceiro ID:', id);
-
+           
             if (confirm('Tem certeza que deseja excluir este parceiro?')) {
                 fetch(`/admin/parceiros/delete/${id}`, {
                     method: 'DELETE',

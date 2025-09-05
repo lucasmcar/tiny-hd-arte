@@ -1,5 +1,4 @@
-// /assets/js/posts.js
-console.log('Posts JS carregado');
+
 
 const mainContent = document.querySelector("#main-content");
 

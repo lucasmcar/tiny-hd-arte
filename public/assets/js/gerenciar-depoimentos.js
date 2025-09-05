@@ -1,7 +1,7 @@
 
 // Função para inicializar os eventos
 function initializeEvents() {
-    console.log('Inicializando eventos...');
+   
 
     // Dropdown Toggle
     const dropdownToggle = document.getElementById('dropdownToggle');
@@ -23,10 +23,10 @@ function initializeEvents() {
     const notifyCheckbox = document.getElementById('notifyAdmin');
     const emailConfig = document.getElementById('emailConfig');
     if (notifyCheckbox && emailConfig) {
-        console.log('Elementos de notificação encontrados.');
+        
         notifyCheckbox.addEventListener('change', function () {
             emailConfig.style.display = this.checked ? 'flex' : 'none';
-            console.log('Checkbox notificação alterado:', this.checked ? 'ativado' : 'desativado');
+            
         });
     } else {
         console.error('Erro ao encontrar elementos de notificação:', {
@@ -38,7 +38,7 @@ function initializeEvents() {
     // Botão Gerar Link
     const generateLinkButtons = document.querySelectorAll('.generate-link-btn:not(.disabled)');
     if (generateLinkButtons.length > 0) {
-        console.log('Botões Gerar Link encontrados:', generateLinkButtons.length);
+        
         generateLinkButtons.forEach(button => {
             button.addEventListener('click', function () {
                 const id = this.getAttribute('data-id');
@@ -50,7 +50,7 @@ function initializeEvents() {
                     modal.show();
                     // Move o foco para o modal após abrir
                     modalElement.querySelector('.modal-title').focus();
-                    console.log('Modal de link aberto para ID:', id, 'e foco ajustado.');
+                    
                 } catch (error) {
                     console.error('Erro ao abrir modal de link:', error);
                 }
@@ -77,7 +77,7 @@ function initializeEvents() {
                 modal.show();
                 // Move o foco para o modal após abrir
                 modalElement.querySelector('.modal-title').focus();
-                console.log('Modal de depoimento aberto para ID:', id, 'e foco ajustado.');
+                
             }
         });
     });

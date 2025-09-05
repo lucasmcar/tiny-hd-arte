@@ -35,13 +35,6 @@ body::-webkit-scrollbar-thumb:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.8); /* Sombra escura mais sutil */
 }
 
-.hda-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #fff;
-}
 
 .hda-text {
     color: #e0e0e0; /* Cinza claro */

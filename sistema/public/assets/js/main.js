@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.href = src;
-      link.onload = () => console.log(`Estilo carregado: ${src}`);
+      
       link.onerror = () => console.error(`Erro ao carregar estilo: ${src}`);
       link.dataset.dynamic = "true"; // Marcar como dinâmico
       document.head.appendChild(link);
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const script = document.createElement("script");
       script.src = src;
       script.onload = () => {
-        console.log(`Script carregado: ${src}`);
+        
         callback();
       };
       script.onerror = () => console.error(`Erro ao carregar script: ${src}`);
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function removeDynamicStyles() {
     document.querySelectorAll('link[data-dynamic="true"]').forEach((link) => {
       link.remove();
-      console.log(`Estilo removido: ${link.href}`);
+      
     });
   }
 
@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", function () {
       .querySelectorAll('script[data-dynamic="true"]')
       .forEach((script) => {
         script.remove();
-        console.log(`Script removido: ${script.src}`);
       });
   }
 
@@ -52,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loading").style.display = "block";
     fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
       .then((response) => {
-        console.log("Resposta da página:", response.status);
         return response.text();
       })
       .then((html) => {
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mainContentNew = doc.querySelector("main");
         if (mainContentNew) {
           mainContent.innerHTML = mainContentNew.innerHTML;
-          console.log("Conteúdo carregado no main-content");
+          
 
           // Extrair novos estilos e scripts
           const newStyles = Array.from(

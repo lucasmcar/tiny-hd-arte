@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    console.log('jQuery e DOM carregados');
+    
 
     const $projectForm = $('#projectForm');
     const $successMessage = $('#successMessage');
@@ -8,7 +8,7 @@ $(document).ready(function () {
     if ($cardHeaders.length === 0) {
         console.error('Nenhum .card-header encontrado');
     } else {
-        console.log(`Encontrados ${$cardHeaders.length} card-headers`);
+        
     }
 
     $cardHeaders.each(function () {
@@ -25,12 +25,12 @@ $(document).ready(function () {
             return;
         }
 
-        console.log(`Configurando toggle para #${targetId}`);
+   
 
         $header.on('click', function (e) {
             e.stopPropagation();
             e.stopImmediatePropagation(); // Garante que o evento não afete outros elementos
-            console.log(`Clicou no header para #${targetId} no card`, $dashboardCard);
+           
 
             // Verifica se o conteúdo está visível apenas neste card
             const isOpen = $cardContent.is(':visible');

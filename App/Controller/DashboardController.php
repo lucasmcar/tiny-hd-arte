@@ -47,11 +47,10 @@ class DashboardController implements Controller
         ];
 
         $styles = [
-            '/assets/css/admin-layout.min.css'
+            '/assets/css/admin-layout.css'
         ];
         $scripts = [
-            '/assets/js/main-admin.min.js',
-            'assets/js/admin/admin-layout.min.js'
+            'assets/js/admin/admin-layout.js'
         ];
 
         return new View('admin/dashboard', $data, $styles, $scripts, 'admin-layout');

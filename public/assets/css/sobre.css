@@ -30,13 +30,7 @@ body::-webkit-scrollbar-thumb:hover {
     padding: 40px 0;
 }
 
-.hda-title {
-    font-size: 2.5rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    text-align: center;
-    color: #fff;
-}
+
 
 .hda-subtitle {
     font-size: 1.5rem;

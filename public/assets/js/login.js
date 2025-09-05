@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (response.ok && result.success) {
+             debugger;
                 // Login bem-sucedido
                 feedback.textContent = result.message || 'Login realizado com sucesso!';
                 feedback.style.color = '#e50914';

@@ -1,5 +1,4 @@
 // /assets/js/services.js
-console.log('Services JS carregado');
 
 function attachServiceEvents() {
     // Editar serviço
@@ -30,7 +29,7 @@ function attachServiceEvents() {
                 .then(response => {
                     if (!response.ok) throw new Error('Erro ao excluir serviço');
                     this.closest('.table-row').remove();
-                    console.log(`Serviço ${serviceId} excluído`);
+                    
                 })
                 .catch(error => console.error('Erro:', error));
             }

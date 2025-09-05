@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sidebar && mainContent) {
       sidebar.classList.toggle("active");
       mainContent.classList.toggle("shifted");
-      console.log(sidebar.classList.contains("active") ? "Sidebar aberto" : "Sidebar fechado");
     } else {
       console.error("Elementos do sidebar não encontrados durante toggle:", { sidebar, mainContent });
     }
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (sidebar && mainContent && sidebar.classList.contains("active")) {
       sidebar.classList.remove("active");
       mainContent.classList.remove("shifted");
-      console.log("Sidebar fechado");
+      
     }
   }
 
@@ -42,14 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (toggleButton && sidebar && mainContent) {
       toggleButton.removeEventListener("click", toggleSidebar);
       toggleButton.addEventListener("click", toggleSidebar);
-      console.log("Eventos do sidebar reconfigurados com sucesso");
-    } else {
-      console.warn("Elementos do sidebar não encontrados. Tentando novamente em 100ms...", {
-        toggleButton,
-        sidebar,
-        mainContent,
-      });
-      setTimeout(initializeSidebar, 100);
+      
     }
   }
 
@@ -58,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".nav-link:not(.accordion-toggle)").forEach((link) => {
       link.removeEventListener("click", handleNavClick);
       link.addEventListener("click", handleNavClick);
-      console.log("Listener de navegação adicionado ao link:", link.textContent);
+      
     });
 
     // Remove qualquer listener anterior para evitar duplicatas
@@ -72,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".accordion-toggle").forEach((toggle) => {
       toggle.removeEventListener("click", handleAccordionClick);
       toggle.addEventListener("click", handleAccordionClick);
-      console.log("Listener de acordeão adicionado ao item:", toggle.textContent);
+      
     });
   }
 
@@ -83,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const submenu = this.nextElementSibling;
     const isActive = submenu.classList.contains("active");
 
-    console.log("Estado atual do submenu antes de alternar:", isActive ? "Ativo" : "Inativo");
+    
 
     // Fecha todos os outros submenus
     document.querySelectorAll(".accordion-menu").forEach(menu => {
@@ -91,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
         menu.classList.remove("active");
         menu.previousElementSibling.classList.remove("active");
         menu.style.maxHeight = "0";
-        console.log("Fechando outro submenu:", menu.previousElementSibling.textContent);
+     
       }
     });
 
@@ -100,15 +92,14 @@ document.addEventListener("DOMContentLoaded", function () {
       submenu.classList.remove("active");
       this.classList.remove("active");
       submenu.style.maxHeight = "0";
-      console.log("Submenu fechado:", this.textContent);
+      
     } else {
       submenu.classList.add("active");
       this.classList.add("active");
       submenu.style.maxHeight = submenu.scrollHeight + "px";
-      console.log("Submenu aberto:", this.textContent);
+      
     }
 
-    console.log("Estado final do submenu após alternar:", submenu.classList.contains("active") ? "Ativo" : "Inativo");
   }
 
   function handleNavClick(event) {
@@ -118,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Deve ser um item navegável (com data-page)
     const page = link.getAttribute("data-page");
     if (page) {
-      console.log("Carregando página:", page);
+      
       loadPage(`/admin/${page}`);
       closeSidebar();
     }
@@ -129,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (target) {
       event.preventDefault();
       const url = target.getAttribute("data-url");
-      console.log("Clique detectado em elemento com data-url:", url);
+      
       loadPage(url);
       closeSidebar();
     }
@@ -164,11 +155,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const { src, callback } = scriptQueue.shift();
 
       if (!document.querySelector(`script[src="${src}"]`)) {
-        console.log(`Iniciando carregamento do script: ${src}`);
+       
         const script = document.createElement("script");
         script.src = src;
         script.onload = () => {
-          console.log(`Script carregado com sucesso: ${src}`);
+          
           callback();
           isLoadingScript = false;
           processQueue();
@@ -181,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () {
         script.dataset.dynamic = "true";
         document.body.appendChild(script);
       } else {
-        console.log(`Script já carregado anteriormente: ${src}`);
+        ;
         callback();
         isLoadingScript = false;
         processQueue();
@@ -194,14 +185,14 @@ document.addEventListener("DOMContentLoaded", function () {
   function removeDynamicStyles() {
     document.querySelectorAll('link[data-dynamic="true"]').forEach((link) => {
       link.remove();
-      console.log(`Estilo removido: ${link.href}`);
+      
     });
   }
 
   function removeDynamicScripts() {
     document.querySelectorAll('script[data-dynamic="true"]').forEach((script) => {
       script.remove();
-      console.log(`Script removido: ${script.src}`);
+      
     });
   }
 
@@ -209,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loading").style.display = "block";
     fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
       .then((response) => {
-        console.log("Resposta da página:", response.status);
+        
         return response.text();
       })
       .then((html) => {
@@ -218,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const mainContentNew = doc.querySelector("main");
         if (mainContentNew) {
           mainContent.innerHTML = mainContentNew.innerHTML;
-          console.log("Conteúdo carregado no main-content");
+          
 
           // Reconfigura o sidebar e os links de navegação
           initializeSidebar();
@@ -239,13 +230,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const initializeTinyMCEAfterLoad = () => {
             if (newScripts.includes("http://localhost:8000/assets/js/tiny-init.js")) {
-              console.log("Scripts carregados. Inicializando TinyMCE manualmente...");
+              
               if (typeof window.initializeTinyMCEOnDynamicLoad === "function") {
                 window.initializeTinyMCEOnDynamicLoad();
               } else {
-                console.warn(
-                  "Função initializeTinyMCEOnDynamicLoad ainda não disponível. Tentando novamente em 100ms..."
-                );
+                
                 setTimeout(initializeTinyMCEAfterLoad, 100);
               }
             }
@@ -326,7 +315,7 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           const data = JSON.parse(text); // Tenta parsear como JSON
           if (data.success) {
-            console.log("Logout realizado com sucesso:", data.message);
+            
             window.location.href = '/admin/login';
           } else {
             console.error("Erro no logout:", data.message);
@@ -353,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (logoutLink) {
     logoutLink.removeEventListener("click", handleLogout);
     logoutLink.addEventListener("click", handleLogout);
-    console.log("Listener de logout adicionado ao link:", logoutLink.textContent);
+    
   }
 
   if (window.location.pathname === "/admin/dashboard") {

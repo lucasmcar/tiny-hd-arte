@@ -228,7 +228,9 @@ class ProjetosCulturaisController
 
     public function cadastroEmCaptacao()
     {
-        $data = [];
+        $data = [
+            'title' => 'Cadastro de projetos para captação'
+        ];
         $styles = [
             '/assets/css/admin/projetos-captacao.min.css'
         ];

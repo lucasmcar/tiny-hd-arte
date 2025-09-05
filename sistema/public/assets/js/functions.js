@@ -129,7 +129,7 @@ if(button.submitUserLogin != undefined){
     
     fetch.post('/autenticacao', {inputs}, {"Content-Type" : "application/json"}, "json")
     .then(data => {
-        console.log(data);
+        
         if(data != null){
           // Hide preloader
           preloader.style.display = 'none';

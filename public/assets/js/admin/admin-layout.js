@@ -109,88 +109,155 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 const menuData = [
-        {
-            label: "Dashboard",
-            icon: "bi-house-door",
-            route: "/admin/dashboard"
-        },
-        {
-            label: "Consultoria",
-            icon: "bi-briefcase",
-            submenu: [
-                { label: "Cadastro", route: "/consultoria" },
-                { label: "Registros", route: "/consultoria/lista" }
-            ]
-        },
-        {
-            label: "Equipe",
-            icon: "bi-person-vcard-fill",
-            submenu: [
-                { label: "Cadastro", route: "/equipe/cadastro" },
-                { label: "Registros", route: "/equipe/lista" }
-            ]
-        },
-        {
-            label: "Destão de Projetos",
-            icon: "bi-tools",
-            submenu: [
-                {label: "Cadastros", icon:"bi-clipboard-data", route: "projetos-culturais",},
-                {label: "Registros", icon: "bi-list",route: "projetos-culturais/listaProjetos",},
-                {label: "Projetos Em Captação", icon: "bi-plus-circle", route: "projetos-captacao"},
-            ]
+    {
+        label: "Dashboard",
+        icon: "bi-house-door",
+        route: "/admin/dashboard"
+    },
+    {
+        label: "Consultoria",
+        icon: "bi-briefcase",
+        submenu: [
+            { label: "Cadastro", route: "/admin/consultoria" },
+            { label: "Registros", route: "/admin/consultoria/lista" }
+        ]
+    },
+    {
+        label: "Equipe",
+        icon: "bi-person-vcard-fill",
+        submenu: [
+            { label: "Cadastro", route: "/admin/equipe/cadastro" },
+            { label: "Registros", route: "/admin/equipe/lista" }
+        ]
+    },
+    {
+        label: "Destão de Projetos",
+        icon: "bi-tools",
+        submenu: [
+            { label: "Cadastros", icon: "bi-clipboard-data", route: "/admin/projetos-culturais" },
+            { label: "Registros", icon: "bi-list", route: "/admin/projetos-culturais/listaProjetos" },
+            { label: "Projetos Em Captação", icon: "bi-plus-circle", route: "/admin/projetos-captacao" },
+        ]
+    }
+];
 
-        }
+let isSidebarOpen = false;
 
-
-            
-    ];
-
+function initFAB() {
     const fabToggle = document.getElementById("fab-menu-toggle");
     const fabSidebar = document.getElementById("fab-sidebar");
     const fabIcon = document.getElementById("fab-icon");
-    const menuContainer = document.getElementById("fab-menu-items");
 
-    let isSidebarOpen = false;
+    if (!fabToggle || !fabSidebar || !fabIcon) return;
 
-    fabToggle.addEventListener("click", () => {
-        isSidebarOpen = !isSidebarOpen;
-        fabSidebar.classList.toggle("open", isSidebarOpen);
-        fabSidebar.setAttribute("aria-hidden", !isSidebarOpen);
-        fabIcon.className = isSidebarOpen ? "bi bi-x" : "bi bi-list";
-    });
+    // Previna múltiplas adições
+    if (!fabToggle.hasAttribute("data-listener")) {
+        fabToggle.setAttribute("data-listener", "true");
 
-    function createMenu() {
-        menuData.forEach(item => {
-            const li = document.createElement("li");
-
-            if (item.submenus) {
-    li.innerHTML = `
-      <a href="#" class="menu-item has-submenu">
-        <i class="${item.icon}"></i>
-        ${item.label}
-        <span class="submenu-toggle">+</span>
-      </a>
-      <ul class="submenu">
-        ${item.submenus.map(sub => `
-          <li>
-            <a href="${sub.link}">
-              <i class="${sub.icon}"></i> ${sub.label}
-            </a>
-          </li>
-        `).join('')}
-      </ul>
-    `;
-  } else {
-    li.innerHTML = `
-      <a href="${item.link}" class="menu-item">
-        <i class="${item.icon}"></i>
-        ${item.label}
-      </a>
-    `;
-  }
-
-            menuContainer.appendChild(li);
+        fabToggle.addEventListener("click", () => {
+            isSidebarOpen = !isSidebarOpen;
+            fabSidebar.classList.toggle("open", isSidebarOpen);
+            fabSidebar.setAttribute("aria-hidden", !isSidebarOpen);
+            fabIcon.className = isSidebarOpen ? "bi bi-x" : "bi bi-list";
         });
     }
+}
 
-    document.addEventListener("DOMContentLoaded", createMenu);
+
+function createMenu() {
+    const menuContainer = document.getElementById("fab-menu-items");
+    menuContainer.innerHTML = "";
+
+    menuData.forEach(item => {
+        const li = document.createElement("li");
+
+        if (item.submenu) {
+            li.innerHTML = `
+                <a href="#" class="menu-item has-submenu">
+                    <i class="${item.icon}"></i>
+                    ${item.label}
+                    <span class="submenu-toggle">+</span>
+                </a>
+                <ul class="submenu">
+                    ${item.submenu.map(sub => `
+                        <li>
+                            <a href="${sub.route}" class="ajax-link">
+                                <i class="${sub.icon || ''}"></i> ${sub.label}
+                            </a>
+                        </li>
+                    `).join("")}
+                </ul>
+            `;
+        } else {
+            li.innerHTML = `
+                <a href="${item.route}" class="menu-item ajax-link">
+                    <i class="${item.icon}"></i>
+                    ${item.label}
+                </a>
+            `;
+        }
+
+        menuContainer.appendChild(li);
+    });
+
+    attachAjaxHandlers();
+}
+
+function attachAjaxHandlers() {
+    const ajaxLinks = document.querySelectorAll(".ajax-link");
+
+    ajaxLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const url = this.getAttribute("href");
+            if (url) {
+                loadPage(url);
+                history.pushState({ path: url }, "", url);
+            }
+        });
+    });
+}
+
+function loadPage(url) {
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error("Erro ao carregar página");
+            return res.text();
+        })
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const newContent = doc.querySelector("#main-content");
+            const currentContent = document.querySelector("#main-content");
+
+            if (newContent && currentContent) {
+                currentContent.innerHTML = newContent.innerHTML;
+                window.scrollTo(0, 0);
+
+                // Reinicializa os eventos necessários
+                attachAjaxHandlers();
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            document.querySelector("#main-content").innerHTML = "<p>Erro ao carregar conteúdo.</p>";
+        });
+}
+
+// Suporte ao botão de voltar do navegador
+window.addEventListener("popstate", function (e) {
+    if (e.state && e.state.path) {
+        loadPage(e.state.path);
+    }
+});
+
+// Inicialização
+document.addEventListener("DOMContentLoaded", () => {
+    if (window.location.pathname === '/admin/login' || window.location.pathname === '/login') {
+        const fabSidebar = document.getElementById("fab-sidebar");
+        if (fabSidebar) fabSidebar.setAttribute("hidden", true);
+    }
+
+    createMenu();
+    initFAB();
+});

@@ -15,9 +15,6 @@
     @csrf
     <div class="top-navbar" role="banner">
         <div class="brand">
-            <button id="toggle-sidebar" aria-label="Alternar menu lateral" aria-expanded="false">
-                <i class="bi bi-list"></i>
-            </button>
             <h4>Painel Administrativo</h4>
         </div>
         <div class="profile" role="img" aria-label="Foto de perfil">
@@ -43,24 +40,6 @@
         <i class="fas fa-spinner"></i>
     </div>
 
-    <div class="modal fade" id="session-expiry-modal" tabindex="-1" aria-labelledby="sessionExpiryModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="sessionExpiryModalLabel">Sessão Expirando</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body">
-                    Sua sessão está prestes a expirar em <span id="modal-timer">5:00</span>. Você será deslogado automaticamente quando o tempo acabar.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary-netflix" data-bs-dismiss="modal">Continuar</button>
-                    <button type="button" class="btn btn-netflix" onclick="window.location.href='/admin/logout'">Sair Agora</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <main class="main-content" id="main-content" role="main">
         {{ $content }}
     </main>
@@ -69,5 +48,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     
     {{ $scripts }}
+
+    
 </body>
 </html>

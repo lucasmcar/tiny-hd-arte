@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Core\DeviceDetector;
 use App\Core\View\View;
 use App\Helper\InputFilterHelper;
 use App\Model\Usuario;
@@ -24,7 +25,7 @@ class UserController
         $scripts = [
 
             '/assets/js/main-admin.min.js',
-            '/assets/js/login.min.js',
+            '/assets/js/login.js',
         ];
 
 
@@ -67,15 +68,20 @@ class UserController
         ]);
     }
 
-    public function signIn()
+    /* public function signIn()
     {
-        if (json_decode(file_get_contents('php://input'), true)) {
-            $data = json_decode(file_get_contents('php://input'), true);
+       
+        $input = file_get_contents('php://input');
+        
+        if ($input) {
+            header('Content-Type: application/json');
+            $data = json_decode($input, true);
+            $data['_csrf_token'] = $_SERVER['HTTP_X_CSRF_TOKEN'];
         } else {
             $data = InputFilterHelper::filterInputs(INPUT_POST, [
                 'email',
                 'senha',
-                '_csrf_token'
+                
             ]);
         }
 
@@ -110,11 +116,92 @@ class UserController
             $userRepository->updateLastLogin($email[0]['id'], date('Y-m-d H:i:s'));
 
             // Retorna sucesso em JSON
-            echo json_encode(['success' => true, 'message' => 'Login realizado com sucesso!', 'redirect' => '/admin/home']);
+            echo json_encode(['success' => true, 'message' => 'Login realizado com sucesso!', 'redirect' => '/admin/dashboard']);
         } else {
             http_response_code(401);
             echo json_encode(['success' => false, 'message' => 'E-mail ou senha inválidos.', 'redirect' => '/admin/login']);
         }
+    } */
+
+    public function signIn()
+    {
+        header('Content-Type: application/json');
+
+        $device = DeviceDetector::getInstance();
+
+        if ($device->isMobile()) {
+            $input = json_decode(file_get_contents('php://input'), true);
+            if ($input) {
+
+                $emailInput = $input['email'] ?? null;
+                $senhaInput = $input['senha'] ?? null;
+                if (!$emailInput || !$senhaInput) {
+                    http_response_code(400);
+                    echo json_encode(['success' => false, 'message' => 'Email e senha são obrigatórios']);
+                    return;
+                }
+
+                header('Content-Type: application/json');
+                //$data = json_decode($input, true);
+                //$data['_csrf_token'] = $_SERVER['HTTP_X_CSRF_TOKEN'];
+            }
+        } else {
+            $data = InputFilterHelper::filterInputs(INPUT_POST, [
+                'email',
+                'senha',
+                '_csrf_token'
+            ]);
+        }
+
+
+
+        $userRepository = new UsuarioRepository();
+        $user = $userRepository->findForSign(isset($emailInput) ? $emailInput : $data['email']);
+
+        if (!$user || !password_verify(isset($senhaInput) ? $senhaInput : $data['senha'], $user[0]['senha'])) {
+            http_response_code(401);
+            echo json_encode(['success' => false, 'message' => 'Credenciais inválidas']);
+            return;
+        }
+
+        $payload = [
+            'iat' => time(),
+            'exp' => time() + (60 * 60), // 1 hora
+            'sub' => $user[0]['id'],
+            'name' => $user[0]['nome'],
+            'email' => $user[0]['email']
+        ];
+
+        $jwt = JwtHandler::generateToken($payload);
+
+        if(!$device->isMobile())
+        {
+            if (!session_id()) {
+                session_start();
+            }
+
+            $_SESSION['jwt'] = $jwt;
+            $_SESSION['jwt_exp'] = $payload['exp'];
+            $_SESSION['foto'] = $user[0]['foto'];
+        }
+        
+        $userRepository->updateLastLogin($user[0]['id'], date('Y-m-d H:i:s'));
+
+        // Atualiza login
+        //$userRepository->updateLastLogin($user[0]['id'], date('Y-m-d H:i:s'));
+    
+        echo json_encode([
+            'success' => true,
+            'message' => 'Login realizado com sucesso!',
+            'token' => $jwt,
+            'user' => [
+                'id' => $user[0]['id'],
+                'nome' => $user[0]['nome'],
+                'email' => $user[0]['email'],
+                'foto' => $user[0]['foto']
+            ],
+            'redirect' => '/admin/dashboard'
+        ]);
     }
 
     public function logout()
@@ -213,6 +300,9 @@ class UserController
     public function getCsrfToken()
     {
 
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
+        header('Access-Control-Allow-Headers: Content-Type, X-CSRF-TOKEN, Authorization');
         header('Content-Type: application/json');
 
         if (!session_id()) {

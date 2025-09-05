@@ -1,5 +1,4 @@
 (function () {
-    console.log('Script carregado em', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
 
     function ready(fn) {
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -10,7 +9,7 @@
     }
 
     ready(function () {
-        console.log('DOM carregado em', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+        
 
         const equipeListBody = document.getElementById('equipeTableBody');
         const editModal = document.getElementById('editModal');

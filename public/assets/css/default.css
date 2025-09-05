@@ -1,0 +1,13 @@
+
+.hda-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+/* Ajuste para o conteúdo ficar abaixo do navbar */
+.hda-section {
+    padding-top: 100px; /* Espaço para o navbar fixo - ajuste conforme a altura real */
+}

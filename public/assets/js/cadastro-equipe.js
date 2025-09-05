@@ -1,7 +1,4 @@
 (function () {
-    // Log inicial para confirmar carregamento
-    console.log('Script carregado em', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-
     // Função para executar quando o DOM estiver pronto
     function ready(fn) {
         if (document.readyState === 'complete' || document.readyState === 'interactive') {
@@ -12,17 +9,10 @@
     }
 
     ready(function () {
-        console.log('DOM carregado em', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
 
         const pessoaForm = document.getElementById('pessoaForm');
         const successMessage = document.getElementById('successMessage');
         const cardHeaders = document.querySelectorAll('.card-header');
-
-        if (cardHeaders.length === 0) {
-            console.error('Nenhum .card-header encontrado em', new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-        } else {
-            console.log(`Encontrados ${cardHeaders.length} card-headers em`, new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-        }
 
         cardHeaders.forEach(header => {
             const targetId = header.getAttribute('data-target');
@@ -36,13 +26,9 @@
                 return;
             }
 
-            console.log(`Configurando toggle para #${targetId} em`, new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
-            console.log('Elementos:', { header, cardContent, toggleButton, chevronDown, chevronUp });
-
             header.addEventListener('click', function (e) {
                 e.stopPropagation();
                 e.stopImmediatePropagation();
-                console.log(`Clicou no header para #${targetId} em`, new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
                 const isOpen = cardContent.style.display === 'block';
 
                 document.querySelectorAll('.card-content').forEach(otherContent => {
@@ -60,13 +46,12 @@
                     chevronUp.style.display = 'none';
                     chevronDown.style.display = 'inline';
                     header.setAttribute('data-expanded', 'false');
-                    console.log(`Estado de #${targetId} atualizado para false em`, new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
+                    
                 } else {
                     cardContent.style.display = 'block';
                     chevronDown.style.display = 'none';
                     chevronUp.style.display = 'inline';
                     header.setAttribute('data-expanded', 'true');
-                    console.log(`Estado de #${targetId} atualizado para true em`, new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' }));
                 }
             });
         });

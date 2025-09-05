@@ -16,6 +16,7 @@ class HomeController
         $depoimentosData = $depoimentos->verDepoimentos();
 
         $styles = [
+            '/assets/css/default.css',
             'assets/css/home.min.css',
         ];
 
@@ -45,6 +46,7 @@ class HomeController
         ];
 
         $styles = [
+            '/assets/css/default.css',
             'assets/css/sobre.min.css',
         ];
 
@@ -62,7 +64,8 @@ class HomeController
         ];
 
         $styles = [
-            'assets/css/contato.min.css',
+            '/assets/css/default.css',
+            '/assets/css/contato.min.css',
         ];
 
         $script = [
