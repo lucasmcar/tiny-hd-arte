@@ -349,6 +349,7 @@
     
     <!-- Bootstrap JS -->
     @js('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.min.js')
+    @js('https://cdn.jsdelivr.net/npm/sweetalert2@11')
     @js('/assets/js/main.min.js')
     @js('/assets/js/fetch.min.js')
     @js('https://vlibras.gov.br/app/vlibras-plugin.js')
@@ -357,12 +358,75 @@
     </script>
     @js('https://js.stripe.com/v3/')
     <script>
-        const stripe = Stripe('{{ $_ENV["STRIPE_KEY"] }}');
+        
     </script>
 
     {{ $scripts }}
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        const permission = localStorage.getItem('location_permission');
+
+            if (permission === 'granted') {
+                obterLocalizacao();
+                return;
+            }
+
+            if (permission === 'denied') {
+                carregarEventosPadrao();
+                return;
+            }
+
+            // Primeira visita → mostrar modal
+            mostrarModalLocalizacao();
+        });
 
     </script>
+
+    <script>
+        function mostrarModalLocalizacao() {
+            Swal.fire({
+                title: 'Encontrar eventos perto de você?',
+                text: 'Precisamos da sua localização para mostrar eventos mais próximos.',
+                icon: 'info',
+                showCancelButton: true,
+                confirmButtonText: 'Ativar localização',
+                cancelButtonText: 'Ver sem localização',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    localStorage.setItem('location_permission', 'granted');
+                    obterLocalizacao(); // ← aqui SIM é permitido
+                } else {
+                    localStorage.setItem('location_permission', 'denied');
+                    carregarEventosPadrao();
+                }
+            });
+        };
+    </script>
+    <script>
+        function obterLocalizacao() {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+
+                    fetch('/eventos/proximos', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ latitude, longitude })
+                    });
+                },
+                () => {
+                    
+                    carregarEventosPadrao();
+                }
+            );
+        }
+
+        function carregarEventosPadrao() {
+            // Busca eventos por cidade, estado ou sem filtro
+            console.log('Carregando eventos padrão');
+        }
+    </script
 </body>
 </html>

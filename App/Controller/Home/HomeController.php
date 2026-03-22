@@ -103,4 +103,19 @@ class HomeController
             echo JsonHelper::toJson(['success' => false]);
         }
     }
+
+    public function gerarPdf()
+    {
+        $data = [
+            'title' => 'PDF Gerado',
+            'content' => 'Este é um PDF gerado dinamicamente usando a biblioteca Dompdf para teste.'
+        ];
+
+
+        $pdf = new \Dompdf\Dompdf();
+        $pdf->loadHtml('<h1>' . $data['title'] . '</h1><p>' . $data['content'] . '</p>');
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        $pdf->stream('documento.pdf', ['Attachment' => false]);
+    }
 }

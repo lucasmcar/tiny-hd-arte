@@ -6,3 +6,4 @@ vendor/
 /node_modules
 /assets/
 /storage/cert/efi/*
+teste.php

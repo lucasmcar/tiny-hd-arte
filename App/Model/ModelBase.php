@@ -12,6 +12,7 @@ class ModelBase
     private $conditions = [];
     private $bindings = [];
     private $joins = [];
+    protected $alias;
 
     public function __construct()
     {
@@ -21,6 +22,12 @@ class ModelBase
     protected function connect(): DB
     {
         return $this->db;
+    }
+
+    public function alias($alias)
+    {
+        $this->alias = $alias;
+        return $this;
     }
 
     public function all(): array

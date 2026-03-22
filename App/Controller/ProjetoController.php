@@ -13,7 +13,7 @@ class ProjetoController
     {
         $projetosRepository = new ProjetosRepository();
         // Lista de projetos (simulação - substitua por um repositório real)
-        $projects = $projetosRepository->fetchAllProjects();
+        $projects = $projetosRepository->getTodosProjetos();
 
         // Projetos em destaque (os mais importantes)
         $featuredProjects = array_filter($projects, function ($project) {
@@ -42,10 +42,10 @@ class ProjetoController
         $projectOrCaptation = null;
         $slug = $params[0] ?? '';
 
-        $captationArray = $projetosRepository->fetchProjectsInCaptation($slug);
+        $captationArray = $projetosRepository->getTodosProjetos($slug);
 
         if ($captationArray) {
-            $projectOrCaptation = $projetosRepository->fetchProjectsInCaptation($slug);
+            $projectOrCaptation = $projetosRepository->getTodosProjetos($slug);
 
             $project = $projectOrCaptation;
             if (!$project) {
@@ -129,7 +129,7 @@ class ProjetoController
 
         $projetosRepository = new ProjetosRepository();
 
-        $projects = $projetosRepository->fetchProjectsInCaptation();
+        $projects = $projetosRepository->getTodosProjetos();
         $data = [
 
             'title' => 'Projetos Em Captação',
@@ -159,6 +159,5 @@ class ProjetoController
 
         return new View('site/projetos-ocorridos', $data, $styles);
     }
-
     
 }

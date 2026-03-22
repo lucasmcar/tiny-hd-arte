@@ -2,341 +2,18 @@
 
 namespace App\Repository;
 
+use App\Model\Projetos;
+
 class ProjetosRepository
 {
 
-    public function fetchProjectsInCaptation($slug = null)
+    private $model;
+
+    public function __construct()
     {
-        $inCaptatiion = [
-            [
-                'title' => 'Nazari Estúdio: Uma História de Música e Transformação',
-                'slug' => 'nazari-estudio',
-                'description' => 'Produção de minidocumentário e oficinas de música.',
-                'short_description' => 'Porto Alegre, RS, 2025 - Público: a estimar',
-                //'image' => '/assets/imgs/nazari-estudio.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '2413782',
-                'proponente' => 'Marco Antonio Nazari',
-                'cnpj_cpf' => 'CNPJ: 22.291.782/0001-06 / CPF: 302.749.580-15',
-                'uf' => 'RS',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Música',
-                'segmento' => 'Empreendimentos, Ações Educacionais e Culturais / Capacitação / Treinamento',
-                'tipologia' => 'Projetos Normais',
-                'tipicidade' => 'Mescla',
-                'processo' => '01400.034343/2024-11',
-                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
-                'valor_captacao' => 'R$ 149.910,75',
-                'periodo_captacao' => '01/01/2025 a 31/12/2025',
-                'periodo_execucao' => '31/12/2024 a 31/12/2025',
-                'situacao' => 'Captação total autorizada (desde 14/02/2025)',
-                'resumo' => 'Produção de um minidocumentário de 20 minutos sobre o Nazari Estúdio e sua importância para a cena musical de Porto Alegre. O projeto inclui oficinas gratuitas de música para jovens do bairro Menino Deus afetados por enchentes...',
-                'plano_imediato' => 'Não disponível',
-                'post_date' => '2025-01-03',
-                'content' => 'Produção de um minidocumentário de 20 minutos sobre o Nazari Estúdio e sua importância para a cena musical de Porto Alegre. O projeto inclui oficinas gratuitas de música para jovens do bairro Menino Deus afetados por enchentes, com aulas de bateria, violão, guitarra, cavaquinho, piano e percussão ministradas por músicos renomados. Contrapartidas incluem workshops e apresentações em escolas locais, promovendo acesso, inclusão e continuidade cultural.',
-                //'extra_image' => '/assets/imgs/nazari-estudio-extra.jpg',
-            ],
-            [
-                'title' => 'O espetáculo infantil O Urso com Música na Barriga – Atimonautas circula pelo RS',
-                'slug' => 'urso-com-musica',
-                'description' => 'Apresentações de teatro de bonecos.',
-                'short_description' => 'Regiões dos rios RS, 2025 - Público: a estimar',
-                'image' => '/assets/imgs/ucm1.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '2414593',
-                'proponente' => 'Denis Moreira de Sousa',
-                'cnpj_cpf' => 'CNPJ: 23.735.636/0001-87',
-                'uf' => 'RS',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Artes Cênicas',
-                'segmento' => 'Teatro de Formas Animadas / Mamulengo / Bonecos / Congada',
-                'tipologia' => 'Programa Rouanet Emergencial RS',
-                'tipicidade' => 'Editais Compartilhados',
-                'processo' => '01400.035197/2024-33',
-                'portaria' => 'Nº 0245/25 – Publicada em 08/04/2025',
-                'valor_captacao' => 'Não disponível',
-                'periodo_captacao' => '01/01/2025 a 31/12/2025',
-                'periodo_execucao' => '31/12/2024 a 31/12/2025',
-                'situacao' => 'Captação total autorizada (desde 09/04/2025)',
-                'resumo' => 'Realização de 14 apresentações gratuitas do espetáculo de bonecos O Urso com Música na Barriga, baseado em obra de Erico Veríssimo...',
-                'plano_imediato' => 'Não disponível',
-                'post_date' => '2025-04-08',
-                'content' => 'Realização de 14 apresentações gratuitas do espetáculo de bonecos O Urso com Música na Barriga, baseado em obra de Erico Veríssimo, em 7 cidades das regiões dos rios Taquari, Jacuí, Antas, Sinos e Lago Guaíba. A peça aborda preconceito e bullying contra crianças especiais e neurodivergentes, promovendo cultura, inclusão e empatia para alunos do ensino fundamental público.',
-                'extra_image' => '/assets/imgs/ucm2.jpg',
-            ],
-            [
-                'title' => 'Arte Negra do Sul – Tributo a Compositores Negros Brasileiros',
-                'slug' => 'arte-negra-sul',
-                'description' => 'Espetáculo multimídia afro-brasileiro.',
-                'short_description' => 'Porto Alegre, RS, 2025 - Público: a estimar',
-                //'image' => '/assets/imgs/arte-negra-sul.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '245671',
-                'proponente' => 'HD\'Arte Produção e Eventos LTDA',
-                'cnpj_cpf' => 'CNPJ: 91.467.126/0001-26',
-                'uf' => 'RS',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Artes Cênicas',
-                'segmento' => 'Teatro Musical (com dramaturgia, danças e canções)',
-                'tipologia' => 'Samba',
-                'tipicidade' => 'Cultura Afro-brasileira',
-                'processo' => '01400.018545/2024-16',
-                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
-                'valor_captacao' => 'R$ 540.020,00',
-                'periodo_captacao' => '01/01/2025 a 30/09/2025',
-                'periodo_execucao' => '01/09/2024 a 30/09/2025',
-                'situacao' => 'Captação total autorizada',
-                'resumo' => 'Espetáculo multimídia com 25 artistas e profissionais negros, celebrando o legado afro-brasileiro...',
-                'plano_imediato' => 'Sim – Projeto com contrato de patrocínio',
-                'post_date' => '2025-01-03',
-                'content' => 'Espetáculo multimídia com 25 artistas e profissionais negros, celebrando o legado afro-brasileiro por meio da dança, música, poesia e imagem. Homenageia compositores negros brasileiros e atua como instrumento de retomada cultural pós-tragédia climática no RS, promovendo inclusão, memória e resistência cultural.',
-                //'extra_image' => '/assets/imgs/arte-negra-sul-extra.jpg',
-            ],
-            [
-                'title' => 'Preta Poesia Feminina – Circulação Nacional e Estadual (RS)',
-                'slug' => 'preta-poesia-feminina',
-                'description' => 'Espetáculo cênico homenageando poetisas negras.',
-                'short_description' => 'Nacional e RS, 2025 - Público: a estimar',
-                'image' => '/assets/imgs/ppf1.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '238461 / 2414581',
-                'proponente' => 'Silvia Maria da Silva Duarte LTDA',
-                'cnpj_cpf' => 'CNPJ: 12.270.754/0001-40',
-                'uf' => 'RS',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Artes Cênicas',
-                'segmento' => 'Circulação Nacional: Apresentação ou Performance de Teatro / Circulação RS: Teatro Musical',
-                'tipologia' => 'Projetos Normais / Programa Rouanet Emergencial RS',
-                'tipicidade' => 'Projetos Normais / Editais Compartilhados',
-                'processo' => '01400.027023/2023-16 (Nacional) / 01400.035185/2024-17 (RS)',
-                'portaria' => 'Nº 0242/25 – 07/04/2025 (Nacional) / Nº 0246/25 – 08/04/2025 (RS)',
-                'valor_captacao' => 'R$ 477.307,91 (Nacional) / R$ 170.640,00 (RS)',
-                'periodo_captacao' => '01/01/2025 a 31/12/2025',
-                'periodo_execucao' => 'Nacional: 10/10/2023 a 31/12/2025 / RS: 31/12/2024 a 31/12/2025',
-                'situacao' => 'Captação total autorizada para ambos os projetos',
-                'resumo' => 'Espetáculo cênico que homenageia cinco poetisas negras gaúchas (Ana dos Santos, Delma Gonçalves, Isabete Fagundes Almeida, Fátima Farias e Lilian Rocha)...',
-                'plano_imediato' => 'Não disponível',
-                'post_date' => '2025-04-07',
-                'content' => 'Espetáculo cênico que homenageia cinco poetisas negras gaúchas (Ana dos Santos, Delma Gonçalves, Isabete Fagundes Almeida, Fátima Farias e Lilian Rocha). A atriz e encenadora Silvia Duarte dramatiza 30 poemas numa montagem dirigida por Silvana Rodrigues, transformando poesia em literatura falada no palco. O projeto atua em duas frentes: Circulação Nacional com apresentações em várias regiões do país, e Circulação RS em 4 municípios gaúchos afetados pelas enchentes (Porto Alegre, Canoas, São Leopoldo e Pelotas), contribuindo para a reconstrução simbólica e cultural.',
-                'extra_image' => '/assets/imgs/ppf2.jpg',
-            ],
-            [
-                'title' => 'Retomada Terreirão do Samba – Ancestralidade e Cultura Afro-Brasileira em Canoas',
-                'slug' => 'retomada-terreirao',
-                'description' => 'Oficinas e eventos culturais afro-brasileiros.',
-                'short_description' => 'Canoas, RS, 2025 - Público: a estimar',
-                'image' => '/assets/imgs/tds1.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '2414843',
-                'proponente' => 'Luciara Batista Bento – MEI',
-                'cnpj_cpf' => 'CNPJ: 43.748.434/0001-87',
-                'uf' => 'RS',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Artes Cênicas',
-                'segmento' => 'Ações Educativo-Culturais / Capacitação / Treinamento',
-                'tipologia' => 'Samba',
-                'tipicidade' => 'Cultura Afro-brasileira',
-                'processo' => '01400.035463/2024-28',
-                'portaria' => 'Nº 0001/25 – Publicada em 03/01/2025',
-                'valor_captacao' => 'R$ 249.628,50',
-                'periodo_captacao' => '01/01/2025 a 31/12/2025',
-                'periodo_execucao' => '31/01/2025 a 31/01/2026',
-                'situacao' => 'Captação total autorizada',
-                'resumo' => 'Fortalecimento da identidade afro-brasileira em Canoas (RS) por meio de oficinas, atividades formativas e eventos culturais...',
-                'plano_imediato' => 'Sim – Evento de grande porte planejado',
-                'post_date' => '2025-01-03',
-                'content' => 'Fortalecimento da identidade afro-brasileira em Canoas (RS) por meio de oficinas, atividades formativas e eventos culturais, incluindo saraus, aulas de capoeira, exposições, workshops de dança afro e encontros musicais. Destaque para encontro no Museu e Arquivo Histórico de Canoas com feira de empreendedorismo cultural, oficinas da cadeia produtiva do carnaval e ações sustentáveis. O projeto culmina em evento de grande porte, reafirmando o Terreirão como espaço de memória, resistência e celebração da cultura negra local.',
-                'extra_image' => '/assets/imgs/tds2.jpg',
-            ],
-            [
-                'title' => '35ª Winter Fest 2025 – Festival 75 anos Jaraguá do Sul – Sociedade Alvorada',
-                'slug' => 'winter-fest-2025',
-                'description' => 'Festival celebrando tradições germânicas.',
-                'short_description' => 'Jaraguá do Sul, SC, 2025 - Público: 10.000',
-                'image' => '/assets/imgs/wf1.jpg',
-                'video' => '',
-                'is_featured' => true,
-                'status' => 'ongoing',
-                'pronac' => '252271',
-                'proponente' => 'Sociedade Recreativa Alvorada',
-                'cnpj_cpf' => 'CNPJ: 83.784.546/0001-08',
-                'uf' => 'SC',
-                'mecanismo' => 'Mecenato (Art. 18)',
-                'area_cultural' => 'Música',
-                'segmento' => 'Apresentação / Gravação de Música Regional',
-                'tipologia' => 'Festival, Bienal, Festa ou Feira',
-                'tipicidade' => 'Projetos Especiais',
-                'processo' => '01400.010264/2025-98',
-                'portaria' => 'Nº 0344/25 – Publicada em 20/05/2025',
-                'valor_captacao' => 'R$ 672.185,25',
-                'periodo_captacao' => '20/05/2025 a 31/12/2025',
-                'periodo_execucao' => '26/04/2025 a 31/12/2025',
-                'situacao' => 'Captação autorizada (projeto com limite de 10% inicial)',
-                'resumo' => 'Edição especial do festival em comemoração aos 75 anos da Sociedade Recreativa Alvorada, enaltecendo tradições germânicas...',
-                'plano_imediato' => 'Não disponível',
-                'post_date' => '2025-05-20',
-                'content' => 'Edição especial do festival em comemoração aos 75 anos da Sociedade Recreativa Alvorada, enaltecendo tradições germânicas e identidade cultural de Jaraguá do Sul (SC). Programação com danças tradicionais (CTG e folclore alemão), desfiles de trajes típicos, apresentações étnicas, gastronomia regional, coroação do rei e rainha, shows musicais e competições culturais. Público esperado de até 10 mil pessoas, promovendo integração comunitária e fortalecimento cultural da região Sul do Brasil.',
-                'extra_image' => '/assets/imgs/wf2.jpg',
-            ],
-            [
-    'title' => 'Garotos de Ouro – Trajetória 50 anos de Show',
-    'slug' => 'garotos-de-ouro',
-    'description' => 'Turnê musical e documentário celebrando 50 anos da banda Garotos de Ouro.',
-    'short_description' => 'RS, 2025-2026 - Público: a estimar',
-    //'image' => '/assets/imgs/garotos-de-ouro.jpg',
-    'video' => '',
-    'is_featured' => true,
-    'status' => 'ongoing',
-    'pronac' => '253820',
-    'proponente' => 'Danieli Beck Machado Ltda.',
-    'cnpj_cpf' => 'CNPJ: 47.128.618/0001-03',
-    'uf' => 'RS',
-    'mecanismo' => 'Mecenato (Art. 18)',
-    'area_cultural' => 'Música',
-    'segmento' => 'Apresentação/Gravação de Música Regional',
-    'tipologia' => 'Projeto Normal',
-    'tipicidade' => 'Projetos Especiais – Turnê Musical / Documentário',
-    'processo' => '01400.019513/2025-19',
-    'portaria' => 'Nº 0462/25 – Publicada em 03/07/2025',
-    'valor_captacao' => 'R$ 1.055.725,00',
-    'periodo_captacao' => '03/07/2025 a 31/12/2025',
-    'periodo_execucao' => '27/05/2025 a 31/12/2026',
-    'situacao' => 'Autorizado para captação de recursos',
-    'resumo' => 'Turnê comemorativa e produção de documentário sobre os 50 anos da banda Garotos de Ouro, valorizando a música regional do RS.',
-    'plano_imediato' => 'Não disponível',
-    'post_date' => '2025-07-03',
-    'content' => 'O projeto prevê uma série de shows comemorativos e a produção de um documentário sobre os 50 anos da trajetória dos Garotos de Ouro, grupo ícone da música regional gaúcha.',
-    //'extra_image' => '/assets/imgs/garotos-de-ouro-extra.jpg',
-],
-[
-    'title' => '1ª Festa Junina de Porto Alegre – Festival de Cores, Ritmos e Sabores',
-    'slug' => 'festa-junina-porto-alegre',
-    'description' => 'Festival cultural com shows, comidas típicas e apresentações juninas.',
-    'short_description' => 'Porto Alegre, RS, 2025-2026 - Público: a estimar',
-    //'image' => '/assets/imgs/festa-junina-porto-alegre.jpg',
-    'video' => '',
-    'is_featured' => false,
-    'status' => 'ongoing',
-    'pronac' => '254708',
-    'proponente' => 'Pin-Up Produtora Cultural Ltda',
-    'cnpj_cpf' => 'CNPJ: 10.158.419/0001-20',
-    'uf' => 'RS',
-    'mecanismo' => 'Mecenato (Art. 18)',
-    'area_cultural' => 'Música',
-    'segmento' => 'Eventos Culturais',
-    'tipologia' => 'Projeto Normal',
-    'tipicidade' => 'Projetos Especiais – Festival / Festa Popular',
-    'processo' => '01400.023147/2025-94',
-    'portaria' => 'Nº 0557/25 – Publicada em 12/08/2025',
-    'valor_captacao' => 'R$ 5.034.490,00',
-    'periodo_captacao' => '12/08/2025 a 31/12/2025',
-    'periodo_execucao' => '20/06/2025 a 30/09/2026',
-    'situacao' => 'Autorizado para captação de recursos',
-    'resumo' => 'Grande festa junina de Porto Alegre, reunindo tradições culturais, música, gastronomia e dança.',
-    'plano_imediato' => 'Não disponível',
-    'post_date' => '2025-08-12',
-    'content' => 'O festival trará apresentações musicais, quadrilhas, comidas típicas e atividades culturais, promovendo a valorização das tradições juninas em Porto Alegre.',
-    //'extra_image' => '/assets/imgs/festa-junina-extra.jpg',
-],
-[
-    'title' => 'Festival 39ª Kolonistenfest 2025',
-    'slug' => 'kolonistenfest-2025',
-    'description' => 'Festival de dança e cultura alemã em Santa Catarina.',
-    'short_description' => 'SC, 2025-2026 - Público: a estimar',
-    //'image' => '/assets/imgs/kolonistenfest.jpg',
-    'video' => '',
-    'is_featured' => false,
-    'status' => 'ongoing',
-    'pronac' => '254604',
-    'proponente' => 'Sociedade Cultural, Esportiva e Recreativa Aliança',
-    'cnpj_cpf' => 'CNPJ: 83.488.627/0001-60',
-    'uf' => 'SC',
-    'mecanismo' => 'Mecenato (Art. 18)',
-    'area_cultural' => 'Artes Cênicas',
-    'segmento' => 'Apresentação ou Performance de Dança',
-    'tipologia' => 'Projeto Normal',
-    'tipicidade' => 'Projetos Especiais – Festival / Feira Cultural',
-    'processo' => '01400.022846/2025-17',
-    'portaria' => 'Nº 0546/25 – Publicada em 06/08/2025',
-    'valor_captacao' => 'R$ 957.671,00',
-    'periodo_captacao' => '06/08/2025 a 31/12/2025',
-    'periodo_execucao' => '28/06/2025 a 31/08/2026',
-    'situacao' => 'Autorizado para captação de recursos',
-    'resumo' => 'Tradicional Kolonistenfest, celebrando a cultura germânica com apresentações de dança e eventos culturais.',
-    'plano_imediato' => 'Não disponível',
-    'post_date' => '2025-08-06',
-    'content' => 'O festival promove apresentações de dança, atividades culturais e preservação da herança germânica na região.',
-    //'extra_image' => '/assets/imgs/kolonistenfest-extra.jpg',
-],
-[
-    'title' => '20º Rodeio Crioulo – CTG Velha Querência de Jaraguá do Sul',
-    'slug' => 'rodeio-crioulo-20',
-    'description' => 'Festival tradicional de música e cultura gaúcha.',
-    'short_description' => 'Jaraguá do Sul, SC, 2025-2026 - Público: a estimar',
-    //'image' => '/assets/imgs/rodeio-crioulo.jpg',
-    'video' => '',
-    'is_featured' => false,
-    'status' => 'ongoing',
-    'pronac' => '251836',
-    'proponente' => 'CTG Velha Querência',
-    'cnpj_cpf' => 'CNPJ: 05.220.268/0001-52',
-    'uf' => 'SC',
-    'mecanismo' => 'Mecenato (Art. 18)',
-    'area_cultural' => 'Música',
-    'segmento' => 'Apresentação/Gravação de Música Regional',
-    'tipologia' => 'Projeto Normal',
-    'tipicidade' => 'Projetos Especiais – Festival / Rodeio',
-    'processo' => '01400.008829/2025-77',
-    'portaria' => 'Nº 0311/25 – Publicada em 07/05/2025',
-    'valor_captacao' => 'R$ 878.649,20',
-    'periodo_captacao' => '07/05/2025 a 31/12/2025',
-    'periodo_execucao' => '29/04/2025 a 31/08/2026',
-    'situacao' => 'Autorizado para captação de recursos',
-    'resumo' => 'O rodeio tradicional celebra a cultura gaúcha com apresentações musicais e competições típicas.',
-    'plano_imediato' => 'Não disponível',
-    'post_date' => '2025-05-07',
-    'content' => 'O evento reúne música tradicional, provas campeiras e apresentações culturais, fortalecendo as tradições do CTG Velha Querência.',
-    //'extra_image' => '/assets/imgs/rodeio-crioulo-extra.jpg',
-],
-
-        ];
-
-        if ($slug == null) {
-
-            return $inCaptatiion;
-        } else if ($this->getArraKey($slug, $inCaptatiion) !== null) {
-
-            $idx = $this->getArraKey($slug, $inCaptatiion);
-            return $inCaptatiion[$idx];
-        } else {
-
-            return null;
-        }
+        $this->model = new Projetos();
     }
 
-
-    private function getArraKey(string $slug, array $array)
-    {
-        if (is_array($array) && $slug !== null) {
-            foreach ($array as $key => $item) {
-                if (isset($item['slug']) && $item['slug'] === $slug) {
-                    return $key;
-                }
-            }
-        }
-
-        return null;
-    }
 
     public function fetchProjectBySlug($slug)
     {
@@ -689,6 +366,42 @@ class ProjetosRepository
             ]
              // Em andamento
         ];
+    }
+
+    public function getTodosProjetos(string $slug = null) : ?array 
+    {
+        $inCaptation = $this->model->getTodosProjetos();
+        if ($slug == null) {
+
+            return $inCaptation;
+        } else if ($this->getArraKey($slug, $inCaptation) !== null) {
+
+            $idx = $this->getArraKey($slug, $inCaptation);
+            return $inCaptation[$idx];
+        } else {
+
+            return null;
+        }
+    }
+
+
+
+    /**
+     * Todas as funções abaixo são auxiliares para a classe, e não devem ser expostas publicamente. 
+     * Elas ajudam a organizar o código e a manter a lógica de negócios dentro da classe, 
+     * sem expor detalhes de implementação para outras partes do sistema.
+     */
+    private function getArraKey(string $slug, array $array)
+    {
+        if (is_array($array) && $slug !== null) {
+            foreach ($array as $key => $item) {
+                if (isset($item['slug']) && $item['slug'] === $slug) {
+                    return $key;
+                }
+            }
+        }
+
+        return null;
     }
 
 }

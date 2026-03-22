@@ -1,0 +1,10 @@
+services:
+
+  php:
+    build: .
+    container_name: tiny-hdarte-php
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/html
+    restart: unless-stopped

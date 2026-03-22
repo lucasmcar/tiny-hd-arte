@@ -25,6 +25,8 @@ $router->get('/equipe', 'Home\EquipeController','index');
 //Eventos
 $router->get('/eventos/ingressos', 'Home\IngressoController', 'index');
 
+$router->post('/eventos/proximos', 'Home\EventoController', 'eventosProximos');
+
 //Tela venda/compra de ingressos
 $router->get('/evento/ingresso/compra/{slug}', 'Home\IngressoController', 'telaCompraIngresso');
 
@@ -49,6 +51,8 @@ $router->get('/projetos/{slug}', 'ProjetoController', 'show');
 
 $router->get('/artigo/{created_at}/{slug}', 'BlogController', 'mostrarArtigo');
 $router->post('/contato/email', 'HomeController','enviarEmail');
+
+//$router->get('/teste/pdf', 'Home\HomeController', 'gerarPdf');
 
 
 $router->group('/admin', function($router) {

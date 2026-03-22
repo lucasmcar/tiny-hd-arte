@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Proponente:</label>
-                <span class="detail-text" id="proponente">{{ $project['proponente'] }}</span>
+                <span class="detail-text" id="proponente">{{ $project['nome'] }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">UF:</label>
@@ -54,15 +54,15 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Valor Autorizado para Captação:</label>
-                <span class="detail-text" id="valor_captacao">{{ $project['valor_captacao'] }}</span>
+                <span class="detail-text" id="valor_captacao">R${{ number_format($project['valor_captacao'], 2, ',','.') }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Período de Captação:</label>
-                <span class="detail-text" id="periodo_captacao">{{ $project['periodo_captacao']. '~'.' ' .' ~' .$project['periodo_captacao'].' ~ '. ' a '. ' '. ' ~ ' . date('d/m/Y', strtotime($project['post_date'] . " +1 year")) }}</span>
+                <span class="detail-text" id="periodo_captacao">{{ date('d/m/Y', strtotime($project['data_inicio_captacao'])). ' ~ '. ' a '. ' ~ ' . date('d/m/Y', strtotime($project['data_fim_captacao'] . " +1 year")) }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Período de Execução:</label>
-                <span class="detail-text" id="periodo_execucao">{{ $project['periodo_execucao'] }}</span>
+                <span class="detail-text" id="periodo_execucao">{{ date('d/m/Y', strtotime($project['data_inicio_execucao'])). ' ~ '. ' a '. ' ~ ' . date('d/m/Y', strtotime($project['data_fim_execucao'] . " +1 year")) }}</span>
             </div>
             <div class="form-group">
                 <label class="form-label">Situação Atual:</label>
