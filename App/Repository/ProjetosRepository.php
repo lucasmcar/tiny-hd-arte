@@ -384,6 +384,10 @@ class ProjetosRepository
         }
     }
 
+    public function getProjetosPorNome(string $nome = '')
+    {
+        return $this->model->getProjetoPorNome($nome);
+    }
 
 
     /**

@@ -25,4 +25,16 @@ class Projetos extends ModelBase
             ]);
     }
 
+    public function getProjetoPorNome(string $nome = '')
+    {
+        $nome = "%{$nome}%";
+        return $this
+            ->alias('pj')
+            ->join('dados_legais_rouanet d', 'pj.id = d.projeto_id')
+            ->join('categorias c', 'pj.categoria_id = c.id')
+            ->join('proponentes pr', 'pj.proponente_id = pr.id')
+            ->where('pj.title', 'LIKE', $nome)
+            ->get();
+    }
+
 }

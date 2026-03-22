@@ -2,6 +2,8 @@
 
 namespace App\Controller\Home;
 
+use App\Repository\ProjetosRepository;
+
 class ProcuraController
 {
     public function procurar($params = [])
@@ -21,24 +23,15 @@ class ProcuraController
 
         // Simulação de busca (substitua por sua lógica real, ex.: consulta ao banco)
         $results = [];
-        if (stripos('Festa Junina de Porto Alegre 2025', $q) !== false) {
-            $results[] = [
-                'title' => 'Festa Junina de Porto Alegre 2025',
-                'url' => '/projetos/festa-junina-2025'
-            ];
-        }
-        if (stripos('Festival de Música 2024', $q) !== false) {
-            $results[] = [
-                'title' => 'Festival de Música 2024',
-                'url' => '/projetos/festival-musica-2024'
-            ];
-        }
-        if(stripos('Show Local 2023', $q) !== false) {
-            $results[] = [
-                'title' => 'Show Local 2023',
-                'url' => '/projetos/show-local-2023'
-            ];
 
+        $projetosRepository = new ProjetosRepository();
+        $projetosEncontrados = $projetosRepository->getProjetosPorNome($q);
+        
+        foreach($projetosEncontrados as $projeto) {
+            $results[] = [
+                'title' => $projeto['title'],
+                'url' => '/projetos/' . $projeto['slug']
+            ];
         }
 
         // Retorna os resultados em JSON
