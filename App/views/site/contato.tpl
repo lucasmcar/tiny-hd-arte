@@ -36,13 +36,6 @@
         </div>
     </form>
 
-    <!-- Redes Sociais -->
-    <div class="social-icons mt-4">
-        <a href="https://facebook.com/hd.arteproducao" target="_blank"><i class="fab fa-facebook"></i></a>
-        <a href="https://instagram.com/hd.arteproducao" target="_blank"><i class="fab fa-instagram"></i></a>
-        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-    </div>
-
     <!-- Modal de Feedback no estilo Netflix -->
     <div class="netflix-modal" id="feedbackModal">
         <div class="netflix-modal-content">

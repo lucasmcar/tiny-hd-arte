@@ -18,99 +18,93 @@
 
     <title>{{ $title }}</title>
     <style>
-        body {
-            background: #141414; /* Fundo escuro hda */
-            color: #fff;
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding-top: 80px; /* Espaço para navbar fixo */
-            scrollbar-width: thin; /* Firefox */
-            scrollbar-color: #333 #141414; /* Firefox: thumb e track */
-        }
-
-        /* WebKit Scrollbar */
-        body::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        body::-webkit-scrollbar-track {
-            background: #141414;
-        }
-
-        body::-webkit-scrollbar-thumb {
-            background: #333;
-            border-radius: 4px;
-        }
-
-        body::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: #141414; /* Fundo escuro hda */
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra sutil */
-        }
-
-        .navbar-brand img {
-            max-height: 40px; /* Ajuste conforme o tamanho da sua logo */
-        }
-
-        .navbar-nav .nav-link {
-            color: #fff;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 10px 15px;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #e50914; /* Vermelho hda no hover */
-        }
-
-        /* Campo de Pesquisa */
-        .search-form {
-            position: relative;
-            max-width: 250px;
-            margin-left: 20px;
-        }
-
-        .search-input {
-            background: #333; /* Cinza escuro */
-            color: #fff;
-            border: 2px solid transparent;
-            padding: 8px 35px 8px 15px; /* Espaço para o ícone */
-            font-size: 0.9rem;
-            border-radius: 5px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            width: 100%;
-        }
-
-        .search-input:focus {
-            border-color: #e50914; /* Vermelho hda ao focar */
-            box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
-            outline: none;
-        }
-
-        .search-icon {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            cursor: pointer;
-            font-size: 1rem;
-            pointer-events: none; /* Não interfere no clique */
-        }
-
-        .search-container {
-        position: relative;
-        max-width: 250px;
-        margin-left: 20px;
+    body {
+        background: #141414; /* Fundo escuro hda */
+        color: #fff;
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding-top: 80px; /* Espaço para navbar fixo */
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: #333 #141414; /* Firefox: thumb e track */
     }
 
+    /* WebKit Scrollbar */
+    body::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: #141414;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+    }
+
+    body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    /* Navbar */
+    .navbar {
+        background-color: #141414; /* Fundo escuro hda */
+        padding: 15px 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Sombra sutil */
+    }
+
+    .navbar-brand img {
+        max-height: 40px; /* Ajuste conforme o tamanho da sua logo */
+    }
+
+    .navbar-nav .nav-link {
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 10px 15px;
+        transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #e50914; /* Vermelho hda no hover */
+    }
+
+    /* Campo de Pesquisa */
     .search-form {
+        position: relative;
+    }
+
+    .search-input {
+        background: #333; /* Cinza escuro */
+        color: #fff;
+        border: 2px solid transparent;
+        padding: 8px 35px 8px 15px; /* Espaço para o ícone */
+        font-size: 0.9rem;
+        border-radius: 5px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        width: 100%;
+    }
+
+    .search-input:focus {
+        border-color: #e50914; /* Vermelho hda ao focar */
+        box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
+        outline: none;
+    }
+
+    .search-icon {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        cursor: pointer;
+        font-size: 1rem;
+        pointer-events: none; /* Não interfere no clique */
+    }
+
+    .search-container {
+        padding: 16px 16px 0 16px;
+        width: 100%;
         position: relative;
     }
 
@@ -144,7 +138,7 @@
     /* Resultados da Busca */
     .search-results {
         position: absolute;
-        top: 100%;
+        top: calc(100% + 0px);
         left: 0;
         width: 100%;
         background: #222; /* Cinza escuro hda */
@@ -153,6 +147,7 @@
         max-height: 300px;
         overflow-y: auto;
         z-index: 1000;
+        
         display: none; /* Escondido por padrão */
     }
 
@@ -192,65 +187,65 @@
         background: #555;
     }
 
-        /* Ícones Sociais no Navbar */
-        .social-icons {
-            display: flex;
-            align-items: center;
-            margin-left: 20px;
-        }
+    /* Ícones Sociais no Navbar */
+    .social-icons {
+        display: flex;
+        align-items: center;
+        margin-left: 20px;
+    }
 
-        .social-icons a {
-            color: #fff;
-            font-size: 1.2rem;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-        }
+    .social-icons a {
+        color: #fff;
+        font-size: 1.2rem;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
 
-        .social-icons a:hover {
-            color: #e50914; /* Vermelho hda no hover */
-        }
+    .social-icons a:hover {
+        color: #e50914; /* Vermelho hda no hover */
+    }
 
-        /* Divider */
-        .divider {
-            height: 30px;
-            width: 1px;
-            background: #333;
-            margin: 0 15px;
-        }
+    /* Divider */
+    .divider {
+        height: 30px;
+        width: 1px;
+        background: #333;
+        margin: 0 15px;
+    }
 
-        /* Main Content */
-        .main-content {
-            flex: 1;
-        }
+    /* Main Content */
+    .main-content {
+        flex: 1;
+    }
 
-        /* Footer */
-        .footer {
-            background-color: #222; /* Cinza escuro */
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            width: 100%;
-        }
+    /* Footer */
+    .footer {
+        background-color: #222; /* Cinza escuro */
+        color: #fff;
+        text-align: center;
+        padding: 20px 0;
+        width: 100%;
+    }
 
-        .footer h5 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
+    .footer h5 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+    }
 
-        .footer a {
-            color: #fff;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+    .footer a {
+        color: #fff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
 
-        .footer a:hover {
-            color: #e50914; /* Vermelho hda no hover */
-        }
+    .footer a:hover {
+        color: #e50914; /* Vermelho hda no hover */
+    }
 
-        .footer .list-unstyled li {
-            margin-bottom: 10px;
-        }
+    .footer .list-unstyled li {
+        margin-bottom: 10px;
+    }
     </style>
 </head>
 <body>
@@ -284,16 +279,11 @@
                 <a class="nav-link" href="/equipe">Equipe</a></li>
                 
                 <li class="nav-item"><a class="nav-link" href="/contato">Contato</a></li>
+                 <li class="nav-item"><a class="nav-link" href="/evento/galeria">Galeria</a></li>
                 </ul>
                 <div class="divider"></div>
                 <!-- Campo de Pesquisa com Contêiner de Resultados -->
-                <div class="search-container">
-                    <form class="search-form" action="procurar" method="GET">
-                        <input type="text" class="search-input" name="q" placeholder="Pesquisar..." id="searchInput">
-                        <i class="bi bi-search search-icon"></i>
-                    </form>
-                    <div class="search-results" id="searchResults"></div>
-                </div>
+                
                 <!-- Ícones Sociais -->
                 <div class="social-icons">
                     <a href="https://www.instagram.com/seuperfil" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -303,6 +293,13 @@
             </div>
         </div>
     </nav>
+    <div class="search-container">
+        <form class="search-form" action="procurar" method="GET">
+            <input type="text" class="search-input" name="q" placeholder="Pesquisar..." id="searchInput">
+            <i class="bi bi-search search-icon"></i>
+        </form>
+        <div class="search-results" id="searchResults"></div>
+    </div>
 
     <!-- Main Content -->
     <main class="main-content">
@@ -427,6 +424,14 @@
             // Busca eventos por cidade, estado ou sem filtro
             console.log('Carregando eventos padrão');
         }
-    </script
+
+        const isHome = window.location.pathname === '/';
+
+        const searchContainer = document.querySelector('.search-container');
+
+        if (!isHome) {
+            searchContainer.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

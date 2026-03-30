@@ -26,7 +26,7 @@ $router->get('/equipe', 'Home\EquipeController','index');
 $router->get('/eventos/ingressos', 'Home\IngressoController', 'index');
 
 $router->post('/eventos/proximos', 'Home\EventoController', 'eventosProximos');
-
+$router->get('/evento/{slug}', 'Home\EventoController', 'telaCompraIngresso');
 //Tela venda/compra de ingressos
 $router->get('/evento/ingresso/compra/{slug}', 'Home\IngressoController', 'telaCompraIngresso');
 
